@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import myApp from "./components/myApp.js";
+import Booker from "./components/Booker.js";
 require("../scss/stylesheet.scss");
 
-ReactDOM.render(<myApp/>, document.getElementById('app') );
+ReactDOM.render(<Booker/>, document.getElementById('app') );
