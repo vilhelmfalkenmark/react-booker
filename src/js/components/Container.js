@@ -21,10 +21,10 @@ export default class Booker extends React.Component {
    month:"maj"
   },
   {
-    booked:true,
-    bookedBy:12,
-    date:28,
-    dateformat:"28052016",
+   booked:true,
+   bookedBy:12,
+   date:28,
+   dateformat:"28052016",
     dayname:"lördag",
     id:2805201614181,
     interval:"14-18",
@@ -43,19 +43,7 @@ export default class Booker extends React.Component {
     key:2805201610140,
     machine:"tvättmaskin",
     month:"maj"
-   },
-   {
-     booked:true,
-     bookedBy:14,
-     date:29,
-     dayname:"söndag",
-     id:2905201618222,
-     dateformat: "29052016",
-     interval:"18-22",
-     key:2905201618222,
-     machine:"torkskåp",
-     month:"maj"
-    }
+   }
  ];
  let userID = 12;
 

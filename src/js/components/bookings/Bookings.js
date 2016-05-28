@@ -32,43 +32,32 @@ export default class Bookings extends React.Component {
   console.log(sortedBookings); // Nu har vi våra bokningar sorterade och klara
 
   let hej = [];
-
+  let uniques = []; // HUR MÅNGA UNIKA DATUM SOM FINNS I BOKNINGARNA
   for (var i = 0; i < sortedBookings.length; i++) {
-
-  let bookingDate = new Object();
-  bookingDate.date = sortedBookings[i].dateformat;
-  bookingDate.bookings = new Array();
-  bookingDate.bookings.push(sortedBookings[i]);
-
-  hej.push(bookingDate);
-  }
-  for (var i = 0; i < hej.length; i++) {
-
-   if(i == 0 )
+   if(uniques.indexOf(sortedBookings[i].dateformat) == -1)
    {
-    if(hej[i].date == hej[1].date)
-    {
-     console.log("Tjena!");
-    }
+    uniques.push(sortedBookings[i].dateformat)
    }
   }
 
-  console.log(hej);
+  console.log(uniques);
 
-  let myArray = [
-  {
-   date: "29052016",
-   bookings: [
-    {
+  for (var i = 0; i < uniques.length; i++) {
 
-    }
-   ]
-  },
-  {
-
+  let bookingDate = new Object();
+  bookingDate.date = uniques[i];
+  bookingDate.bookings = new Array();
+  for (var j = 0; j < sortedBookings.length; j++) {
+     if(sortedBookings[j].dateformat == uniques[i])
+     {
+      bookingDate.bookings.push(sortedBookings[j])
+     }
   }
+  hej.push(bookingDate);
+  }
+ console.log(hej);
 
-  ];
+
 
 
    let filteredBookings = sortedBookings.filter(
