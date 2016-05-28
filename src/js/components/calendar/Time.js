@@ -15,6 +15,7 @@ export default class Time extends React.Component {
      bookMachine = {::this.bookMachine}
      key= {machine.id}
      id = {machine.id}
+     dateformat = {machine.dateformat}
      machine = {machine.machine}
      bookedBy = {machine.bookedBy}
      booked = {machine.booked}
