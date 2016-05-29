@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
 import Bookings from "./bookings/Bookings.js";
+import Header from "./header/Header.js";
 
 export default class Booker extends React.Component {
  constructor() {
@@ -21,31 +22,25 @@ export default class Booker extends React.Component {
    month:"maj"
   },
   {
-   booked:true,
+   booked: true,
    bookedBy:12,
-   date:28,
-   dateformat:"28052016",
-    dayname:"lördag",
-    id:2805201614181,
-    interval:"14-18",
-    key:2805201614181,
-    machine:"torktumlare",
-    month:"maj"
-  },
-  {
-    booked:true,
-    bookedBy:12,
-    date:28,
-    dayname:"lördag",
-    dateformat: "28052016",
-    id:2805201610140,
-    interval:"10-14",
-    key:2805201610140,
-    machine:"tvättmaskin",
-    month:"maj"
-   }
+   date: 1,
+   dateformat : "1062016",
+   dayname:"onsdag",
+   id:10620166100,
+   interval :  "6-10",
+   key:  10620166100,
+   machine:"tvättmaskin",
+   month: "juni"
+  }
  ];
+
  let userID = 12;
+
+ function onlyMyBookings(myBookings) {
+   return myBookings.bookedBy == userID; // TODO::: MÅSTE LÖSA SÅ DEN JÄMFÖR MED THIS.PROP
+ }
+ let amountOfBookings = bookings.filter(onlyMyBookings).length;
 
  const daysInCal = 7;
  const times = ["6-10","10-14","14-18","18-22"];
@@ -116,7 +111,8 @@ export default class Booker extends React.Component {
     this.state = {
     calendar: calendar,
     bookings: bookings,
-    userID: userID
+    userID: userID,
+    amountOfBookings: amountOfBookings // Hur många bokingar som den inloggade personen har
     };
 
 }
@@ -128,6 +124,7 @@ let userID = this.state.userID;
 
 let bookings = [];
 let oldBookings = this.state.bookings;
+
 for (var i = 0; i < oldBookings.length; i++) {
 bookings.push(oldBookings[i]);
 }
@@ -183,27 +180,45 @@ for(var h = 0; h < oldArray.length; h++)
     newArray.push(oldArray[h]);
   }
 }
-// console.log(bookings);
+
 /*###########################################
  ############################################
- SKICKA IN DATA I BOOKINGS STATE
+ KOLLA HUR MÅNGA BOKNINGAR DEN
+ INLOGGADE PERSONEN HAR
  ############################################
  ############################################*/
+
+function onlyMyBookings(myBookings) {
+  return myBookings.bookedBy == 12; // TODO::: MÅSTE LÖSA SÅ DEN JÄMFÖR MED THIS.PROP
+}
+let amountOfBookings = bookings.filter(onlyMyBookings).length;
+/*###########################################
+ ############################################
+ SKICKA IN DATA I STATE
+ ############################################
+ ############################################*/
+
+
 
 this.setState({
  calendar: newArray,
  bookings: bookings,
- userID: userID
+ userID: userID,
+ amountOfBookings: amountOfBookings
 })
 }
+
+
+
+
  render() {
 
-  // console.log(this.state.bookings);
-
-
   return (
-   <div className="">
+   <div className="container">
     <h2>React Bokningsapp</h2>
+
+    <Header amountOfBookings = {this.state.amountOfBookings}/>
+
     <Bookings
      bookings = {this.state.bookings}
      userID = {this.state.userID}

@@ -9,26 +9,3 @@ font-family: 'Roboto Condensed', sans-serif;
 .capitalize {
   text-transform: capitalize;
 }
-.day-container {
-  border-bottom: 1px solid gray;
-}
-
-.machine-checkbox {
-  height: 15px;
-  width: 15px;
-}
-
-
-.booked-machine-container {
-  .line-through {
-    text-decoration: line-through;
-  }
-  .is-booked {
-    color: $red;
-  }
-}
-.free-machine-container {
-  .is-booked {
-    color: $green;
-  }
-}

@@ -13,7 +13,7 @@ this.props.cancelBooking(key);
  render() {
   return (
    <div className="single-booking-container">
-    <p>{this.props.machine} {this.props.interval} {this.props.dayname} {this.props.date} {this.props.month}</p>
+    <p>{this.props.machine} {this.props.interval}</p>
     <button onClick={() => this.cancelBooking(this.props.id)}>Avboka</button>
   </div>
   )
