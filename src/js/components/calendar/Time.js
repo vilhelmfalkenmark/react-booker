@@ -2,6 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Machine from "./Machine.js";
 export default class Time extends React.Component {
+
+ constructor() {
+  super();
+
+
+
+
+
+ }
+
+
+
+
   bookMachine(id) {
    this.props.bookMachine(id);
   }
@@ -9,6 +22,15 @@ export default class Time extends React.Component {
   return (
    <div className="time-container col-3">
    <h4>{this.props.interval}</h4>
+    <h4 className={this.props.bookedMachines == 0 ? "free-time"
+     :this.props.bookedMachines < this.props.machines.length ? "partially-booked-time"
+     :"booked-time"
+    }>{this.props.bookedMachines == 0 ? "Ledig tid"
+     :this.props.bookedMachines < this.props.machines.length ? "Delvis ledigt"
+     :"Fullbokat"
+    }
+    </h4>
+
    {
      this.props.machines.map(function(machine) {
      return <Machine

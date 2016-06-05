@@ -16,6 +16,7 @@ export default class Day extends React.Component {
           bookMachine = {::this.bookMachine}
           key= {time.id}
           interval= {time.interval}
+          bookedMachines = {time.bookedMachines} // Antal maskiner som är bokade på tiden
           machines = {time.machines}
           user = {this.props.user}
           />;
