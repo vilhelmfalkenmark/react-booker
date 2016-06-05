@@ -1,0 +1,33 @@
+.machine-checkbox {
+  height: 15px;
+  width: 15px;
+}
+
+.checkbox-container {
+  height: 50px;
+  *  {
+    cursor: pointer;
+  }
+}
+.name-of-booker {
+  display: block;
+  color: gray;
+  font-size: 12px;
+  font-style: italic;
+}
+
+
+
+.booked-machine-container {
+  .line-through {
+    text-decoration: line-through;
+  }
+  .is-booked {
+    color: $red;
+  }
+}
+.free-machine-container {
+  .is-booked {
+    color: $green;
+  }
+}

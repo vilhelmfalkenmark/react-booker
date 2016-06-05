@@ -3,13 +3,16 @@ import ReactDOM from "react-dom";
 import MyBookings from "./MyBookings.js";
 
 export default class Bookings extends React.Component {
- constructor() {
-  super();
- }
+ // constructor(props) {
+ //  super(props);
+ // }
+ //
+ // componentDidMount() {
+ //
+ // }
  cancelBooking(key) {
  this.props.cancelBooking(key);
  }
-
  render() {
   let sortedBookings = this.props.bookings;
   sortedBookings.sort(function (a, b) {
@@ -21,8 +24,9 @@ export default class Bookings extends React.Component {
     }
     return 0;
   });
+  let userID = this.props.user.id;
   function onlyMyBookings(myBookings) {
-    return myBookings.bookedBy == 12; // TODO::: MÅSTE LÖSA SÅ DEN JÄMFÖR MED THIS.PROP
+    return myBookings.bookedBy.id == userID; // TODO::: MÅSTE LÖSA SÅ DEN JÄMFÖR MED THIS.PROP
   }
   sortedBookings = sortedBookings.filter(onlyMyBookings)
 
@@ -50,33 +54,9 @@ export default class Bookings extends React.Component {
   }
   myBookingsArray.push(bookingDate);
   }
-  // console.log(myBookingsArray);
-
-  //  let filteredBookings = sortedBookings.filter(
-  //   // VI VILL BARA HA BOKNINGARNA FÖR DEN INLOGGADE PERSONEN
-  //   (booking) => {
-  //     return booking.bookedBy.toString().indexOf(this.props.userID.toString()) != -1
-  //     // MÅSTE KONVERTERA TILL STRÄNGAR FÖR ATT KÖRA INDEXOF
-  //   }
-  // );
-
-  // { myBookingsArray.map((myBooking) => {
-  //    return <SingleBooking
-  //     machine = {booking.machine}
-  //     dateformat = {booking.dateformat}
-  //     date = {booking.date}
-  //     month = {booking.month}
-  //     dayname = {booking.dayname}
-  //     interval = {booking.interval}
-  //     key = {booking.id}
-  //     id = {booking.id}
-  //     cancelBooking = {::this.cancelBooking}
-  //     />
-  //  })
-  // }
-
   return (
-   <div className="my-bookings-container">
+   <div className="mybookings-container hide-modal">
+    <div className="mybookings-inner-container">
     <h2>Mina Bokningar</h2>
      {
        myBookingsArray.map(function(myBooking) {
@@ -88,6 +68,7 @@ export default class Bookings extends React.Component {
         />;
        }.bind(this))
      }
+    </div>
    </div>
   )
  }

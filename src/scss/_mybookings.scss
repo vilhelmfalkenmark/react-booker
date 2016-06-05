@@ -1,7 +1,45 @@
-.mybookings-date-container {
+.mybookings-container {
   border-bottom: 1px solid gray;
   margin-bottom: 10px;
+  position: fixed;
+  height: 100%;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 1;
+  animation: scale 0.2s  ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
+
+.mybookings-inner-container {
+  z-index: 99;
+  background-color: white;
+  width: 70%;
+  max-width: 800px;
+  min-width: 300px;
+  margin: 40px auto 0 auto;
+  padding: 30px;
+  overflow: auto;
+  max-height: calc(80vh - 40px);
+}
+
+.hide-modal {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+
+}
+
+.show-modal {
+  transition: opacity 0.2s ease-out;
+  opacity: 1;
+  visibility: visible;
+}
+
+
 .mybookings-date-header {
   font-size: 20px;
   text-transform: capitalize;

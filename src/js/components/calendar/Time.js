@@ -19,6 +19,7 @@ export default class Time extends React.Component {
      machine = {machine.machine}
      bookedBy = {machine.bookedBy}
      booked = {machine.booked}
+     user = {this.props.user}
      />;
      }.bind(this))
    }

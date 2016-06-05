@@ -17,6 +17,7 @@ export default class Day extends React.Component {
           key= {time.id}
           interval= {time.interval}
           machines = {time.machines}
+          user = {this.props.user}
           />;
           }.bind(this))
         }

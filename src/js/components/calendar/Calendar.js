@@ -15,8 +15,9 @@ export default class Calendar extends React.Component {
      dayname = {calendar.dayname}
      date = {calendar.date}
      month = {calendar.month}
-     key={calendar.id}
+     key= {calendar.id}
      times ={calendar.times}
+     user = {this.props.user}
      bookMachine = {::this.bookMachine}
      />;
      }.bind(this))

@@ -8,38 +8,34 @@ export default class Booker extends React.Component {
  constructor() {
   super();
  let calendar = [];
- let bookings = [
- {
-   booked:true,
-   bookedBy:12,
-   date:31,
-   dayname:"tisdag",
-   dateformat: "31052016",
-   id:3105201610141,
-   interval:"10-14",
-   key:3105201610141,
-   machine:"torktumlare",
-   month:"maj"
+ let bookings = [];
+ let user = {
+  id: 14,
+  name: "vilhelm falkenmark",
+  additionalInfo: "lägenhet 4",
+  bookings: 0
+ }
+
+ let users = [
+  {
+   id: 14,
+   name: "vilhelm falkenmark",
+   additionalInfo: "lägenhet 4",
+   bookings: 0
   },
   {
-   booked: true,
-   bookedBy:12,
-   date: 1,
-   dateformat : "1062016",
-   dayname:"onsdag",
-   id:10620166100,
-   interval :  "6-10",
-   key:  10620166100,
-   machine:"tvättmaskin",
-   month: "juni"
+   id: 12,
+   name: "fredrik löfgren",
+   additionalInfo: "lägenhet 3",
+   bookings: 0
   }
- ];
+ ]
 
- let userID = 12;
 
  function onlyMyBookings(myBookings) {
-   return myBookings.bookedBy == userID; // TODO::: MÅSTE LÖSA SÅ DEN JÄMFÖR MED THIS.PROP
+   return myBookings.bookedBy == user.id; // TODO::: MÅSTE LÖSA SÅ DEN JÄMFÖR MED THIS.PROP
  }
+
  let amountOfBookings = bookings.filter(onlyMyBookings).length;
 
  const daysInCal = 7;
@@ -48,7 +44,6 @@ export default class Booker extends React.Component {
  const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
  const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
  let booked = [false,false,false];
- let bookedBy = [null,null,null];
   for (var i = 0; i < daysInCal; i++) {
    /*###########################################
     ############################################
@@ -85,7 +80,6 @@ export default class Booker extends React.Component {
       let machine = new Object();
       machine.machine = machines[l];
       machine.booked = booked[l];
-      machine.bookedBy = bookedBy[l];
       machine.id = time.id+""+l;
       machine.id = parseInt(machine.id); // DAGENS DATUM + TIDSINTERVALL + MASKIN. EXEMPELVIS 270520161014 + 1 (Där 1 är TORKTUMLARE)
       machine.dateformat = formattedDate;
@@ -99,7 +93,6 @@ export default class Booker extends React.Component {
        if(bookings[m].id == machine.id)
        {
         machine.booked = bookings[m].booked;
-        machine.bookedBy = bookings[m].bookedBy;
        }
       }
       time.machines.push(machine);
@@ -111,16 +104,31 @@ export default class Booker extends React.Component {
     this.state = {
     calendar: calendar,
     bookings: bookings,
-    userID: userID,
+    users: users,
+    user: users[1], // TODO Ta bort den här hårdkodningen
     amountOfBookings: amountOfBookings // Hur många bokingar som den inloggade personen har
     };
-
 }
+
+changeUser(userID) {
+let allUsers = this.state.users;
+for (var i = 0; i < allUsers.length; i++) {
+ if(allUsers[i].id == userID)
+ {
+  this.setState({
+   user: allUsers[i]
+  })
+ }
+}
+}
+
+
+
 
 bookMachine(key) { // HANTERA KALENDERVYN!
 let newArray = [];
 let oldArray = this.state.calendar;
-let userID = this.state.userID;
+let user = this.state.user;
 
 let bookings = [];
 let oldBookings = this.state.bookings;
@@ -163,7 +171,7 @@ for(var h = 0; h < oldArray.length; h++)
                 booking.key = key;
                 booking.machine = oldArray[h].times[s].machines[r].machine;
                 booking.dateformat = oldArray[h].times[s].machines[r].dateformat
-                booking.bookedBy = this.state.userID;
+                booking.bookedBy = this.state.user;
                 booking.booked = true;
                 booking.interval = oldArray[h].times[s].interval;
                 booking.dayname = oldArray[h].dayname;
@@ -189,7 +197,7 @@ for(var h = 0; h < oldArray.length; h++)
  ############################################*/
 
 function onlyMyBookings(myBookings) {
-  return myBookings.bookedBy == 12; // TODO::: MÅSTE LÖSA SÅ DEN JÄMFÖR MED THIS.PROP
+  return myBookings.bookedBy.id == user.id;
 }
 let amountOfBookings = bookings.filter(onlyMyBookings).length;
 /*###########################################
@@ -197,41 +205,30 @@ let amountOfBookings = bookings.filter(onlyMyBookings).length;
  SKICKA IN DATA I STATE
  ############################################
  ############################################*/
-
-
-
 this.setState({
  calendar: newArray,
  bookings: bookings,
- userID: userID,
  amountOfBookings: amountOfBookings
 })
 }
-
-
-
-
  render() {
-
   return (
    <div className="container">
     <h2>React Bokningsapp</h2>
-
-    <Header amountOfBookings = {this.state.amountOfBookings}/>
-
+    <Header
+     amountOfBookings = {this.state.amountOfBookings}
+     changeUser = {::this.changeUser}
+     user = {this.state.user}
+     />
     <Bookings
      bookings = {this.state.bookings}
-     userID = {this.state.userID}
+     user = {this.state.user}
      cancelBooking = {::this.bookMachine}
      />
-
-     {/*{ filteredBookings.map((booking) => {
-        return <MyBookings booking={booking} />
-      })}*/}
-
     <Calendar
     calendar = {this.state.calendar}
     bookMachine = {::this.bookMachine}
+    user = {this.state.user}
     />
    </div>
   )
