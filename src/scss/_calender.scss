@@ -1,3 +1,39 @@
+.calendar-container {
+  margin-top:110px;
+}
+
 .day-container {
-  border-bottom: 1px solid gray;
+  // border-bottom: 1px solid gray;
+  border: 1px solid darken($grey,10%);
+  border-radius: 3px;
+  margin: 10px 0;
+  background-color: white;
+}
+
+.date-header {
+  margin-bottom: 0;
+  font-size: 22px;
+  padding-left: 30px;
+}
+
+
+
+.time-container {
+  padding: 0 30px;
+  margin-bottom: 14px;
+  border-right: 1px solid darken($grey,10%);
+  width: calc(25% - 61px);
+  &:last-of-type {
+    border: none;
+  };
+
+  @include respond-to (mobile-large) {
+    width: calc(50% - 61px);
+  }
+
+    @include respond-to (mobile-small) {
+      width: calc(100% - 61px);
+    }
+
+
 }

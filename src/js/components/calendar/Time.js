@@ -5,32 +5,22 @@ export default class Time extends React.Component {
 
  constructor() {
   super();
-
-
-
-
-
  }
-
-
-
-
   bookMachine(id) {
    this.props.bookMachine(id);
   }
  render() {
   return (
    <div className="time-container col-3">
-   <h4>{this.props.interval}</h4>
+   {/*<h4>{this.props.interval}</h4>*/}
     <h4 className={this.props.bookedMachines == 0 ? "free-time"
      :this.props.bookedMachines < this.props.machines.length ? "partially-booked-time"
      :"booked-time"
-    }>{this.props.bookedMachines == 0 ? "Ledig tid"
+    }><i className="fa fa-clock-o"></i> {this.props.interval} - <span>{this.props.bookedMachines == 0 ? "Ledig tid"
      :this.props.bookedMachines < this.props.machines.length ? "Delvis ledigt"
      :"Fullbokat"
-    }
+    }</span>
     </h4>
-
    {
      this.props.machines.map(function(machine) {
      return <Machine

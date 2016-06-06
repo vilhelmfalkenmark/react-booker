@@ -9,7 +9,7 @@ export default class Day extends React.Component {
  render() {
    return (
      <div className="day-container row">
-     <h3 className="capitalize">{this.props.dayname} - {this.props.date} {this.props.month}</h3>
+     <h3 className="capitalize date-header"><i className="fa fa-calendar"></i> {this.props.dayname} - {this.props.date} {this.props.month}</h3>
         {
           this.props.times.map(function(time) {
           return <Time

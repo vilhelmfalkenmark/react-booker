@@ -1,8 +1,49 @@
+body {
+  margin: 0;
+}
+.header-container {
+  background-color: $green;
+  color: white;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+
+  h3 {
+    margin: 0;
+    padding: 10px 0;
+  }
+
+}
+.header-container-inner {
+  height: 100px;
+  position: relative;
+}
+.logo-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.logo {
+  padding: 10px;
+}
+.user-info-container {
+  margin: 0 auto;
+  width: 400px;
+  // display: inline-block;
+  // text-align: center;
+}
+
+
 .show-mybookings-btn {
 padding:  20px 60px;
 background-color: black;
 color: white;
-position: fixed;
+position: absolute;
+// position: fixed;
 top: 0;
 right: 0;
 cursor: pointer;

@@ -9,10 +9,16 @@ componentDidMount() {
   // })
 }
 bookMachine(id) {
+
+
 if(this.props.bookedBy == null || this.props.user.id == this.props.bookedBy.id)
-{
- this.props.bookMachine(id);
+ {
+
+  this.props.bookMachine(id);
+
 }
+
+
 }
  render() {
   return (
@@ -23,6 +29,7 @@ if(this.props.bookedBy == null || this.props.user.id == this.props.bookedBy.id)
     label =""
     name = {this.props.machine}
     checked = {this.props.booked ? "checked":""}
+    disabled= {this.props.booked ? this.props.bookedBy.id != this.props.user.id ? "disabled":"":""}
     onChange = {() => this.bookMachine(this.props.id)}
     />
    <label className="capitalize line-through is-booked"

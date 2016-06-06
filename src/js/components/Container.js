@@ -368,7 +368,6 @@ this.setState({
  render() {
   return (
    <div className="container">
-    <h2>React Bokningsapp</h2>
     <Header
      changeUser = {::this.changeUser}
      user = {this.state.user}
