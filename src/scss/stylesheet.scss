@@ -1,7 +1,9 @@
 @import "variables";
-@import "main";
+@import "mixins";
 @import "breakpoints";
 @import "grid-flex";
+@import "main";
+
 @import "header";
 @import "mybookings";
 @import "calender";

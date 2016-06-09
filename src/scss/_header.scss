@@ -8,10 +8,11 @@ body {
   left: 0;
   right: 0;
   top: 0;
+  z-index: 999;
   position: fixed;
   margin: 0;
   padding: 0;
-
+  @extend .row;
   h3 {
     margin: 0;
     padding: 10px 0;
@@ -19,33 +20,31 @@ body {
 
 }
 .header-container-inner {
-  height: 100px;
-  position: relative;
+  // height: 100px;
+  // position: relative;
 }
 .logo-container {
-  position: absolute;
-  top: 0;
-  left: 0;
+
 }
 .logo {
   padding: 10px;
+  h2 {
+    margin:0;
+  }
 }
 .user-info-container {
-  margin: 0 auto;
-  width: 400px;
-  // display: inline-block;
-  // text-align: center;
 }
+
+.header-btns-container {
+  padding: 20px 0;
+}
+
 
 
 .show-mybookings-btn {
-padding:  20px 60px;
-background-color: black;
-color: white;
-position: absolute;
-// position: fixed;
-top: 0;
-right: 0;
-cursor: pointer;
-z-index: 999;
+@include big-button("\f274",white,$green)
+margin: 0 10px;
+}
+.logout-btn {
+@include big-button("\f08b",white,$green)
 }

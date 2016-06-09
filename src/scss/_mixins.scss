@@ -1,0 +1,60 @@
+@mixin big-button ($icon, $color, $background) {
+background-color: $background;
+outline: 0;
+font-size: 14px;
+border-radius: 5px;
+padding: 12px 30px 12px 35px;
+border: 1px solid $color;
+border-radius: 6px;
+color: $color;
+cursor: pointer;
+transition: all 0.2s ease;
+position: relative;
+&:hover {
+  background-color: $color;
+  color: $background;
+}
+&:active {
+  background-color: darken($color,10%);
+  color: $background;
+}
+&:before {
+  position: absolute;
+  font-family: FontAwesome;
+  color: inherit;
+  font-size: 17px;
+  content: $icon;
+  top: 12px;
+  left: 12px;
+}
+}
+
+@mixin small-button ($icon, $color, $background) {
+background-color: $background;
+outline: 0;
+border-radius: 5px;
+padding: 12px 24px 12px 30px;
+border: 1px solid $color;
+border-radius: 6px;
+color: $color;
+cursor: pointer;
+transition: all 0.2s ease;
+position: relative;
+&:hover {
+  background-color: $color;
+  color: $background;
+}
+&:active {
+  background-color: darken($color,10%);
+  color: $background;
+}
+&:before {
+  position: absolute;
+  font-family: FontAwesome;
+  color: inherit;
+  font-size: 17px;
+  content: $icon;
+  top: 10px;
+  left: 12px;
+}
+}

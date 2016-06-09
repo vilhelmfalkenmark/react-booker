@@ -11,7 +11,7 @@ this.props.cancelBooking(key);
  render() {
   return (
    <div className="single-booking-container">
-    <p>{this.props.machine} {this.props.interval}</p>
+    <span>{this.props.machine} {this.props.interval}</span>
     <button onClick={() => this.cancelBooking(this.props.id)}>Avboka</button>
   </div>
   )

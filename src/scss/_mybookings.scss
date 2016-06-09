@@ -9,7 +9,7 @@
   bottom: 0;
   width: 100%;
   background-color: rgba(0,0,0,0.8);
-  z-index: 1;
+  z-index: 999;
   animation: scale 0.2s  ease-in-out;
   transition: opacity 0.2s ease-in-out;
 }
@@ -25,6 +25,40 @@
   overflow: auto;
   max-height: calc(80vh - 40px);
 }
+.mybookings-date-container {
+  // padding: 20px;
+  margin: 15px 0;
+  // background-color: $grey;
+}
+
+.single-booking-container {
+  position: relative;
+  margin: 25px 0;
+  > span {
+    text-transform: capitalize;
+    position: absolute;
+    left: 0;
+    top: 10px;
+  }
+
+  button {
+    position: absolute;
+    left: 140px;
+    @include small-button("\f00d",white,$red)
+  }
+
+
+
+
+
+
+
+}
+
+
+
+
+
 
 .hide-modal {
   visibility: hidden;

@@ -55,7 +55,7 @@ export default class Bookings extends React.Component {
   myBookingsArray.push(bookingDate);
   }
   return (
-   <div className="mybookings-container hide-modal">
+   <div className="mybookings-container hide-modal show-modal">
     <div className="mybookings-inner-container">
     <h2>Mina Bokningar</h2>
      {

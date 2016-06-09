@@ -31,3 +31,45 @@
     color: $green;
   }
 }
+
+/*###########################################
+ ############################################
+  CHECKBOX
+ ############################################
+ ############################################*/
+ .checkbox {
+   width: 14px;
+   height: 14px;
+   position: relative;
+   outline: 0;
+   margin-right: 10px;
+   z-index: 1;
+   &:after {
+   cursor: pointer;
+   position: absolute;
+   z-index: 2;
+
+   content: "";
+   height: 14px;
+   width: 14px;
+   background-color: white;
+   border: 1px solid lighten(gray,20%);
+   font-family: FontAwesome;
+   font-size: 20px;
+   text-align: center;
+   line-height: 12px;
+   color: $green;
+   }
+ }
+ .checkbox:checked {
+   &:after {
+   background-color: lighten(gray,50%);
+   content: "\f00c";
+   }
+ }
+ .checkbox:disabled {
+   &:after {
+   content: "\f00c";
+   color: gray;
+   }
+ }

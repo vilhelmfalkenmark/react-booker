@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-
-
  $(".show-mybookings-btn").click(function() {
   $(".mybookings-container").toggleClass("show-modal");
  });

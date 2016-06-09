@@ -3,162 +3,50 @@ import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
 import Bookings from "./bookings/Bookings.js";
 import Header from "./header/Header.js";
+import Rebase from 're-base';
+
+// var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com/");
+var base = Rebase.createClass("https://react-booker.firebaseio.com/");
+
 
 export default class Booker extends React.Component {
- constructor() {
-  super();
- let calendar = [];
- let bookings = [
-   {
-     "id": 100620166100,
-     "key": 100620166100,
-     "machine": "tvättmaskin",
-     "dateformat": "10062016",
-     "bookedBy": {
-       "id": 12,
-       "name": "fredrik löfgren",
-       "additionalInfo": "lägenhet 3",
-       "bookings": 0
-     },
-     "booked": true,
-     "interval": "6-10",
-     "dayname": "fredag",
-     "date": 10,
-     "month": "juni"
-   },
-   {
-     "id": 906201614180,
-     "key": 906201614180,
-     "machine": "tvättmaskin",
-     "dateformat": "9062016",
-     "bookedBy": {
-       "id": 14,
-       "name": "vilhelm falkenmark",
-       "additionalInfo": "lägenhet 4",
-       "bookings": 0
-     },
-     "booked": true,
-     "interval": "14-18",
-     "dayname": "torsdag",
-     "date": 9,
-     "month": "juni"
-   },
-   {
-     "id": 906201614181,
-     "key": 906201614181,
-     "machine": "torktumlare",
-     "dateformat": "9062016",
-     "bookedBy": {
-       "id": 14,
-       "name": "vilhelm falkenmark",
-       "additionalInfo": "lägenhet 4",
-       "bookings": 0
-     },
-     "booked": true,
-     "interval": "14-18",
-     "dayname": "torsdag",
-     "date": 9,
-     "month": "juni"
-   },
-   {
-     "id": 906201614182,
-     "key": 906201614182,
-     "machine": "torkskåp",
-     "dateformat": "9062016",
-     "bookedBy": {
-       "id": 12,
-       "name": "fredrik löfgren",
-       "additionalInfo": "lägenhet 3",
-       "bookings": 0
-     },
-     "booked": true,
-     "interval": "14-18",
-     "dayname": "torsdag",
-     "date": 9,
-     "month": "juni"
-   },
-   {
-     "id": 1006201610142,
-     "key": 1006201610142,
-     "machine": "torkskåp",
-     "dateformat": "10062016",
-     "bookedBy": {
-       "id": 14,
-       "name": "vilhelm falkenmark",
-       "additionalInfo": "lägenhet 4",
-       "bookings": 0
-     },
-     "booked": true,
-     "interval": "10-14",
-     "dayname": "fredag",
-     "date": 10,
-     "month": "juni"
-   },
-   {
-     "id": 1006201614181,
-     "key": 1006201614181,
-     "machine": "torktumlare",
-     "dateformat": "10062016",
-     "bookedBy": {
-       "id": 14,
-       "name": "vilhelm falkenmark",
-       "additionalInfo": "lägenhet 4",
-       "bookings": 0
-     },
-     "booked": true,
-     "interval": "14-18",
-     "dayname": "fredag",
-     "date": 10,
-     "month": "juni"
-   },
-   {
-     "id": 1106201610141,
-     "key": 1106201610141,
-     "machine": "torktumlare",
-     "dateformat": "11062016",
-     "bookedBy": {
-       "id": 12,
-       "name": "fredrik löfgren",
-       "additionalInfo": "lägenhet 3",
-       "bookings": 0
-     },
-     "booked": true,
-     "interval": "10-14",
-     "dayname": "lördag",
-     "date": 11,
-     "month": "juni"
-   },
-   {
-     "id": 1106201614180,
-     "key": 1106201614180,
-     "machine": "tvättmaskin",
-     "dateformat": "11062016",
-     "bookedBy": {
-       "id": 12,
-       "name": "fredrik löfgren",
-       "additionalInfo": "lägenhet 3",
-       "bookings": 0
-     },
-     "booked": true,
-     "interval": "14-18",
-     "dayname": "lördag",
-     "date": 11,
-     "month": "juni"
-   }
- ];
 
+ componentWillMount(){
+   /*
+    * We bind the 'chats' firebase endopint to our 'messages' state.
+    * Anytime the firebase updates, it will call 'setState' on this component
+    * with the new state.
+    *
+    * Any time we call 'setState' on our 'messages' state, it will
+    * updated the Firebase '/chats' endpoint. Firebase will then emit the changes,
+    * which causes our local instance (and any other instances) to update
+    * state to reflect those changes.
+    */
+   this.ref = base.syncState('bookings', {
+     context: this,
+     state: 'bookings',
+     asArray: true
+   });
+
+ }
+
+
+ constructor() {
+ super();
+ let calendar = [];
+ let bookings = [];
  let users = [
   {
    id: 14,
    name: "vilhelm falkenmark",
    additionalInfo: "lägenhet 4",
-   bookings: 4
+   bookings: 0
   },
   {
    id: 12,
    name: "fredrik löfgren",
    additionalInfo: "lägenhet 3",
-   bookings: 4
+   bookings: 0
   }
  ]
 
@@ -221,7 +109,7 @@ export default class Booker extends React.Component {
        {
         machine.booked = bookings[m].booked;
         machine.bookedBy = bookings[m].bookedBy;
-        time.bookedMachines++; //
+        time.bookedMachines++;
        }
       }
       time.machines.push(machine);
@@ -230,6 +118,7 @@ export default class Booker extends React.Component {
     }
    calendar.push(weekday);
   }
+  
     this.state = {
     calendar: calendar,
     bookings: bookings,
@@ -237,6 +126,38 @@ export default class Booker extends React.Component {
     user: users[1] // TODO Ta bort den här hårdkodningen
     };
 }
+
+
+// componentDidMount(){
+//  console.log(base);
+//   base.bindToState('bookings', {
+//     context: this,
+//     state: 'users',
+//     asArray: false
+//   });
+// }
+
+
+componentDidMount() {
+console.log("Tjena!");
+
+}
+
+
+
+
+
+
+
+// componentDidMount() {
+//  base.syncState(`bookings`, {
+//    context: this,
+//    state: 'bookings',
+//    asArray: true
+//  });
+//
+// }
+
 
 changeUser(userID) {
 let allUsers = this.state.users;
@@ -314,7 +235,6 @@ for(var h = 0; h < oldArray.length; h++)
                 oldArray[h].times[s].machines[r].bookedBy = user;
                 oldArray[h].times[s].bookedMachines++;
 
-
                 let booking = new Object();
                 booking.id = key;
                 booking.key = key;
@@ -336,22 +256,7 @@ for(var h = 0; h < oldArray.length; h++)
   else {
     newArray.push(oldArray[h]);
   }
-
 }
-
-/*###########################################
- ############################################
- KOLLA HUR MÅNGA BOKNINGAR DEN
- INLOGGADE PERSONEN HAR
- ############################################
- ############################################*/
-
-// function onlyMyBookings(myBookings) {
-//   return myBookings.bookedBy.id == user.id;
-// }
-// let amountOfBookings = bookings.filter(onlyMyBookings).length;
-
-
 
 /*###########################################
  ############################################
@@ -362,7 +267,6 @@ this.setState({
  calendar: newArray,
  bookings: bookings
 })
-// console.log(bookings);
 
 }
  render() {
