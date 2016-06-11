@@ -1,40 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
-import Bookings from "./bookings/Bookings.js";
+import Bookings from "./modal/Bookings.js";
 import Header from "./header/Header.js";
 import Rebase from 're-base';
 
 // var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com/");
-var base = Rebase.createClass("https://react-booker.firebaseio.com/");
+// var base = Rebase.createClass("https://react-booker.firebaseio.com/");
 
-
-export default class Booker extends React.Component {
-
- componentWillMount(){
-   /*
-    * We bind the 'chats' firebase endopint to our 'messages' state.
-    * Anytime the firebase updates, it will call 'setState' on this component
-    * with the new state.
-    *
-    * Any time we call 'setState' on our 'messages' state, it will
-    * updated the Firebase '/chats' endpoint. Firebase will then emit the changes,
-    * which causes our local instance (and any other instances) to update
-    * state to reflect those changes.
-    */
-   this.ref = base.syncState('bookings', {
-     context: this,
-     state: 'bookings',
-     asArray: true
-   });
-
- }
-
-
- constructor() {
- super();
- let calendar = [];
- let bookings = [];
+export default class Container extends React.Component {
+ constructor(props) {
+ super(props);
  let users = [
   {
    id: 14,
@@ -50,9 +26,22 @@ export default class Booker extends React.Component {
   }
  ]
 
+ this.state = {
+ calendar: [],
+ bookings: props.bookings,
+ users: users,
+ user: users[1] // TODO Ta bort den här hårdkodningen
+ };
+}
+
+
+componentDidMount() {
+ var bookings = this.state.bookings;
+ let calendar = [];
+
  const daysInCal = 7;
  const times = ["6-10","10-14","14-18","18-22"];
- const machines = ["tvättmaskin","torktumlare","torkskåp"];
+ const machines = ["tvättmaskin","torktumlare","torkskåp","mangel"];
  const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
  const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
  let booked = [false,false,false];
@@ -91,6 +80,7 @@ export default class Booker extends React.Component {
     time.machines = new Array();
     for(var l = 0;l<machines.length;l++)
     {
+
       let machine = new Object();
       machine.machine = machines[l];
       machine.booked = booked[l];
@@ -105,6 +95,7 @@ export default class Booker extends React.Component {
       ############################################
       ############################################*/
       for(var m =0; m<bookings.length; m++) {
+
        if(bookings[m].id == machine.id)
        {
         machine.booked = bookings[m].booked;
@@ -118,46 +109,10 @@ export default class Booker extends React.Component {
     }
    calendar.push(weekday);
   }
-  
-    this.state = {
-    calendar: calendar,
-    bookings: bookings,
-    users: users,
-    user: users[1] // TODO Ta bort den här hårdkodningen
-    };
+this.setState( {
+ calendar:calendar
+})
 }
-
-
-// componentDidMount(){
-//  console.log(base);
-//   base.bindToState('bookings', {
-//     context: this,
-//     state: 'users',
-//     asArray: false
-//   });
-// }
-
-
-componentDidMount() {
-console.log("Tjena!");
-
-}
-
-
-
-
-
-
-
-// componentDidMount() {
-//  base.syncState(`bookings`, {
-//    context: this,
-//    state: 'bookings',
-//    asArray: true
-//  });
-//
-// }
-
 
 changeUser(userID) {
 let allUsers = this.state.users;
@@ -173,6 +128,9 @@ for (var i = 0; i < allUsers.length; i++) {
 
 
 bookMachine(key) { // HANTERA KALENDERVYN!
+
+this.props.bookMachine(key);
+
 let newArray = [];
 let oldArray = this.state.calendar;
 let user = this.state.user;
@@ -211,21 +169,19 @@ for(var h = 0; h < oldArray.length; h++)
                 oldArray[h].times[s].bookedMachines--;
 
                 for (var t = 0; t < bookings.length; t++) {
+
                  if (bookings[t].id == oldArray[h].times[s].machines[r].id) {
                   bookings.splice(t,1);
                  }
                 }
-
                 let newUser = user;
                 newUser.bookings--; // TA BORT EN PÅ DEN INLOGGADES BOKNING
                 this.setState({
                  user: newUser
                 })
-
               }
               // LÄGG TILL BOKNING
               else {
-
                 let newUser = user;
                 newUser.bookings++; // LÄGG TILL EN PÅ DEN INLOGGADES BOKNING
                 this.setState({
@@ -259,15 +215,13 @@ for(var h = 0; h < oldArray.length; h++)
 }
 
 /*###########################################
- ############################################
  SKICKA IN DATA I STATE
- ############################################
  ############################################*/
 this.setState({
  calendar: newArray,
  bookings: bookings
 })
-
+this.props.bookMachine(bookings);
 }
  render() {
   return (
