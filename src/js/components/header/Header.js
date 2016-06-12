@@ -5,6 +5,9 @@ export default class Header extends React.Component {
  changeUser(id) {
   this.props.changeUser(id)
  }
+ toggleModal() {
+  this.props.toggleModal()
+ }
 
 updateClock() {
 let allDate = new Date();
@@ -24,23 +27,20 @@ currentMinute = (currentMinute < 10 ? "0" : "") + currentMinute;
   date: weekDays[currentWeekday] + " " + currentDay + " " + months[currentMonth],
   time: currentHour + ":" + currentMinute
  })
-
 }
+
 componentDidMount() {
    window.setInterval(function () {
     this.updateClock();
   }.bind(this), 1000);
 }
+
 componentWillMount(){
    this.updateClock();
  }
 
 
  render() {
-
-
-
-
   return (
    <header className="header-container">
     <div className="header-container-inner">
@@ -55,9 +55,8 @@ componentWillMount(){
       <button onClick = {() => this.changeUser(12)}>Logga in som Fredrik</button>
       <button onClick = {() => this.changeUser(14)}>Logga in som Ville</button>
    </div>
-
     <div className="header-btns-container  col-4">
-     <button className="show-mybookings-btn">
+     <button className="show-mybookings-btn" onClick={::this.toggleModal}>
        {this.props.user.bookings > 0 ? "Visa mina: "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}
      </button>
      <button className="logout-btn">Logga ut</button>

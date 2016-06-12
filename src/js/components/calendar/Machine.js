@@ -9,13 +9,9 @@ componentDidMount() {
   // })
 }
 bookMachine(id) {
-
-
 if(this.props.bookedBy == null || this.props.user.id == this.props.bookedBy.id)
  {
-
   this.props.bookMachine(id);
-
 }
 
 

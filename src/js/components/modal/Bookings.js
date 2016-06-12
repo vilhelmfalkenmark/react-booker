@@ -7,6 +7,13 @@ export default class Bookings extends React.Component {
  cancelBooking(key) {
  this.props.cancelBooking(key);
  }
+
+ toggleModal() {
+  this.props.toggleModal()
+ }
+
+
+
  render() {
   let sortedBookings = this.props.bookings;
   sortedBookings.sort(function (a, b) {
@@ -49,9 +56,11 @@ export default class Bookings extends React.Component {
   myBookingsArray.push(bookingDate);
   }
   return (
-   <div className="mybookings-container hide-modal">
+
+   <div className={this.props.modalOpen ? "mybookings-container show-modal":"mybookings-container hide-modal"}>
     <div className="mybookings-inner-container">
     <h2>Mina Bokningar</h2>
+    <button onClick={::this.toggleModal}>Stäng</button>
      {
        myBookingsArray.map(function(myBooking) {
        return <MyBookings

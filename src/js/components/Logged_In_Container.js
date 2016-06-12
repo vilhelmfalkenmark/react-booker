@@ -3,34 +3,15 @@ import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
 import Bookings from "./modal/Bookings.js";
 import Header from "./header/Header.js";
-import Rebase from 're-base';
 
-// var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com/");
-// var base = Rebase.createClass("https://react-booker.firebaseio.com/");
-
-export default class Container extends React.Component {
+export default class Logged_In_Container extends React.Component {
  constructor(props) {
  super(props);
- let users = [
-  {
-   id: 14,
-   name: "vilhelm falkenmark",
-   additionalInfo: "lägenhet 4",
-   bookings: 0
-  },
-  {
-   id: 12,
-   name: "fredrik löfgren",
-   additionalInfo: "lägenhet 3",
-   bookings: 0
-  }
- ]
-
  this.state = {
  calendar: [],
+ modalOpen: false,
  bookings: props.bookings,
- users: users,
- user: users[1] // TODO Ta bort den här hårdkodningen
+ user: props.user
  };
 }
 
@@ -114,16 +95,22 @@ this.setState( {
 })
 }
 
+
+
 changeUser(userID) {
-let allUsers = this.state.users;
-for (var i = 0; i < allUsers.length; i++) {
- if(allUsers[i].id == userID)
- {
-  this.setState({
-   user: allUsers[i]
-  })
- }
+console.log("Tjabba!");
+this.props.changeUser(userID);
+
+
 }
+
+
+toggleModal() {
+let modalOpen;
+this.state.modalOpen ? modalOpen = false : modalOpen = true;
+this.setState({
+ modalOpen: modalOpen
+})
 }
 
 
@@ -133,7 +120,7 @@ this.props.bookMachine(key);
 
 let newArray = [];
 let oldArray = this.state.calendar;
-let user = this.state.user;
+let user = this.props.user;
 
 let bookings = [];
 let oldBookings = this.state.bookings;
@@ -228,17 +215,20 @@ this.props.bookMachine(bookings);
    <div className="container">
     <Header
      changeUser = {::this.changeUser}
-     user = {this.state.user}
+     user = {this.props.user}
+     toggleModal = {::this.toggleModal}
      />
     <Bookings
+     modalOpen = {this.state.modalOpen}
      bookings = {this.state.bookings}
-     user = {this.state.user}
+     user = {this.props.user}
      cancelBooking = {::this.bookMachine}
+     toggleModal = {::this.toggleModal}
      />
     <Calendar
     calendar = {this.state.calendar}
     bookMachine = {::this.bookMachine}
-    user = {this.state.user}
+    user = {this.props.user}
     />
    </div>
   )

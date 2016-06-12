@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Container from "./Container.js";
+import Logged_In_Container from "./Logged_In_Container.js";
+import Logged_Out_Container from "./Logged_Out_Container.js";
+
 
 import Rebase from 're-base';
 var base = Rebase.createClass("https://react-booker.firebaseio.com/");
@@ -8,8 +10,24 @@ var base = Rebase.createClass("https://react-booker.firebaseio.com/");
 export default class Database extends React.Component {
  constructor() {
   super();
+  let users = [
+   {
+    id: 14,
+    name: "vilhelm falkenmark",
+    additionalInfo: "lägenhet 4",
+    bookings: 0
+   },
+   {
+    id: 12,
+    name: "fredrik löfgren",
+    additionalInfo: "lägenhet 3",
+    bookings: 0
+   }
+  ]
 
   this.state = {
+   users: users,
+   user: users[0],
    bookings: [],
    calender: [],
    loading: true
@@ -26,7 +44,6 @@ export default class Database extends React.Component {
      }
    });
 
-
   }
   bookMachine(bookings) { // HANTERA KALENDERVYN!
    this.setState({
@@ -34,14 +51,31 @@ export default class Database extends React.Component {
    })
   }
 
-
-
-
+  changeUser(userID) {
+  let allUsers = this.state.users;
+  for (var i = 0; i < allUsers.length; i++) {
+   if(allUsers[i].id == userID)
+   {
+    this.setState({
+     user: allUsers[i]
+    })
+   }
+  }
+  }
 
  render() {
   return (
    <div>
-    {this.state.loading === true ? <h3> LOADING </h3> : <Container bookings={this.state.bookings} calender={this.state.calendar} bookMachine = {::this.bookMachine} />}
+    {/*{this.state.loading === true ? <h3> LADDAR </h3> : <Logged_In_Container
+     bookings={this.state.bookings}
+     calender={this.state.calendar}
+     bookMachine = {::this.bookMachine}
+
+     changeUser = {::this.changeUser}
+     user = {this.state.user}
+     />}*/}
+      <Logged_Out_Container />
+
    </div>
   )
  }
