@@ -18,6 +18,7 @@ export default class Logged_In_Container extends React.Component {
 
 componentDidMount() {
  var bookings = this.state.bookings;
+ console.log(bookings);
  let calendar = [];
 
  const daysInCal = 7;

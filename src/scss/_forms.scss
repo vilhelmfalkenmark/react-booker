@@ -1,0 +1,17 @@
+.form-container {
+  input {
+    box-sizing: border-box;
+    height: 40px;
+    width: 320px;
+    margin: 10px 0;
+    display: block;
+    outline: 0;
+  }
+
+  button {
+    @include big-button("\f00d",white,$green)
+  }
+
+
+
+}

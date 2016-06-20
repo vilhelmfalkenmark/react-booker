@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Logged_In_Container from "./Logged_In_Container.js";
-import Logged_Out_Container from "./Logged_Out_Container.js";
+import Logged_In_Container from "./logged_in/Logged_In_Container.js";
+import Logged_Out_Container from "./logged_out/Logged_Out_Container.js";
 
 
 import Rebase from 're-base';
 var base = Rebase.createClass("https://react-booker.firebaseio.com/");
 
-export default class Database extends React.Component {
+export default class Container extends React.Component {
  constructor() {
   super();
   let users = [
