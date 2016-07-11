@@ -14,3 +14,8 @@ background-color: $lightgrey;
 .capitalize {
   text-transform: capitalize;
 }
+.form-container {
+  label {
+    display: block;
+  }
+}

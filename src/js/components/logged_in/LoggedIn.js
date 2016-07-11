@@ -4,7 +4,7 @@ import Calendar from "./calendar/Calendar.js";
 import Bookings from "./modal/Bookings.js";
 import Header from "./header/Header.js";
 
-export default class Logged_In_Container extends React.Component {
+export default class LoggedIn extends React.Component {
  constructor(props) {
  super(props);
  this.state = {
