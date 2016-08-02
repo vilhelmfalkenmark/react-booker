@@ -16,7 +16,8 @@ export default class Container extends React.Component {
    loading: true,
    groups: [],
    user: null,
-   userGroup: null
+   userGroup: null,
+   groupIndex: null
   }
  }
  componentDidMount(){
@@ -29,11 +30,7 @@ export default class Container extends React.Component {
        }
      });
  }
-
 registerUser(newUser,groupID) {
- console.log(newUser);
- console.log(groupID);
-
  let currentState = this.state.groups;
   for (var i = 0; i < currentState.length; i++) {
     if(currentState[i].id == groupID) {
@@ -53,23 +50,29 @@ registerUsergroup(newGroup) {
  })
 }
 
-authenticate(group, user, action) {
+authenticate(index, user, action) {
 if(action) {
+ // console.log(index);
  this.setState({
-  userGroup: group,
+  groupIndex: index,
   user: user
  })
 }
 else {
  this.setState({
-  userGroup: null,
+  groupIndex: null,
   user: null
  })
 }
-
 }
 
-
+bookMachine(bookings) {
+let groups = this.state.groups;
+groups[this.state.groupIndex].bookings = bookings;
+this.setState({
+ groups: groups
+})
+}
  render() {
   return (
    <div>
@@ -83,7 +86,12 @@ else {
        // this.state.userGroup != null ? <Dummy group = {this.state.userGroup} user = {this.state.user}/> : ""
       }
       {
-       this.state.userGroup != null ? <LoggedIn group = {this.state.userGroup} user = {this.state.user}/> : ""
+       this.state.groupIndex != null ?
+       <LoggedIn
+        group = {this.state.groups[this.state.groupIndex]}
+        user = {this.state.user}
+        bookMachine = {::this.bookMachine}
+        /> : ""
       }
    </div>
   )

@@ -115,7 +115,8 @@ function authHandler(error, authData) {
      for (var j = 0; j < groups[i].users.length; j++) {
       if(typeof(groups[i].users[j]) === "object") {
        if(groups[i].users[j].email == email)
-        component.props.authenticate(groups[i], groups[i].users[j], true);
+
+        component.props.authenticate(i, groups[i].users[j], true);
       }
      }
     }
@@ -144,14 +145,14 @@ if (this.state.groups.length > 0 && this.state.checkAuth == false) {
  function authDataCallback(authData) {
   let groups = component.state.groups;
    if (authData) { // INLOGGAD
-     console.log("Någon är inloggad");
+     // console.log("Någon är inloggad");
      for (var i = 0; i < groups.length; i++) {
       for (var j = 0; j < groups[i].users.length; j++) {
        if(typeof(groups[i].users[j]) === "object") {
         if(groups[i].users[j].email == authData.password.email)
         {
-         console.log("kommer in här!");
-         component.props.authenticate(groups[i], groups[i].users[j], true);
+         // console.log("kommer in här!");
+         component.props.authenticate(i, groups[i].users[j], true);
          return false;
         }
        }

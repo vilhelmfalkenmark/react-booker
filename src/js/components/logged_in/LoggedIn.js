@@ -10,13 +10,14 @@ export default class LoggedIn extends React.Component {
  this.state = {
  calendar: [],
  modalOpen: false,
- bookings: props.bookings,
+ // bookings: props.bookings,
  user: props.user
  };
+
 }
 componentDidMount() {
- var bookings = this.state.bookings;
- console.log(bookings);
+ // var bookings = this.state.bookings;
+ // console.log(bookings);
  let calendar = [];
  const daysInCal = 7;
  const times = this.props.group.times;
@@ -76,8 +77,8 @@ componentDidMount() {
 
        if(this.props.group.bookings[m].id == machine.id)
        {
-        machine.booked = bookings[m].booked;
-        machine.bookedBy = bookings[m].bookedBy;
+        machine.booked = this.props.group.bookings[m].booked;
+        machine.bookedBy = this.props.group.bookings[m].bookedBy;
         time.bookedMachines++;
        }
       }
@@ -96,7 +97,6 @@ this.setState( {
 
 changeUser(userID) {
 // this.props.changeUser(userID);
-
 }
 
 
@@ -110,16 +110,13 @@ this.setState({
 
 
 bookMachine(key) { // HANTERA KALENDERVYN!
-
-console.log("funktion kallad!");
-
-this.props.bookMachine(key);
+// console.log(key);
+// console.log(this.state.calendar);
 let newArray = [];
 let oldArray = this.state.calendar;
 let user = this.props.user;
-
 let bookings = [];
-let oldBookings = this.state.bookings;
+let oldBookings = this.props.group.bookings;
 
 for (var i = 0; i < oldBookings.length; i++) {
 bookings.push(oldBookings[i]);
@@ -206,6 +203,8 @@ this.setState({
 })
 this.props.bookMachine(bookings);
 }
+
+
  render() {
   return (
    <div className="container">
