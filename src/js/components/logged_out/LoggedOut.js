@@ -2,15 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Rebase from 're-base';
 import Login from "./login/Login.js";
-import Register_User from "./user/Register_User.js";
-import Register_Usergroup from "./usergroup/Register_Usergroup.js";
+import RegisterUser from "./user/RegisterUser.js";
+import RegisterUsergroup from "./usergroup/RegisterUsergroup.js";
 
-var ref = new Firebase("https://react-booker.firebaseio.com/");;
-var base = Rebase.createClass("https://react-booker.firebaseio.com/");
+var ref = new Firebase("https://react-booker.firebaseio.com/");
+// var base = Rebase.createClass("https://react-booker.firebaseio.com/");
+
 export default class LoggedOut extends React.Component {
-constructor() {
- super();
+constructor(props) {
+ super(props);
  this.state = {
+  checkAuth: false, // För att vi ska kunna kolla om det är verifierat att någon är inloggad
   groups: [],
   loading: true,
   login: true, // VIEW
@@ -18,6 +20,18 @@ constructor() {
   registerUser: false // VIEW
  }
 }
+componentWillReceiveProps() {
+this.setState({
+ groups: this.props.groups,
+ loading: false
+})
+}
+
+/*###########################################
+ ############################################
+ VIEWS
+ ############################################
+ ############################################*/
 handleView(view) {
  if(view == "user") {
    this.setState({
@@ -41,14 +55,13 @@ handleView(view) {
   })
  }
 }
-// END CONSTRUCTOR
+/*###########################################
+ ############################################
+ LÄGG TILL EN HELT NY ANVÄNDARGRUPP
+ ############################################
+ ############################################*/
 registerGroup(newGroup) {
-// END NEW GROUP.
-let oldArray = this.state.groups;
-oldArray.push(newGroup);
-this.setState({
- groups: oldArray
-})
+this.props.registerUsergroup(newGroup)
 }
 /*#############################################
 ###############################################
@@ -82,53 +95,90 @@ ref.createUser({
     // success();
   }
 });
-
-var currentState = this.state.groups;
- for (var i = 0; i < currentState.length; i++) {
-   if(currentState[i].id == groupID) {
-   currentState[i].users.push(newUser);
-   }
- }
- // console.log(currentState);
- this.setState({
-  groups: currentState
- });
+this.props.registerUser(newUser,groupID);
+}
+/*#############################################
+###############################################
+LOGGA IN
+###############################################
+############################################*/
+login(email,password) {
+let groups = this.state.groups;
+// Create a callback to handle the result of the authentication
+let component = this;
+function authHandler(error, authData) {
+  if (error) {
+    console.log("Login Failed!", error);
+  } else {
+    console.log("Authenticated successfully with payload:", authData);
+    for (var i = 0; i < groups.length; i++) {
+     for (var j = 0; j < groups[i].users.length; j++) {
+      if(typeof(groups[i].users[j]) === "object") {
+       if(groups[i].users[j].email == email)
+        component.props.authenticate(groups[i], groups[i].users[j], true);
+      }
+     }
+    }
+  }
+}
+// Or with an email/password combination
+ref.authWithPassword({
+  email    : email,
+  password : password
+}, authHandler);
 
 }
+/*#############################################
+###############################################
+LOGGA UT OCH KOLLA VEM?(TILLFÄLLIG)
+###############################################
+############################################*/
+logout() {
+ ref.unauth();
+ this.props.authenticate(null,null,false)
+}
 
-componentDidMount(){
-  this.ref = base.syncState('groups', {
-    context: this,
-    state: 'groups',
-    asArray: true,
-    then(){
-      this.setState({loading: false})
-    }
-  });
+componentDidUpdate() {
+if (this.state.groups.length > 0 && this.state.checkAuth == false) {
+ var component = this;
+ function authDataCallback(authData) {
+  let groups = component.state.groups;
+   if (authData) { // INLOGGAD
+     console.log("Någon är inloggad");
+     for (var i = 0; i < groups.length; i++) {
+      for (var j = 0; j < groups[i].users.length; j++) {
+       if(typeof(groups[i].users[j]) === "object") {
+        if(groups[i].users[j].email == authData.password.email)
+        {
+         console.log("kommer in här!");
+         component.props.authenticate(groups[i], groups[i].users[j], true);
+         return false;
+        }
+       }
+      }
+     }
+   } else { // EJ INLOGGAD
+    console.log("Ingen är inloggad");
+   }
  }
+ ref.onAuth(authDataCallback);
+ this.setState({
+  checkAuth: true
+ })
+}
+}
  render() {
   return (
    <div className="logged-out-container">
     <button className="button" onClick={() => this.handleView("login")}>Logga in</button>
     <button className="button" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
     <button className="button" onClick={() => this.handleView("user")}>Skapa användare</button>
-    {/*<button onClick={::this.createGroup}>Skapa ny förening!</button>*/}
-    {/*{
-      this.state.groups.map(function(group) {
-      return <Usergroup
-       groupName= {group.groupName}
-       key= {group.key}
-       users = {group.users}
-      />;
-      }.bind(this))
-    }*/}
+    <button className="button" onClick={::this.logout}>Logga ut</button>
     {
-     this.state.login ?  <Login /> :
-     this.state.registerUser ? <Register_User groups = {this.state.groups} registerUser = {::this.registerUser}/> :
-     this.state.registerUsergroup ? <Register_Usergroup groups = {this.state.groups} registerGroup = {::this.registerGroup}/> :
+     this.state.login ?  <Login login={::this.login}/> :
+     this.state.registerUser ? <RegisterUser groups = {this.state.groups} registerUser = {::this.registerUser}/> :
+     this.state.registerUsergroup ? <RegisterUsergroup groups = {this.state.groups} registerGroup = {::this.registerGroup}/> :
      ""
-     // this.state.createUser ?   <Register_User groups = {this.state.groups} registerUser = {::this.registerUser}/> : ""
-     // this.state.createUsergroup ?   <Register_Usergroup groups = {this.state.groups} registerUser = {::this.registerUser}/> : ""
     }
    </div>
   )

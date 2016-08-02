@@ -14,16 +14,13 @@ export default class LoggedIn extends React.Component {
  user: props.user
  };
 }
-
-
 componentDidMount() {
  var bookings = this.state.bookings;
  console.log(bookings);
  let calendar = [];
-
  const daysInCal = 7;
- const times = ["6-10","10-14","14-18","18-22"];
- const machines = ["tvättmaskin","torktumlare","torkskåp","mangel"];
+ const times = this.props.group.times;
+ const machines = this.props.group.machines;
  const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
  const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
  let booked = [false,false,false];
@@ -62,7 +59,6 @@ componentDidMount() {
     time.machines = new Array();
     for(var l = 0;l<machines.length;l++)
     {
-
       let machine = new Object();
       machine.machine = machines[l];
       machine.booked = booked[l];
@@ -76,9 +72,9 @@ componentDidMount() {
       LIGGER LAGRAT I BOOKINGS ARRAYEN
       ############################################
       ############################################*/
-      for(var m =0; m<bookings.length; m++) {
+      for(var m =0; m<this.props.group.bookings.length; m++) {
 
-       if(bookings[m].id == machine.id)
+       if(this.props.group.bookings[m].id == machine.id)
        {
         machine.booked = bookings[m].booked;
         machine.bookedBy = bookings[m].bookedBy;
@@ -99,9 +95,7 @@ this.setState( {
 
 
 changeUser(userID) {
-console.log("Tjabba!");
-this.props.changeUser(userID);
-
+// this.props.changeUser(userID);
 
 }
 
@@ -117,8 +111,9 @@ this.setState({
 
 bookMachine(key) { // HANTERA KALENDERVYN!
 
-this.props.bookMachine(key);
+console.log("funktion kallad!");
 
+this.props.bookMachine(key);
 let newArray = [];
 let oldArray = this.state.calendar;
 let user = this.props.user;
@@ -214,18 +209,18 @@ this.props.bookMachine(bookings);
  render() {
   return (
    <div className="container">
-    <Header
+    {/*<Header
      changeUser = {::this.changeUser}
      user = {this.props.user}
      toggleModal = {::this.toggleModal}
-     />
-    <Bookings
+     />*/}
+    {/*<Bookings
      modalOpen = {this.state.modalOpen}
      bookings = {this.state.bookings}
      user = {this.props.user}
      cancelBooking = {::this.bookMachine}
      toggleModal = {::this.toggleModal}
-     />
+     />*/}
     <Calendar
     calendar = {this.state.calendar}
     bookMachine = {::this.bookMachine}

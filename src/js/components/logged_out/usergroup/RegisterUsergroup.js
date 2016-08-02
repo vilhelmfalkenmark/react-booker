@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Machine from "./Machine.js";
 import Time from "./Times.js";
 
-export default class Register_Usergroup extends React.Component {
+export default class RegisterUsergroup extends React.Component {
  constructor() {
   super();
   this.state = {

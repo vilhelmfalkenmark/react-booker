@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-export default class Register_User extends React.Component {
+export default class RegisterUser extends React.Component {
  constructor() {
   super();
   this.state = {
@@ -17,8 +17,6 @@ this.setState({
  selectedGroup: e.target.value
 })
 }
-
-
  handleEmail (e) {
   this.setState({
    email: e.target.value
@@ -40,10 +38,7 @@ this.setState({
   });
  };
  registerUser(e) {
-//   console.log("Knapp klickad!");
-// console.log(this.state.selectedGroup);
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
-
  let newUser = new Object();
  newUser.email = this.state.email;
  newUser.name = this.state.name;
@@ -55,8 +50,6 @@ this.setState({
  newUser.key = Date.now();
  this.props.registerUser(newUser, this.state.selectedGroup)
  }
-
-
  render() {
   return (
    <div className="form-container register-container">
@@ -73,6 +66,7 @@ this.setState({
       <div>
        <label for="group">Förening</label>
        <select name="group" onChange={::this.selectGroup} value={this.state.groupName}>
+        <option value={null} key = {null}>Välj en förening</option>
        {
         this.props.groups.map(function(group) {
          return <option value={group.id} key = {group.id}>{group.groupName}</option>
