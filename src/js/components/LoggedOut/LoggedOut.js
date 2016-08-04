@@ -103,6 +103,9 @@ LOGGA IN
 ###############################################
 ############################################*/
 login(email,password) {
+
+this.props.reDirect();
+
 let groups = this.state.groups;
 // Create a callback to handle the result of the authentication
 let component = this;
@@ -131,13 +134,9 @@ ref.authWithPassword({
 }
 /*#############################################
 ###############################################
-LOGGA UT OCH KOLLA VEM?(TILLFÄLLIG)
+KOLLA VEM?(TILLFÄLLIG)
 ###############################################
 ############################################*/
-logout() {
- ref.unauth();
- this.props.authenticate(null,null,false)
-}
 
 componentDidUpdate() {
 if (this.state.groups.length > 0 && this.state.checkAuth == false) {
@@ -145,7 +144,7 @@ if (this.state.groups.length > 0 && this.state.checkAuth == false) {
  function authDataCallback(authData) {
   let groups = component.state.groups;
    if (authData) { // INLOGGAD
-     // console.log("Någon är inloggad");
+     console.log("Någon är inloggad");
      for (var i = 0; i < groups.length; i++) {
       for (var j = 0; j < groups[i].users.length; j++) {
        if(typeof(groups[i].users[j]) === "object") {
@@ -174,7 +173,6 @@ if (this.state.groups.length > 0 && this.state.checkAuth == false) {
     <button className="button" onClick={() => this.handleView("login")}>Logga in</button>
     <button className="button" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
     <button className="button" onClick={() => this.handleView("user")}>Skapa användare</button>
-    <button className="button" onClick={::this.logout}>Logga ut</button>
     {
      this.state.login ?  <Login login={::this.login}/> :
      this.state.registerUser ? <RegisterUser groups = {this.state.groups} registerUser = {::this.registerUser}/> :

@@ -11,8 +11,17 @@ background-color: $lightgrey;
   max-width: 1170px;
   margin: 0 auto;
 }
+.app-container {
+  // position: relative;
+}
 .capitalize {
   text-transform: capitalize;
+}
+.flex-center /* CENTRERA VERTIKALT OCH HORISONTELLT */
+{
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 .form-container {
   label {

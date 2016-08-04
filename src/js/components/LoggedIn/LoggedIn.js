@@ -10,7 +10,6 @@ export default class LoggedIn extends React.Component {
  this.state = {
  calendar: [],
  modalOpen: false,
- // bookings: props.bookings,
  user: props.user
  };
 
@@ -95,11 +94,6 @@ this.setState( {
 
 
 
-changeUser(userID) {
-// this.props.changeUser(userID);
-}
-
-
 toggleModal() {
 let modalOpen;
 this.state.modalOpen ? modalOpen = false : modalOpen = true;
@@ -119,7 +113,9 @@ let bookings = [];
 let oldBookings = this.props.group.bookings;
 
 for (var i = 0; i < oldBookings.length; i++) {
-bookings.push(oldBookings[i]);
+if(typeof(oldBookings[i]) == "object") {
+ bookings.push(oldBookings[i]);
+}
 }
 
 for(var h = 0; h < oldArray.length; h++)
@@ -144,12 +140,13 @@ for(var h = 0; h < oldArray.length; h++)
               // TA BORT BOKNING
               if(oldArray[h].times[s].machines[r].booked)
               {
+               console.log("Bokning borttagen");
+
                 oldArray[h].times[s].machines[r].booked = false;
                 oldArray[h].times[s].machines[r].bookedBy = null;
                 oldArray[h].times[s].bookedMachines--;
 
                 for (var t = 0; t < bookings.length; t++) {
-
                  if (bookings[t].id == oldArray[h].times[s].machines[r].id) {
                   bookings.splice(t,1);
                  }
@@ -162,7 +159,9 @@ for(var h = 0; h < oldArray.length; h++)
               }
               // LÄGG TILL BOKNING
               else {
+               console.log("Bokning tillagd");
                 let newUser = user;
+                console.log(newUser);
                 newUser.bookings++; // LÄGG TILL EN PÅ DEN INLOGGADES BOKNING
                 this.setState({
                  user: newUser
@@ -208,11 +207,12 @@ this.props.bookMachine(bookings);
  render() {
   return (
    <div className="container">
-    {/*<Header
-     changeUser = {::this.changeUser}
+    <Header
      user = {this.props.user}
      toggleModal = {::this.toggleModal}
-     />*/}
+     logOut = {::this.props.logOut}
+     groupName = {this.props.group.groupName}
+     />
     {/*<Bookings
      modalOpen = {this.state.modalOpen}
      bookings = {this.state.bookings}

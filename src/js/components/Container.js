@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import LoggedIn from "./logged_in/LoggedIn.js";
-import Dummy from "./logged_in/Dummy.js";
-import LoggedOut from "./logged_out/LoggedOut.js";
+import LoggedIn from "./LoggedIn/LoggedIn.js";
+import Loader from "./Loader.js";
+import LoggedOut from "./LoggedOut/LoggedOut.js";
 import Rebase from 're-base';
 
 var base = Rebase.createClass("https://react-booker.firebaseio.com/");
@@ -14,6 +14,7 @@ export default class Container extends React.Component {
   this.state = {
    loggedIn: false,
    loading: true,
+   reDirecting: false,
    groups: [],
    user: null,
    userGroup: null,
@@ -52,10 +53,10 @@ registerUsergroup(newGroup) {
 
 authenticate(index, user, action) {
 if(action) {
- // console.log(index);
  this.setState({
   groupIndex: index,
-  user: user
+  user: user,
+  reDirecting: false
  })
 }
 else {
@@ -64,6 +65,22 @@ else {
   user: null
  })
 }
+}
+reDirect() {
+this.setState({
+ reDirecting: true
+})
+
+}
+
+
+
+logOut() {
+ ref.unauth();
+ this.setState({
+  groupIndex: null,
+  user: null
+ });
 }
 
 bookMachine(bookings) {
@@ -75,24 +92,28 @@ this.setState({
 }
  render() {
   return (
-   <div>
-      <LoggedOut
-       registerUser = {::this.registerUser}
-       registerUsergroup = {::this.registerUsergroup}
-       authenticate = {::this.authenticate}
-       groups = {this.state.groups}
-       />
+   <div className="app-container">
       {
-       // this.state.userGroup != null ? <Dummy group = {this.state.userGroup} user = {this.state.user}/> : ""
+       this.state.loading ? <Loader type="Laddar" /> :
+       this.state.reDirecting ? <Loader type="Dina uppgifter verifieras" /> : ""
       }
       {
-       this.state.groupIndex != null ?
+       this.state.groupIndex == null ?
+       <LoggedOut
+           registerUser = {::this.registerUser}
+           registerUsergroup = {::this.registerUsergroup}
+           authenticate = {::this.authenticate}
+           groups = {this.state.groups}
+           logOut = {::this.logOut}
+           reDirect = {::this.reDirect}
+       /> :
        <LoggedIn
         group = {this.state.groups[this.state.groupIndex]}
         user = {this.state.user}
         bookMachine = {::this.bookMachine}
-        /> : ""
-      }
+        logOut = {::this.logOut}
+        />
+    }
    </div>
   )
  }
