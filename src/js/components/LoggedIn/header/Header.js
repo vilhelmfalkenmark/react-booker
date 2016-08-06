@@ -9,9 +9,10 @@ constructor() {
   intervalID: 0
  }
 }
- toggleModal() {
-  this.props.toggleModal()
+ toggleModal(type) {
+  this.props.toggleModal(type);
  }
+
 logOut() {
  this.props.logOut();
 }
@@ -56,10 +57,15 @@ componentWillUnmount() {
     <h4>Tillhör förening: {this.props.groupName}</h4>
    </div>
     <div className="header-btns-container  col-4">
-     <button className="show-mybookings-btn" onClick={::this.toggleModal}>
-       {this.props.user.bookings > 0 ? "Visa mina: "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}
-     </button>
-     <button className="logout-btn" onClick={::this.logOut}>Logga ut</button>
+     {
+      this.props.user.role == "admin" || this.props.user.role == "superadmin" ?
+      <button onClick={() => this.toggleModal("admin")}>Redigera grupp</button> : null
+     }
+      <button className="show-mybookings-btn" onClick={() => this.toggleModal("bookings")}>
+        {this.props.user.bookings > 0 ? "Visa mina: "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}
+      </button>
+
+      <button className="logout-btn" onClick={::this.logOut}>Logga ut</button>
     </div>
     </div>
     </header>

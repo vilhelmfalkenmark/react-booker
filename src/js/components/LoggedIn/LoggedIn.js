@@ -1,29 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
-import Bookings from "./modal/Bookings.js";
+import Bookings from "./mybookings/Bookings.js";
 import Header from "./header/Header.js";
+import Admin from "./admin/Admin.js";
 
 export default class LoggedIn extends React.Component {
  constructor(props) {
  super(props);
  this.state = {
  calendar: [],
- modalOpen: false,
+ bookingsModal: false,
+ adminModal: true,
  user: props.user
  };
-
 }
 componentDidMount() {
- // var bookings = this.state.bookings;
- // console.log(bookings);
  let calendar = [];
  const daysInCal = 7;
  const times = this.props.group.times;
  const machines = this.props.group.machines;
  const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
  const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
- let booked = [false,false,false];
+ let booked = [];
+ for (var i = 0; i < this.props.group.times.length; i++) {
+  booked.push(false)
+ }
+
 
   for (var i = 0; i < daysInCal; i++) {
    /*###########################################
@@ -93,31 +96,34 @@ this.setState( {
 }
 
 
-
-toggleModal() {
-let modalOpen;
-this.state.modalOpen ? modalOpen = false : modalOpen = true;
-this.setState({
- modalOpen: modalOpen
-})
+toggleModal(type) {
+if(type == "bookings") {
+ let bookingsOpen;
+ this.state.bookingsModal ? bookingsOpen = false : bookingsOpen = true;
+ this.setState({
+  bookingsModal: bookingsOpen
+ })
+}
+else if(type=="admin") {
+ console.log("ionrgoinr");
+ let adminOpen;
+ this.state.adminModal ? adminOpen = false : adminOpen = true;
+ this.setState({
+  adminModal: adminOpen
+ })
+}
 }
 
-
 bookMachine(key) { // HANTERA KALENDERVYN!
-// console.log(key);
-// console.log(this.state.calendar);
 let newArray = [];
 let oldArray = this.state.calendar;
-let user = this.props.user;
 let bookings = [];
 let oldBookings = this.props.group.bookings;
-
 for (var i = 0; i < oldBookings.length; i++) {
 if(typeof(oldBookings[i]) == "object") {
  bookings.push(oldBookings[i]);
 }
 }
-
 for(var h = 0; h < oldArray.length; h++)
 {
   if((key+"").indexOf((oldArray[h].id)+"") !== -1)
@@ -138,14 +144,12 @@ for(var h = 0; h < oldArray.length; h++)
                ############################################
                ############################################*/
               // TA BORT BOKNING
+              let user = this.props.user;
               if(oldArray[h].times[s].machines[r].booked)
               {
-               console.log("Bokning borttagen");
-
                 oldArray[h].times[s].machines[r].booked = false;
                 oldArray[h].times[s].machines[r].bookedBy = null;
                 oldArray[h].times[s].bookedMachines--;
-
                 for (var t = 0; t < bookings.length; t++) {
                  if (bookings[t].id == oldArray[h].times[s].machines[r].id) {
                   bookings.splice(t,1);
@@ -153,19 +157,11 @@ for(var h = 0; h < oldArray.length; h++)
                 }
                 let newUser = user;
                 newUser.bookings--; // TA BORT EN PÅ DEN INLOGGADES BOKNING
-                this.setState({
-                 user: newUser
-                })
               }
               // LÄGG TILL BOKNING
               else {
-               console.log("Bokning tillagd");
                 let newUser = user;
-                console.log(newUser);
                 newUser.bookings++; // LÄGG TILL EN PÅ DEN INLOGGADES BOKNING
-                this.setState({
-                 user: newUser
-                })
                 oldArray[h].times[s].machines[r].booked = true;
                 oldArray[h].times[s].machines[r].bookedBy = user;
                 oldArray[h].times[s].bookedMachines++;
@@ -192,18 +188,42 @@ for(var h = 0; h < oldArray.length; h++)
     newArray.push(oldArray[h]);
   }
 }
-
-/*###########################################
- SKICKA IN DATA I STATE
- ############################################*/
+//////////////////////////////////////////
+//// SKICKA IN DATA I STATE
+//////////////////////////////////////////
 this.setState({
  calendar: newArray,
  bookings: bookings
 })
 this.props.bookMachine(bookings);
 }
-
-
+/*###########################################
+############################################
+               ADMIN
+############################################
+############################################*/
+// ADMIN ELLER ANVÄNDARE
+userStatus(role,key) {
+ var users = this.props.group.users;
+ for (var i = 0; i < users.length; i++) {
+  if(users[i].key == key) {
+   users[i].role = role;
+   this.props.handleUser(users)
+   return false;
+  }
+ }
+}
+// GODKÄND ELLER INTE
+userApprove(status,key) {
+ var users = this.props.group.users;
+ for (var i = 0; i < users.length; i++) {
+  if(users[i].key == key) {
+   users[i].approved = status;
+   this.props.handleUser(users)
+   return false;
+  }
+ }
+}
  render() {
   return (
    <div className="container">
@@ -213,18 +233,32 @@ this.props.bookMachine(bookings);
      logOut = {::this.props.logOut}
      groupName = {this.props.group.groupName}
      />
-    {/*<Bookings
-     modalOpen = {this.state.modalOpen}
-     bookings = {this.state.bookings}
-     user = {this.props.user}
-     cancelBooking = {::this.bookMachine}
-     toggleModal = {::this.toggleModal}
-     />*/}
     <Calendar
     calendar = {this.state.calendar}
     bookMachine = {::this.bookMachine}
     user = {this.props.user}
     />
+   {
+     this.state.bookingsModal ?
+     <Bookings
+         // modalOpen = {this.state.modalOpen}
+          bookings = {this.props.group.bookings}
+          toggleModal = {::this.toggleModal}
+          user = {this.props.user}
+          cancelBooking = {::this.bookMachine}
+      />
+     : null
+   }
+   {
+    this.state.adminModal ?
+    <Admin
+     toggleModal = {::this.toggleModal}
+     group = {this.props.group}
+     userStatus = {::this.userStatus}
+     userApprove = {::this.userApprove}
+     />
+    : null
+   }
    </div>
   )
  }

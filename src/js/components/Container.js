@@ -17,7 +17,7 @@ export default class Container extends React.Component {
    reDirecting: false,
    groups: [],
    user: null,
-   userGroup: null,
+   userIndex: null,
    groupIndex: null
   }
  }
@@ -31,65 +31,98 @@ export default class Container extends React.Component {
        }
      });
  }
-registerUser(newUser,groupID) {
- let currentState = this.state.groups;
-  for (var i = 0; i < currentState.length; i++) {
-    if(currentState[i].id == groupID) {
-    currentState[i].users.push(newUser);
+/*###########################################
+############################################
+        REGISTERA GRUPP & ANVÄNDARE
+############################################
+############################################*/
+registerUser(newUser, groupID) {
+    let groups = this.state.groups;
+    for (var i = 0; i < groups.length; i++) {
+        if (groups[i].id == groupID) {
+
+            if (typeof(groups[i].users[0]) == "string" && groups[i].users.length == 1) {
+                groups[i].users.shift(); // Ta bort det tomma värdet eftersom Arrayen nu kommer populeras
+                newUser.role = "superadmin";
+                newUser.approved = true;
+            } else {
+                newUser.role = "user";
+                newUser.approved = false;
+            }
+            groups[i].users.push(newUser);
+            this.setState({
+                groups: groups
+            });
+            return false;
+        }
     }
-  }
-  this.setState({
-   groups: currentState
-  });
 }
 
 registerUsergroup(newGroup) {
- let oldArray = this.state.groups;
- oldArray.push(newGroup);
- this.setState({
-  groups: oldArray
- })
-}
+        let groups = this.state.groups;
+        groups.push(newGroup);
+        this.setState({
+            groups: groups
+        })
+    }
+    /*###########################################
+    ############################################
+                  AUTHENTICATE
+    ############################################
+    ############################################*/
 
-authenticate(index, user, action) {
-if(action) {
- this.setState({
-  groupIndex: index,
-  user: user,
-  reDirecting: false
- })
-}
-else {
- this.setState({
-  groupIndex: null,
-  user: null
- })
-}
+authenticate(index, userIndex, action) {
+    if (action) {
+        this.setState({
+            groupIndex: index,
+            userIndex: userIndex,
+            reDirecting: false
+        })
+    } else {
+        this.setState({
+            userIndex: null,
+            user: null
+        })
+    }
 }
 reDirect() {
-this.setState({
- reDirecting: true
-})
-
+    this.setState({
+        reDirecting: true
+    })
 }
 
-
-
 logOut() {
- ref.unauth();
- this.setState({
-  groupIndex: null,
-  user: null
- });
+    ref.unauth();
+    this.setState({
+        groupIndex: null,
+        userIndex: null
+    });
 }
 
 bookMachine(bookings) {
-let groups = this.state.groups;
-groups[this.state.groupIndex].bookings = bookings;
-this.setState({
- groups: groups
-})
+    let groups = this.state.groups;
+    if (bookings.length != 0) {
+        groups[this.state.groupIndex].bookings = bookings;
+    } else {
+        groups[this.state.groupIndex].bookings = [""];
+    }
+    this.setState({
+        groups: groups
+    })
 }
+handleUser(users) {
+ let groups = this.state.groups;
+ groups[this.state.groupIndex].users = users;
+ this.setState({
+   groups: groups
+ })
+}
+
+
+
+
+
+
  render() {
   return (
    <div className="app-container">
@@ -109,8 +142,9 @@ this.setState({
        /> :
        <LoggedIn
         group = {this.state.groups[this.state.groupIndex]}
-        user = {this.state.user}
+        user = {this.state.groups[this.state.groupIndex].users[this.state.userIndex]}
         bookMachine = {::this.bookMachine}
+        handleUser = {::this.handleUser}
         logOut = {::this.logOut}
         />
     }
