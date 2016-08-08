@@ -5,6 +5,9 @@ import Loader from "./Loader.js";
 import LoggedOut from "./LoggedOut/LoggedOut.js";
 import Rebase from 're-base';
 
+// var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com/");
+// var ref = Rebase.createClass("https://react-laundry-booker.firebaseio.com/");
+
 var base = Rebase.createClass("https://react-booker.firebaseio.com/");
 var ref = new Firebase("https://react-booker.firebaseio.com/");
 
@@ -110,6 +113,8 @@ bookMachine(bookings) {
         groups: groups
     })
 }
+
+
 handleUser(users) {
  let groups = this.state.groups;
  groups[this.state.groupIndex].users = users;

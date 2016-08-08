@@ -6,9 +6,8 @@ import Bookings from "./Bookings.js";
 export default class Admin extends React.Component {
  constructor() {
  super();
- // this.state = {
- //
- // };
+
+ // console.log(this.state.bookingsExist);
 }
 userStatus(role,id) {
 this.props.userStatus(role,id);
@@ -19,22 +18,22 @@ this.props.userApprove(status,id);
 toggleModal(type) {
  this.props.toggleModal(type)
 }
+cancelBooking(key) {
+this.props.cancelBooking(key);
+}
+
+
 
 
  render() {
-
-  // let sortedBookings = this.props.group.bookings;
-  // sortedBookings.sort(function (a, b) {
-  //   if (a.id > b.id) {
-  //     return 1;
-  //   }
-  //   if (a.id < b.id) {
-  //     return -1;
-  //   }
-  //   return 0;
-  // });
-
   let sortedBookings = this.props.group.bookings;
+  console.log(typeof(sortedBookings[0]));
+  var bookingsExist = true;
+  if(typeof(sortedBookings[0]) == "string") {
+   bookingsExist = false;
+  }
+
+
   sortedBookings.sort(function (a, b) {
     if (a.id > b.id) {
       return 1;
@@ -70,6 +69,7 @@ toggleModal(type) {
   bookingsArray.push(bookingDate);
   }
   // console.log(bookingsArray);
+
   return (
    <div className="modal-container">
     <div className="modal-inner-container">
@@ -78,13 +78,14 @@ toggleModal(type) {
 
        <h3>Bokningar</h3>
        <ul>
-        {
+        { bookingsExist ?
           bookingsArray.map(function(bookings) {
           return <Bookings
           key = {bookings.id}
           bookings = {bookings}
+          cancelBooking = {::this.cancelBooking}
           />;
-          }.bind(this))
+        }.bind(this)) : null
         }
        </ul>
 

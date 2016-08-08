@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Rebase from 're-base';
+// import Firebase from "firebase"
 import Login from "./login/Login.js";
 import RegisterUser from "./user/RegisterUser.js";
 import RegisterUsergroup from "./usergroup/RegisterUsergroup.js";
 
-var ref = new Firebase("https://react-booker.firebaseio.com/");
-// var base = Rebase.createClass("https://react-booker.firebaseio.com/");
+// var ref = new Firebase("https://react-laundry-booker.firebaseio.com/");
+var firebase = new Firebase("https://react-booker.firebaseio.com/");
 
 export default class LoggedOut extends React.Component {
 constructor(props) {
@@ -69,8 +70,15 @@ SKAPA ANVÄNDARE OCH LÄGG TILL I ANVÄNDARGRUPP
 ###############################################
 ############################################*/
 registerUser(newUser,groupID) {
-/* SKAPA ANVÄNDARE I FIREBASE */
-ref.createUser({
+ // firebase.auth().createUserWithEmailAndPassword("hej@hej.se", "hej").catch(function(error) {
+ //   // Handle Errors here.
+ //   // var errorCode = error.code;
+ //   // var errorMessage = error.message;
+ //   // ...
+ // });
+
+// /* SKAPA ANVÄNDARE I FIREBASE */
+firebase.createUser({
   email: newUser.email,
   password: newUser.password
 }, function(error, userData) {
@@ -95,14 +103,28 @@ ref.createUser({
     // success();
   }
 });
+
 this.props.registerUser(newUser,groupID);
+
+
 }
+
+
+
 /*#############################################
 ###############################################
 LOGGA IN
 ###############################################
 ############################################*/
 login(email,password) {
+
+ // firebase.auth().signInWithEmailAndPassword("vilhelmfalkenmark@gmail.com", "hejsan").catch(function(error) {
+ //   // Handle Errors here.
+ //   var errorCode = error.code;
+ //   var errorMessage = error.message;
+ //   // ...
+ // });
+
 
 this.props.reDirect();
 
@@ -126,7 +148,7 @@ function authHandler(error, authData) {
   }
 }
 // Or with an email/password combination
-ref.authWithPassword({
+firebase.authWithPassword({
   email    : email,
   password : password
 }, authHandler);
@@ -160,7 +182,7 @@ if (this.state.groups.length > 0 && this.state.checkAuth == false) {
     console.log("Ingen är inloggad");
    }
  }
- ref.onAuth(authDataCallback);
+ firebase.onAuth(authDataCallback);
  this.setState({
   checkAuth: true
  })

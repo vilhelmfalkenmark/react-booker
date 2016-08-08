@@ -11,11 +11,14 @@ export default class LoggedIn extends React.Component {
  this.state = {
  calendar: [],
  bookingsModal: false,
- adminModal: true,
- user: props.user
+ adminModal: false,
+ user: props.user,
+ bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
+ erasePassed: false // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
  };
 }
 componentDidMount() {
+
  let calendar = [];
  const daysInCal = 7;
  const times = this.props.group.times;
@@ -37,6 +40,12 @@ componentDidMount() {
    let weekday = new Object();
    let currentDate = new Date(+new Date() + (86400000*i));
    let formattedDate = currentDate.getDate()+"0"+(currentDate.getMonth()+1)+""+(1900+currentDate.getYear());
+
+   let dateObject = new Object() // SKAPA DATUM SOM OBJEKT
+   dateObject.day = currentDate.getDate();
+   dateObject.month = currentDate.getMonth()+1;
+   dateObject.year = 1900+currentDate.getYear();
+
    weekday.id = parseInt(formattedDate);
    weekday.dayname = daynames[currentDate.getDay()];
    weekday.month = monthnames[currentDate.getMonth()];
@@ -69,6 +78,7 @@ componentDidMount() {
       machine.id = time.id+""+l;
       machine.id = parseInt(machine.id); // DAGENS DATUM + TIDSINTERVALL + MASKIN. EXEMPELVIS 270520161014 + 1 (Där 1 är TORKTUMLARE)
       machine.dateformat = formattedDate;
+      machine.dateObject = dateObject;
      /*###########################################
       ############################################
       KOLLA VAD SOM REDAN ÄR BOKAT. DVS VAD SOM
@@ -93,6 +103,24 @@ componentDidMount() {
 this.setState( {
  calendar:calendar
 })
+
+
+//////////////////////////////////////////
+//// RADERA GÅRDAGENS BOKNINGAR
+//////////////////////////////////////////
+let todaysDate = new Date(new Date());
+let today = new Object();
+today.day = todaysDate.getDate();
+today.month = todaysDate.getMonth()+1;
+today.year = 1900+todaysDate.getYear();
+// console.log(today);
+
+
+this.props.group.bookings.map(function(booking) {
+// console.log(booking.dateObject.day);
+
+})
+
 }
 
 
@@ -105,7 +133,7 @@ if(type == "bookings") {
  })
 }
 else if(type=="admin") {
- console.log("ionrgoinr");
+ // console.log("ionrgoinr");
  let adminOpen;
  this.state.adminModal ? adminOpen = false : adminOpen = true;
  this.setState({
@@ -171,6 +199,7 @@ for(var h = 0; h < oldArray.length; h++)
                 booking.key = key;
                 booking.machine = oldArray[h].times[s].machines[r].machine;
                 booking.dateformat = oldArray[h].times[s].machines[r].dateformat
+                booking.dateObject = oldArray[h].times[s].machines[r].dateObject
                 booking.bookedBy = this.state.user;
                 booking.booked = true;
                 booking.interval = oldArray[h].times[s].interval;
@@ -191,12 +220,27 @@ for(var h = 0; h < oldArray.length; h++)
 //////////////////////////////////////////
 //// SKICKA IN DATA I STATE
 //////////////////////////////////////////
-this.setState({
- calendar: newArray,
- bookings: bookings
-})
+// this.setState({
+//  calendar: newArray,
+//  bookings: bookings
+// })
 this.props.bookMachine(bookings);
+
+// if(typeof(this.props.group.bookings[0]) == "object")
+// {
+//  this.setState({
+//   bookingsExist: true
+//  })
+// }
+// else {
+//  this.setState({
+//   bookingsExist: false
+//  })
+// }
+// console.log(this.state.bookingsExist);
 }
+
+
 /*###########################################
 ############################################
                ADMIN
@@ -224,6 +268,8 @@ userApprove(status,key) {
   }
  }
 }
+
+
  render() {
   return (
    <div className="container">
@@ -252,6 +298,8 @@ userApprove(status,key) {
    {
     this.state.adminModal ?
     <Admin
+     bookingExist = {this.state.bookingExist}
+     cancelBooking = {::this.bookMachine}
      toggleModal = {::this.toggleModal}
      group = {this.props.group}
      userStatus = {::this.userStatus}
