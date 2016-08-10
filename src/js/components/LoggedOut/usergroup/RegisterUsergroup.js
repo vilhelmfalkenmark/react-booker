@@ -89,11 +89,11 @@ timeArray.splice(index-1,1,timeInterval);
    <div className="form-container register-container">
     <form className="" method="" action="">
       <h1>Skapa ny förening</h1>
-      <h3>Föreningens namn</h3>
+      <label for="groupName">Föreningens namn</label>
       <input type="text" name="groupName" placeholder="Föreningens namn"
        onChange={::this.handleName}
        value={this.state.name} required/>
-       <h3>Antal maskiner</h3>
+      <label for="machines">Antal maskiner</label>
       <input type="number" name="machines" placeholder="Antal maskiner"
        onChange={::this.handleMachines}
        value={this.state.amountofMachines} required/>
@@ -104,7 +104,7 @@ timeArray.splice(index-1,1,timeInterval);
          return  <Machine key = {machineIndex} index={machineIndex} addMachine={::this.addMachine}/>
         }, this) : "" // The this is the context passed to the map function.
        }
-       <h3>Antal tider</h3>
+       <label for="times">Antal tider</label>
        <input type="number" name="times" placeholder="Antal tider" onChange={::this.handleTimes} value={this.state.amountofTimes} required/>
         {
          this.state.times.length > 0 ?
@@ -113,7 +113,7 @@ timeArray.splice(index-1,1,timeInterval);
           return  <Time key = {timeIndex} index={timeIndex} addTime={::this.addTime}/>
          }, this) : "" // The this is the context passed to the map function.
         }
-      <button type="submit" onClick={::this.registerGroup}>Skapa ny användargrupp</button>
+      <button type="submit" className="create-group-btn" onClick={::this.registerGroup}>Skapa ny användargrupp</button>
     </form>
    </div>
   )

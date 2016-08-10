@@ -29,7 +29,7 @@ this.props.cancelBooking(key);
   let sortedBookings = this.props.group.bookings;
   console.log(typeof(sortedBookings[0]));
 
-  var bookingsExist = true; 
+  var bookingsExist = true;
   if(typeof(sortedBookings[0]) == "string") {
    bookingsExist = false;
   }
@@ -102,12 +102,6 @@ this.props.cancelBooking(key);
         }.bind(this))
       }
       </ul>
-
-
-
-
-
-
     </div>
    </div>
   )

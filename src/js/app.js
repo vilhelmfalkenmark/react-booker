@@ -15,4 +15,4 @@ ReactDOM.render(
       {/*<Route path="loggedout" component={Settings} location="history"></Route>*/}
       </Route>
   </Router>,
-document.getElementById('app') );
+document.getElementById('app-container') );

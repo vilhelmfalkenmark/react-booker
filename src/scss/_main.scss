@@ -1,18 +1,13 @@
-
 body {
 font-family: 'Roboto Condensed', sans-serif;
-// font-family: 'Roboto', sans-serif;
+margin: 0;
 color: $darkgrey;
 background-color: $lightgrey;
-
 }
-#app {
+#app-container {
   width: 90%;
   max-width: 1170px;
   margin: 0 auto;
-}
-.app-container {
-  // position: relative;
 }
 .capitalize {
   text-transform: capitalize;
@@ -22,9 +17,4 @@ background-color: $lightgrey;
   display:flex;
   justify-content:center;
   align-items:center;
-}
-.form-container {
-  label {
-    display: block;
-  }
 }

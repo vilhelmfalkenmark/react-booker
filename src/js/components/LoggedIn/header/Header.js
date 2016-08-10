@@ -48,18 +48,18 @@ componentWillUnmount() {
     <div className="header-container-inner">
     <div className="logo-container col-3">
      <div class="logo"> <h2>React Bokningsapp</h2> <div className="current-time capitalize">
-      <p>Dagens datum: {this.state.date} Klockan: {this.state.time}</p>
+      <p>Dagens datum: {this.state.date} {this.state.time}</p>
       </div>
       </div>
    </div>
-   <div className="user-info-container  col-5">
+   <div className="user-info-container col-2">
     <h4>Inloggad som {this.props.user.name} som har id {this.props.user.id}</h4>
     <h4>Tillhör förening: {this.props.groupName}</h4>
    </div>
-    <div className="header-btns-container  col-4">
+    <div className="header-btns-container">
      {
       this.props.user.role == "admin" || this.props.user.role == "superadmin" ?
-      <button onClick={() => this.toggleModal("admin")}>Redigera grupp</button> : null
+      <button className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Redigera grupp</button> : null
      }
       <button className="show-mybookings-btn" onClick={() => this.toggleModal("bookings")}>
         {this.props.user.bookings > 0 ? "Visa mina: "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}

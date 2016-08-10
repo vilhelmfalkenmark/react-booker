@@ -21,7 +21,6 @@ export default class Container extends React.Component {
   this.state = {
    loggedIn: false,
    loading: true,
-   reDirecting: false,
    groups: [],
    user: null,
    userIndex: null,
@@ -127,10 +126,10 @@ componentDidUpdate() {
 //////// LOGGA IN
 /////////////////////////////////////////////
 logIn(email, password) {
-  console.log(email);
-  console.log("login kallad");
+  // console.log(email);
+  // console.log("login kallad");
   var component = this;
-  // component.loading(true);
+  component.loading(true);
    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
      // Handle Errors here.
      console.log("kommer in här");
@@ -166,7 +165,7 @@ logOut() {
     console.log('Utloggad!');
     component.setState({
         groupIndex: null,
-        userIndex: null, //,
+        userIndex: null,
         loading: false
     });
     }, function(error) {
@@ -180,7 +179,6 @@ authenticate(index, userIndex, action) {
         this.setState({
             groupIndex: index,
             userIndex: userIndex,
-            reDirecting: false,
             loading: false
         })
     } else {
@@ -214,7 +212,7 @@ bookMachine(bookings) {
 }
  render() {
   return (
-   <div className="app-container">
+   <div className="">
       {
       this.state.loading ? <Loader type="Laddar" /> :
        this.state.groupIndex == null ?

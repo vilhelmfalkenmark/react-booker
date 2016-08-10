@@ -51,7 +51,7 @@ this.setState({
  this.props.registerUser(newUser, this.state.selectedGroup)
  }
  render() {
-  //  console.log(this.state.groups);
+   console.log(this.props.groups);
   return (
    <div className="form-container register-container">
     <form className="" method="" action="">
@@ -76,7 +76,7 @@ this.setState({
        </select>
        <p>{this.state.selectedGroup}</p>
       </div>
-      <button type="submit" onClick={::this.registerUser}>Skapa användare</button>
+      <button type="submit" className="create-user-btn" onClick={::this.registerUser}>Skapa användare</button>
     </form>
    </div>
   )

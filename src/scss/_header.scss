@@ -1,6 +1,4 @@
-body {
-  margin: 0;
-}
+
 .header-container {
   background-color: $green;
   color: white;
@@ -17,30 +15,51 @@ body {
     margin: 0;
     padding: 10px 0;
   }
+}
 
-}
-.header-container-inner {
-  // height: 100px;
-  // position: relative;
-}
-.logo-container {
-
-}
 .logo {
   padding: 10px;
-  h2 {
-    margin:0;
+  h1 {
+    font-size: 20px;
   }
 }
 .user-info-container {
 }
 
 .header-btns-container {
-  padding: 20px 0;
+float: right;
+padding: 20px;
+
+}
+
+/*###########################################
+ ############################################
+ LOGGED OUT
+ ############################################
+ ############################################*/
+ .log-in-btn {
+   @include big-button("\f090",white,$green)
+
+ }
+ .create-group-btn {
+   @include big-button("\f0c0",white,$green)
+   margin: 0 10px;
+
+ }
+.create-user-btn {
+  @include big-button("\f234",white,$green)
 }
 
 
-
+/*###########################################
+ ############################################
+ LOGGED IN
+ ############################################
+ ############################################*/
+ .edit-group-btn {
+ @include big-button("\f044",white,$green)
+ margin: 0 10px;
+ }
 .show-mybookings-btn {
 @include big-button("\f274",white,$green)
 margin: 0 10px;

@@ -10,9 +10,9 @@ constructor(props) {
  super(props);
  this.state = {
   groups: [],
-  login: false, // VIEW
+  login: true, // VIEW
   registerUsergroup: false, // VIEW
-  registerUser: true // VIEW
+  registerUser: false // VIEW
  }
 }
 componentWillReceiveProps() {
@@ -84,15 +84,26 @@ this.props.logIn(email,password)
  render() {
   return (
    <div className="logged-out-container">
-    <button className="button" onClick={() => this.handleView("login")}>Logga in</button>
-    <button className="button" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
-    <button className="button" onClick={() => this.handleView("user")}>Skapa användare</button>
+    <div className="header-container ">
+      <div className="col-3">
+       <div className="logo">
+         <h2>REACT BOKNINGSAPP</h2>
+       </div>
+      </div>
+      <div className="header-btns-container">
+       <button className="log-in-btn" onClick={() => this.handleView("login")}>Logga in</button>
+       <button className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
+       <button className="create-user-btn" onClick={() => this.handleView("user")}>Skapa användare</button>
+      </div>
+    </div>
+    <div className="logged-out-forms-container">
     {
      this.state.login ?  <Login login={::this.logIn}/> :
      this.state.registerUser ? <RegisterUser groups = {this.state.groups} registerUser = {::this.registerUser}/> :
      this.state.registerUsergroup ? <RegisterUsergroup groups = {this.state.groups} registerGroup = {::this.registerGroup}/> :
      ""
     }
+    </div>
    </div>
   )
  }
