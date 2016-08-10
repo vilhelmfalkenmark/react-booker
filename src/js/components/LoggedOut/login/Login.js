@@ -5,7 +5,7 @@ export default class Login extends React.Component {
   super();
   this.state = {
    name: "hej@hej.se",
-   password: "hej"
+   password: "hejsan"
   }
  }
 

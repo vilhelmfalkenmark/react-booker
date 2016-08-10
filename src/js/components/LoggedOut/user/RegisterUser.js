@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 export default class RegisterUser extends React.Component {
- constructor() {
-  super();
+ constructor(props) {
+  super(props);
   this.state = {
     email: "",
     name: "",
@@ -11,7 +11,6 @@ export default class RegisterUser extends React.Component {
     selectedGroup: ""
   };
  }
-
 selectGroup(e) {
 this.setState({
  selectedGroup: e.target.value
@@ -40,7 +39,6 @@ this.setState({
  registerUser(e) {
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
 
-
  let newUser = new Object();
  newUser.email = this.state.email;
  newUser.name = this.state.name;
@@ -53,6 +51,7 @@ this.setState({
  this.props.registerUser(newUser, this.state.selectedGroup)
  }
  render() {
+  //  console.log(this.state.groups);
   return (
    <div className="form-container register-container">
     <form className="" method="" action="">

@@ -4,12 +4,16 @@ import LoggedIn from "./LoggedIn/LoggedIn.js";
 import Loader from "./Loader.js";
 import LoggedOut from "./LoggedOut/LoggedOut.js";
 import Rebase from 're-base';
+import Firebase from "firebase"
+var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com");
 
-// var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com/");
-// var ref = Rebase.createClass("https://react-laundry-booker.firebaseio.com/");
-
-var base = Rebase.createClass("https://react-booker.firebaseio.com/");
-var ref = new Firebase("https://react-booker.firebaseio.com/");
+var config = {
+  apiKey: "AIzaSyAo-ZnaPl7PrGDCvwQROxzZr5ffTNeQwbY",
+  authDomain: "react-laundry-booker.firebaseapp.com",
+  databaseURL: "https://react-laundry-booker.firebaseio.com",
+  storageBucket: "react-laundry-booker.appspot.com",
+};
+firebase.initializeApp(config);
 
 export default class Container extends React.Component {
  constructor() {
@@ -21,7 +25,8 @@ export default class Container extends React.Component {
    groups: [],
    user: null,
    userIndex: null,
-   groupIndex: null
+   groupIndex: null,
+   checkAuth: false
   }
  }
  componentDidMount(){
@@ -60,26 +65,123 @@ registerUser(newUser, groupID) {
         }
     }
 }
-
 registerUsergroup(newGroup) {
         let groups = this.state.groups;
         groups.push(newGroup);
         this.setState({
             groups: groups
         })
-    }
-    /*###########################################
-    ############################################
-                  AUTHENTICATE
-    ############################################
-    ############################################*/
+}
+
+handleUser(users) {
+     let groups = this.state.groups;
+     groups[this.state.groupIndex].users = users;
+     this.setState({
+       groups: groups
+     })
+}
+/*###########################################
+############################################
+            AUTHENTICATION
+############################################
+############################################*/
+
+//////////////////////////////////////////////
+//////// KOLLA OM NÅGON ÄR INLOGGAD
+/////////////////////////////////////////////
+componentDidUpdate() {
+  if (this.state.groups.length > 0 && this.state.checkAuth == false) {
+   var component = this;
+   function authDataCallback(authData) {
+    let groups = component.state.groups;
+      console.log(authData.email+" är inloggad");
+       for (var i = 0; i < groups.length; i++) {
+        for (var j = 0; j < groups[i].users.length; j++) {
+         if(typeof(groups[i].users[j]) === "object") {
+          if(groups[i].users[j].email == authData.email)
+          {
+            console.log("kommer in här");
+           component.authenticate(i, j, true);
+          //  this.props.reDirect(false);
+
+           return false;
+          }
+         }
+        }
+       }
+   }
+   firebase.auth().onAuthStateChanged(function(user) {
+     if (user) {
+       authDataCallback(user)
+     } else {
+       console.log("ingen är inloggad");
+     }
+   });
+   this.setState({
+    checkAuth: true
+   })
+  }
+}
+
+//////////////////////////////////////////////
+//////// LOGGA IN
+/////////////////////////////////////////////
+logIn(email, password) {
+  console.log(email);
+  console.log("login kallad");
+  var component = this;
+  // component.loading(true);
+   firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+     // Handle Errors here.
+     console.log("kommer in här");
+     var errorCode = error.code;
+     var errorMessage = error.message;
+     if(errorCode = false) {
+       let groups = this.state.groups;
+           for (var i = 0; i < groups.length; i++) {
+            for (var j = 0; j < groups[i].users.length; j++) {
+             if(typeof(groups[i].users[j]) === "object") {
+              if(groups[i].users[j].email == email)
+               component.authenticate(i, j, true);
+               component.loading(false);
+               return false;
+             }
+            }
+           }
+     }
+     else {
+       console.log(errorMessage);
+     }
+   });
+}
+//////////////////////////////////////////////
+//////// LOGGA UT
+/////////////////////////////////////////////
+logOut() {
+  var component = this;
+  this.setState({
+  loading: true
+  })
+  firebase.auth().signOut().then(function() {
+    console.log('Utloggad!');
+    component.setState({
+        groupIndex: null,
+        userIndex: null, //,
+        loading: false
+    });
+    }, function(error) {
+    console.error('Sign Out Error', error);
+    });
+}
 
 authenticate(index, userIndex, action) {
+  console.log("authenticate kallad");
     if (action) {
         this.setState({
             groupIndex: index,
             userIndex: userIndex,
-            reDirecting: false
+            reDirecting: false,
+            loading: false
         })
     } else {
         this.setState({
@@ -88,20 +190,17 @@ authenticate(index, userIndex, action) {
         })
     }
 }
-reDirect() {
+
+loading(type) {
     this.setState({
-        reDirecting: true
+        loading: type
     })
 }
-
-logOut() {
-    ref.unauth();
-    this.setState({
-        groupIndex: null,
-        userIndex: null
-    });
-}
-
+/*###########################################
+############################################
+              BOKA MASKIN
+############################################
+############################################*/
 bookMachine(bookings) {
     let groups = this.state.groups;
     if (bookings.length != 0) {
@@ -113,29 +212,11 @@ bookMachine(bookings) {
         groups: groups
     })
 }
-
-
-handleUser(users) {
- let groups = this.state.groups;
- groups[this.state.groupIndex].users = users;
- this.setState({
-   groups: groups
- })
-}
-
-
-
-
-
-
  render() {
   return (
    <div className="app-container">
       {
-       this.state.loading ? <Loader type="Laddar" /> :
-       this.state.reDirecting ? <Loader type="Dina uppgifter verifieras" /> : ""
-      }
-      {
+      this.state.loading ? <Loader type="Laddar" /> :
        this.state.groupIndex == null ?
        <LoggedOut
            registerUser = {::this.registerUser}
@@ -143,7 +224,7 @@ handleUser(users) {
            authenticate = {::this.authenticate}
            groups = {this.state.groups}
            logOut = {::this.logOut}
-           reDirect = {::this.reDirect}
+           logIn = {::this.logIn}
        /> :
        <LoggedIn
         group = {this.state.groups[this.state.groupIndex]}

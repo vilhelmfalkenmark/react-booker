@@ -1,30 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Rebase from 're-base';
-// import Firebase from "firebase"
+import Firebase from "firebase"
 import Login from "./login/Login.js";
 import RegisterUser from "./user/RegisterUser.js";
 import RegisterUsergroup from "./usergroup/RegisterUsergroup.js";
-
-// var ref = new Firebase("https://react-laundry-booker.firebaseio.com/");
-var firebase = new Firebase("https://react-booker.firebaseio.com/");
 
 export default class LoggedOut extends React.Component {
 constructor(props) {
  super(props);
  this.state = {
-  checkAuth: false, // För att vi ska kunna kolla om det är verifierat att någon är inloggad
   groups: [],
-  loading: true,
-  login: true, // VIEW
+  login: false, // VIEW
   registerUsergroup: false, // VIEW
-  registerUser: false // VIEW
+  registerUser: true // VIEW
  }
 }
 componentWillReceiveProps() {
 this.setState({
  groups: this.props.groups,
- loading: false
 })
 }
 
@@ -70,123 +63,23 @@ SKAPA ANVÄNDARE OCH LÄGG TILL I ANVÄNDARGRUPP
 ###############################################
 ############################################*/
 registerUser(newUser,groupID) {
- // firebase.auth().createUserWithEmailAndPassword("hej@hej.se", "hej").catch(function(error) {
- //   // Handle Errors here.
- //   // var errorCode = error.code;
- //   // var errorMessage = error.message;
- //   // ...
- // });
-
-// /* SKAPA ANVÄNDARE I FIREBASE */
-firebase.createUser({
-  email: newUser.email,
-  password: newUser.password
-}, function(error, userData) {
-  if (error)
-  {
-    switch (error.code)
-    {
-      case "EMAIL_TAKEN":
-        console.log("The new user account cannot be created because the email is already in use.");
-        return;
-        break;
-      case "INVALID_EMAIL":
-        console.log("The specified email is not a valid email.");
-        return;
-        break;
-      default:
-        console.log("Error creating user:", error);
-    }
-  }
-  else {
-    console.log("Successfully created user account with uid:", userData.uid);
-    // success();
-  }
-});
-
+ firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password).catch(function(error) {
+   // Handle Errors here.
+   var errorCode = error.code;
+   var errorMessage = error.message;
+   console.log(errorCode);
+   console.log(errorMessage);
+ });
 this.props.registerUser(newUser,groupID);
-
-
 }
-
-
 
 /*#############################################
 ###############################################
 LOGGA IN
 ###############################################
 ############################################*/
-login(email,password) {
-
- // firebase.auth().signInWithEmailAndPassword("vilhelmfalkenmark@gmail.com", "hejsan").catch(function(error) {
- //   // Handle Errors here.
- //   var errorCode = error.code;
- //   var errorMessage = error.message;
- //   // ...
- // });
-
-
-this.props.reDirect();
-
-let groups = this.state.groups;
-// Create a callback to handle the result of the authentication
-let component = this;
-function authHandler(error, authData) {
-  if (error) {
-    console.log("Login Failed!", error);
-  } else {
-    console.log("Authenticated successfully with payload:", authData);
-    for (var i = 0; i < groups.length; i++) {
-     for (var j = 0; j < groups[i].users.length; j++) {
-      if(typeof(groups[i].users[j]) === "object") {
-       if(groups[i].users[j].email == email)
-
-        component.props.authenticate(i, j, true);
-      }
-     }
-    }
-  }
-}
-// Or with an email/password combination
-firebase.authWithPassword({
-  email    : email,
-  password : password
-}, authHandler);
-
-}
-/*#############################################
-###############################################
-KOLLA VEM?(TILLFÄLLIG)
-###############################################
-############################################*/
-
-componentDidUpdate() {
-if (this.state.groups.length > 0 && this.state.checkAuth == false) {
- var component = this;
- function authDataCallback(authData) {
-  let groups = component.state.groups;
-   if (authData) { // INLOGGAD
-     console.log("Någon är inloggad");
-     for (var i = 0; i < groups.length; i++) {
-      for (var j = 0; j < groups[i].users.length; j++) {
-       if(typeof(groups[i].users[j]) === "object") {
-        if(groups[i].users[j].email == authData.password.email)
-        {
-         component.props.authenticate(i, j, true);
-         return false;
-        }
-       }
-      }
-     }
-   } else { // EJ INLOGGAD
-    console.log("Ingen är inloggad");
-   }
- }
- firebase.onAuth(authDataCallback);
- this.setState({
-  checkAuth: true
- })
-}
+logIn(email,password) {
+this.props.logIn(email,password)
 }
  render() {
   return (
@@ -195,7 +88,7 @@ if (this.state.groups.length > 0 && this.state.checkAuth == false) {
     <button className="button" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
     <button className="button" onClick={() => this.handleView("user")}>Skapa användare</button>
     {
-     this.state.login ?  <Login login={::this.login}/> :
+     this.state.login ?  <Login login={::this.logIn}/> :
      this.state.registerUser ? <RegisterUser groups = {this.state.groups} registerUser = {::this.registerUser}/> :
      this.state.registerUsergroup ? <RegisterUsergroup groups = {this.state.groups} registerGroup = {::this.registerGroup}/> :
      ""
