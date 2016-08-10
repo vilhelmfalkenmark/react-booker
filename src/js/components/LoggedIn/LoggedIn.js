@@ -155,7 +155,6 @@ for(var h = 0; h < calendar.length; h++)
 {
   if((key+"").indexOf((calendar[h].id)+"") !== -1)
   {
-      newArray.push(calendar[h]);
       for(var s = 0; s < calendar[h].times.length;s++)
       {
         if((key+"").indexOf((calendar[h].times[s].id)+"") !== -1)
@@ -204,19 +203,20 @@ for(var h = 0; h < calendar.length; h++)
                 }
                 bookings.push(booking);
               }
+              //////////////////////////////////////////
+              //// SKICKA IN BOOKINGS I CONTAINER STATE
+              //// OCH SLUTA LOOPA
+              //////////////////////////////////////////
+              this.props.bookMachine(bookings);
+              return false;
             }
           }
         }
       }
   }
-  else {
-    newArray.push(calendar[h]);
-  }
+
 }
-//////////////////////////////////////////
-//// SKICKA IN BOOKINGS I CONTAINER STATE
-//////////////////////////////////////////
-this.props.bookMachine(bookings);
+
 }
 
 /*###########################################
