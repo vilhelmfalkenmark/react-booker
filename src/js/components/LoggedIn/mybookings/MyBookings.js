@@ -13,6 +13,9 @@ this.props.cancelBooking(key);
 }
 
  render() {
+
+   console.log(this.props.bookings);
+
   return (
    <div className="mybookings-date-container">
    <h4 className="mybookings-date-header">{this.props.dateString}</h4>

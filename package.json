@@ -1,5 +1,5 @@
 {
-  "name": "react-basic",
+  "name": "react-booker",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
@@ -15,6 +15,7 @@
     "firebase": "^3.0.4",
     "history": "^1.17.0",
     "react": "^0.14.6",
+    "re-base": "^1.5.0",
     "react-dom": "^0.14.6",
     "react-router": "^2.0.1",
     "webpack": "^1.12.9",
@@ -31,6 +32,6 @@
   "scripts": {
     "dev": "webpack-dev-server --content-base src --inline --hot --history-api-fallback"
   },
-  "author": "",
+  "author": "Vilhelm Falkemmark",
   "license": "ISC"
 }

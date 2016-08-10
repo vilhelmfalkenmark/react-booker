@@ -18,7 +18,6 @@ export default class LoggedIn extends React.Component {
  };
 }
 componentDidMount() {
-
  let calendar = [];
  const daysInCal = 7;
  const times = this.props.group.times;
@@ -29,7 +28,6 @@ componentDidMount() {
  for (var i = 0; i < this.props.group.times.length; i++) {
   booked.push(false)
  }
-
 
   for (var i = 0; i < daysInCal; i++) {
    /*###########################################
@@ -113,11 +111,10 @@ let today = new Object();
 today.day = todaysDate.getDate();
 today.month = todaysDate.getMonth()+1;
 today.year = 1900+todaysDate.getYear();
-// console.log(today);
 
 
-this.props.group.bookings.map(function(booking) {
-// console.log(booking.dateObject.day);
+this.props.group.bookings.map(function(booking) { // TODO Fixa funktion så att gårdagens bokningar raderas
+
 
 })
 
@@ -133,7 +130,6 @@ if(type == "bookings") {
  })
 }
 else if(type=="admin") {
- // console.log("ionrgoinr");
  let adminOpen;
  this.state.adminModal ? adminOpen = false : adminOpen = true;
  this.setState({
@@ -142,28 +138,30 @@ else if(type=="admin") {
 }
 }
 
-bookMachine(key) { // HANTERA KALENDERVYN!
+bookMachine(key) {
 let newArray = [];
-let oldArray = this.state.calendar;
+let calendar = this.state.calendar;
 let bookings = [];
 let oldBookings = this.props.group.bookings;
+
 for (var i = 0; i < oldBookings.length; i++) {
+
 if(typeof(oldBookings[i]) == "object") {
  bookings.push(oldBookings[i]);
 }
+
 }
-for(var h = 0; h < oldArray.length; h++)
+for(var h = 0; h < calendar.length; h++)
 {
-  if((key+"").indexOf((oldArray[h].id)+"") !== -1)
+  if((key+"").indexOf((calendar[h].id)+"") !== -1)
   {
-      newArray.push(oldArray[h]);
-      for(var s = 0; s < oldArray[h].times.length;s++)
+      newArray.push(calendar[h]);
+      for(var s = 0; s < calendar[h].times.length;s++)
       {
-        // console.log(oldArray[h].times);
-        if((key+"").indexOf((oldArray[h].times[s].id)+"") !== -1)
+        if((key+"").indexOf((calendar[h].times[s].id)+"") !== -1)
         {
-          for(var r = 0; r < oldArray[h].times[s].machines.length; r++) {
-            if(oldArray[h].times[s].machines[r].id == key)
+          for(var r = 0; r < calendar[h].times[s].machines.length; r++) {
+            if(calendar[h].times[s].machines[r].id == key)
             {
               /*###########################################
                ############################################
@@ -173,39 +171,37 @@ for(var h = 0; h < oldArray.length; h++)
                ############################################*/
               // TA BORT BOKNING
               let user = this.props.user;
-              if(oldArray[h].times[s].machines[r].booked)
+              if(calendar[h].times[s].machines[r].booked)
               {
-                oldArray[h].times[s].machines[r].booked = false;
-                oldArray[h].times[s].machines[r].bookedBy = null;
-                oldArray[h].times[s].bookedMachines--;
+                calendar[h].times[s].machines[r].booked = false;
+                calendar[h].times[s].machines[r].bookedBy = null;
+                calendar[h].times[s].bookedMachines--;
                 for (var t = 0; t < bookings.length; t++) {
-                 if (bookings[t].id == oldArray[h].times[s].machines[r].id) {
+                 if (bookings[t].id == calendar[h].times[s].machines[r].id) {
                   bookings.splice(t,1);
                  }
                 }
-                let newUser = user;
-                newUser.bookings--; // TA BORT EN PÅ DEN INLOGGADES BOKNING
+                user.bookings--; // TA BORT EN PÅ DEN INLOGGADES BOKNING
               }
               // LÄGG TILL BOKNING
               else {
-                let newUser = user;
-                newUser.bookings++; // LÄGG TILL EN PÅ DEN INLOGGADES BOKNING
-                oldArray[h].times[s].machines[r].booked = true;
-                oldArray[h].times[s].machines[r].bookedBy = user;
-                oldArray[h].times[s].bookedMachines++;
-
-                let booking = new Object();
-                booking.id = key;
-                booking.key = key;
-                booking.machine = oldArray[h].times[s].machines[r].machine;
-                booking.dateformat = oldArray[h].times[s].machines[r].dateformat
-                booking.dateObject = oldArray[h].times[s].machines[r].dateObject
-                booking.bookedBy = this.state.user;
-                booking.booked = true;
-                booking.interval = oldArray[h].times[s].interval;
-                booking.dayname = oldArray[h].dayname;
-                booking.date = oldArray[h].date;
-                booking.month = oldArray[h].month;
+                user.bookings++; // LÄGG TILL EN PÅ DEN INLOGGADES BOKNING
+                calendar[h].times[s].machines[r].booked = true;
+                calendar[h].times[s].machines[r].bookedBy = user;
+                calendar[h].times[s].bookedMachines++;
+                let booking = {
+                  id: key,
+                  key: key,
+                  machine: calendar[h].times[s].machines[r].machine,
+                  dateformat: calendar[h].times[s].machines[r].dateformat,
+                  dateObject: calendar[h].times[s].machines[r].dateObject,
+                  bookedBy: this.state.user,
+                  booked: true,
+                  interval: calendar[h].times[s].interval,
+                  dayname: calendar[h].dayname,
+                  date: calendar[h].date,
+                  month: calendar[h].month
+                }
                 bookings.push(booking);
               }
             }
@@ -214,32 +210,14 @@ for(var h = 0; h < oldArray.length; h++)
       }
   }
   else {
-    newArray.push(oldArray[h]);
+    newArray.push(calendar[h]);
   }
 }
 //////////////////////////////////////////
-//// SKICKA IN DATA I STATE
+//// SKICKA IN BOOKINGS I CONTAINER STATE
 //////////////////////////////////////////
-// this.setState({
-//  calendar: newArray,
-//  bookings: bookings
-// })
 this.props.bookMachine(bookings);
-
-// if(typeof(this.props.group.bookings[0]) == "object")
-// {
-//  this.setState({
-//   bookingsExist: true
-//  })
-// }
-// else {
-//  this.setState({
-//   bookingsExist: false
-//  })
-// }
-// console.log(this.state.bookingsExist);
 }
-
 
 /*###########################################
 ############################################

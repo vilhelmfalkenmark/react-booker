@@ -19,6 +19,15 @@ constructor(props) {
  }
 
  render() {
+
+   console.log(this.props.bookings);
+   let bookingsExist = true;
+   if(typeof(this.props.bookings[0]) == "string") {
+    //  console.log("kommer in här");
+     bookingsExist = false;
+   }
+  var myBookingsArray = [];
+  if(bookingsExist) {
   let sortedBookings = this.props.bookings;
   sortedBookings.sort(function (a, b) {
     if (a.id > b.id) {
@@ -35,7 +44,6 @@ constructor(props) {
   }
   sortedBookings = sortedBookings.filter(onlyMyBookings)
 
-  let myBookingsArray = [];
   let uniquesDates = []; // HUR MÅNGA UNIKA DATUM SOM FINNS I BOKNINGARNA
   for (var i = 0; i < sortedBookings.length; i++) {
    if(uniquesDates.indexOf(sortedBookings[i].dateformat) == -1)
@@ -59,13 +67,16 @@ constructor(props) {
   }
   myBookingsArray.push(bookingDate);
   }
+  }
   return (
 
    <div className= "modal-container">
     <div className="modal-inner-container">
     <h2>Mina Bokningar</h2>
     <button onClick={() => this.toggleModal("bookings")}>Stäng!</button>
+
      {
+       bookingsExist ?
        myBookingsArray.map(function(myBooking) {
        return <MyBookings
         dateString = {myBooking.dateString}
@@ -73,7 +84,7 @@ constructor(props) {
         key = {myBooking.id}
         cancelBooking = {::this.cancelBooking}
         />;
-       }.bind(this))
+      }.bind(this)) : null
      }
     </div>
    </div>
