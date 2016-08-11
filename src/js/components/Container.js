@@ -209,6 +209,21 @@ bookMachine(bookings) {
         groups: groups
     })
 }
+/*###########################################
+############################################
+              ADMIN
+############################################
+############################################*/
+saveMachines(machines) {
+  let groups = this.state.groups;
+      groups[this.state.groupIndex].machines = machines;
+  
+  this.setState({
+      groups: groups
+  })
+}
+
+
  render() {
   return (
    <div className="">
@@ -229,6 +244,7 @@ bookMachine(bookings) {
         bookMachine = {::this.bookMachine}
         handleUser = {::this.handleUser}
         logOut = {::this.logOut}
+        saveMachines = {::this.saveMachines}
         />
     }
    </div>

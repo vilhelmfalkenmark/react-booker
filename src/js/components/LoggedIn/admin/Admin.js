@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import User from "./User.js";
 import Bookings from "./Bookings.js";
+import Machine from "./Machine.js";
 
 export default class Admin extends React.Component {
- constructor() {
- super();
-
+ constructor(props) {
+ super(props);
+  this.state = {
+  machines: props.group.machines
+  }
  // console.log(this.state.bookingsExist);
 }
 userStatus(role,id) {
@@ -21,13 +24,23 @@ toggleModal(type) {
 cancelBooking(key) {
 this.props.cancelBooking(key);
 }
-
-
-
+editMachine(newName,index) {
+let machines = this.state.machines;
+machines[index] = newName;
+this.setState({
+  machines: machines
+})
+}
+saveMachines() {
+  this.props.saveMachines(this.state.machines)
+}
 
  render() {
+   ////////////////////////////////////////////////
+   /////// SORTERA BOKNINGAR
+   ///////////////////////////////////////////////
   let sortedBookings = this.props.group.bookings;
-  console.log(typeof(sortedBookings[0]));
+  // console.log(typeof(sortedBookings[0]));
 
   var bookingsExist = true;
   if(typeof(sortedBookings[0]) == "string") {
@@ -68,14 +81,20 @@ this.props.cancelBooking(key);
   }
   bookingsArray.push(bookingDate);
   }
-  // console.log(bookingsArray);
+  ////////////////////////////////////////////////
+  /////// HANTERA MASKINER
+  ///////////////////////////////////////////////
+  // console.log(this.state.machines);
+
+
 
   return (
    <div className="modal-container">
     <div className="modal-inner-container">
      <h2>ADMIN</h2>
-      <button onClick={() => this.toggleModal("admin")}>Stäng</button>
-
+     <div className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
+       <div>Stäng</div>
+     </div>
        <h3>Bokningar</h3>
        <ul>
         { bookingsExist ?
@@ -88,7 +107,6 @@ this.props.cancelBooking(key);
         }.bind(this)) : null
         }
        </ul>
-
        <h3>Användare</h3>
      <ul>
       {
@@ -102,6 +120,21 @@ this.props.cancelBooking(key);
         }.bind(this))
       }
       </ul>
+      <h3>Maskiner</h3>
+      <ul>
+      {
+        this.props.group.machines.map(function(machine) {
+        return <Machine
+        machine = {machine}
+        key = {this.props.group.machines.indexOf(machine)}
+        index = {this.props.group.machines.indexOf(machine)}
+        editMachine = {::this.editMachine}
+        />;
+        }.bind(this)
+      )
+      }
+      </ul>
+      <button onClick={::this.saveMachines}>Uppdatera</button>
     </div>
    </div>
   )

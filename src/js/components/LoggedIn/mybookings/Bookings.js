@@ -3,12 +3,10 @@ import ReactDOM from "react-dom";
 import MyBookings from "./MyBookings.js";
 
 export default class Bookings extends React.Component {
-constructor(props) {
- super(props);
- console.log(this.props.user);
+constructor() {
+ super();
+
 }
-
-
 
  cancelBooking(key) {
  this.props.cancelBooking(key);
@@ -19,8 +17,7 @@ constructor(props) {
  }
 
  render() {
-
-   console.log(this.props.bookings);
+  //  console.log(this.props.bookings);
    let bookingsExist = true;
    if(typeof(this.props.bookings[0]) == "string") {
     //  console.log("kommer in här");
@@ -69,25 +66,27 @@ constructor(props) {
   }
   }
   return (
-
-   <div className= "modal-container">
-    <div className="modal-inner-container">
-    <h2>Mina Bokningar</h2>
-    <button onClick={() => this.toggleModal("bookings")}>Stäng!</button>
-
-     {
-       bookingsExist ?
-       myBookingsArray.map(function(myBooking) {
-       return <MyBookings
-        dateString = {myBooking.dateString}
-        bookings={myBooking.bookings}
-        key = {myBooking.id}
-        cancelBooking = {::this.cancelBooking}
-        />;
-      }.bind(this)) : null
-     }
-    </div>
-   </div>
+       <div className= "modal-container" >
+        <div className="modal-inner-container">
+        <div className="close-modal-btn" onClick={() => this.toggleModal("bookings")}>
+          <div>Stäng</div>
+        </div>
+        {
+           bookingsExist ?   <h2>Mina Bokningar</h2> : <h2>Du har inga bokningar</h2>
+        }
+         {
+           bookingsExist ?
+           myBookingsArray.map(function(myBooking) {
+           return <MyBookings
+            dateString = {myBooking.dateString}
+            bookings={myBooking.bookings}
+            key = {myBooking.id}
+            cancelBooking = {::this.cancelBooking}
+            />;
+          }.bind(this)) : null
+         }
+        </div>
+       </div>
   )
  }
 }
