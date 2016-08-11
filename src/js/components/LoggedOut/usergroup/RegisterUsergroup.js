@@ -102,7 +102,7 @@ timeArray.splice(index-1,1,timeInterval);
         this.state.machines.map(function(machine) {
          machineIndex++;
          return  <Machine key = {machineIndex} index={machineIndex} addMachine={::this.addMachine}/>
-        }, this) : "" // The this is the context passed to the map function.
+        }, this) : null // The this is the context passed to the map function.
        }
        <label for="times">Antal tider</label>
        <input type="number" name="times" placeholder="Antal tider" onChange={::this.handleTimes} value={this.state.amountofTimes} required/>
