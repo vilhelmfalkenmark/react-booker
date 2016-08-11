@@ -99,10 +99,9 @@ componentDidUpdate() {
          if(typeof(groups[i].users[j]) === "object") {
           if(groups[i].users[j].email == authData.email)
           {
-            console.log("kommer in här");
+            // console.log("kommer in här");
            component.authenticate(i, j, true);
           //  this.props.reDirect(false);
-
            return false;
           }
          }

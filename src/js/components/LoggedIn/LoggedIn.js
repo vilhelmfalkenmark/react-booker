@@ -14,10 +14,52 @@ export default class LoggedIn extends React.Component {
  adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
- erasePassed: false // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
+ checkedOldBookings: false // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
  };
 }
 componentDidMount() {
+
+///////////////////////////////////////////////////////////////
+//// RADERA TIDIGARE DAGARS BOKNINGAR OCH UPPDATERA ANVÄNDARE
+//////////////////////////////////////////////////////////////
+  let todaysDate = new Date(new Date());
+  var today = new Object();
+  today.day = todaysDate.getDate();
+  today.month = todaysDate.getMonth()+1;
+  today.year = 1900+todaysDate.getYear();
+  let bookings = [];
+  let users = this.props.group.users;
+  // console.log(users);
+  if(this.props.group.bookings.length > 0 && typeof(this.props.group.bookings[0]) != "string") {
+
+    this.props.group.bookings.map(function(booking) {
+    // Bokningar samma månad
+    if(booking.dateObject.day >= today.day && booking.dateObject.month == today.month && booking.dateObject.year == today.year) {
+    bookings.push(booking);
+    }
+    //Bokning vid månadsskifte
+    else if( booking.dateObject.month > today.month   && today.year == booking.dateObject.year) {
+      bookings.push(booking);
+    }
+    // Bokning vid årsskifte
+    else if(booking.dateObject.year > today.year ) {
+      bookings.push(booking);
+    }
+    // Inaktuella bokningar som inte ska komma med, därav ska bokningar subtraheras
+    else { // TODO VERIFIERA ATT DEN HÄR FAKTISKT FUNKAR MED RIKTIGA BOKNINGAR FRÅN IGÅR.
+    for (var i = 0; i < users.length; i++) {
+      if(booking.bookedBy.id == users[i].id) {
+        users[i].bookings--;
+      }
+    }
+    }
+    })
+    this.props.handleUser(users);
+    this.props.bookMachine(bookings);
+  }
+//////////////////////////////////////////
+//// KALENDER
+//////////////////////////////////////////
  let calendar = [];
  const daysInCal = 7;
  const times = this.props.group.times;
@@ -69,14 +111,14 @@ componentDidMount() {
     time.machines = new Array();
     for(var l = 0;l<machines.length;l++)
     {
-      let machine = new Object();
-      machine.machine = machines[l];
-      machine.booked = booked[l];
-      machine.bookedBy = null;
-      machine.id = time.id+""+l;
-      machine.id = parseInt(machine.id); // DAGENS DATUM + TIDSINTERVALL + MASKIN. EXEMPELVIS 270520161014 + 1 (Där 1 är TORKTUMLARE)
-      machine.dateformat = formattedDate;
-      machine.dateObject = dateObject;
+      let machine = {
+          machine: machines[l],
+          booked: booked[l],
+          bookedBy: null,
+          id: parseInt(time.id+""+l), // DAGENS DATUM + TIDSINTERVALL + MASKIN. EXEMPELVIS 270520161014 + 1 (Där 1 är TORKTUMLARE)
+          dateformat: formattedDate,
+          dateObject: dateObject
+      }
      /*###########################################
       ############################################
       KOLLA VAD SOM REDAN ÄR BOKAT. DVS VAD SOM
@@ -84,13 +126,14 @@ componentDidMount() {
       ############################################
       ############################################*/
       for(var m =0; m<this.props.group.bookings.length; m++) {
-
-       if(this.props.group.bookings[m].id == machine.id)
-       {
-        machine.booked = this.props.group.bookings[m].booked;
-        machine.bookedBy = this.props.group.bookings[m].bookedBy;
-        time.bookedMachines++;
-       }
+      if(typeof(this.props.group.bookings[m]) !== "undefined") {
+        if(this.props.group.bookings[m].id == machine.id)
+        {
+         machine.booked = this.props.group.bookings[m].booked;
+         machine.bookedBy = this.props.group.bookings[m].bookedBy;
+         time.bookedMachines++;
+        }
+      }
       }
       time.machines.push(machine);
     }
@@ -102,24 +145,7 @@ this.setState( {
  calendar:calendar
 })
 
-
-//////////////////////////////////////////
-//// RADERA GÅRDAGENS BOKNINGAR
-//////////////////////////////////////////
-let todaysDate = new Date(new Date());
-let today = new Object();
-today.day = todaysDate.getDate();
-today.month = todaysDate.getMonth()+1;
-today.year = 1900+todaysDate.getYear();
-
-
-this.props.group.bookings.map(function(booking) { // TODO Fixa funktion så att gårdagens bokningar raderas
-
-
-})
-
 }
-
 
 toggleModal(type) {
 if(type == "bookings") {
@@ -143,7 +169,6 @@ let newArray = [];
 let calendar = this.state.calendar;
 let bookings = [];
 let oldBookings = this.props.group.bookings;
-
 for (var i = 0; i < oldBookings.length; i++) {
 
 if(typeof(oldBookings[i]) == "object") {
@@ -243,8 +268,6 @@ userApprove(status,key) {
   }
  }
 }
-
-
  render() {
   return (
    <div className="container">
