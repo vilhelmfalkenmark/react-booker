@@ -1,8 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import User from "./User.js";
 import Bookings from "./Bookings.js";
 import Machine from "./Machine.js";
+import TimeAndMachines from "./TimeAndMachines.js";
 
 export default class Admin extends React.Component {
  constructor(props) {
@@ -10,39 +10,57 @@ export default class Admin extends React.Component {
   this.state = {
   machines: props.group.machines
   }
- // console.log(this.state.bookingsExist);
 }
+//////////////////////////////////////////
+///////// ANVÄNDARE
+//////////////////////////////////////////
 userStatus(role,id) {
 this.props.userStatus(role,id);
 }
 userApprove(status,id) {
 this.props.userApprove(status,id);
 }
+//////////////////////////////////////////
+///////// MODAL
+//////////////////////////////////////////
 toggleModal(type) {
  this.props.toggleModal(type)
 }
+//////////////////////////////////////////
+///////// BOKNINGAR
+//////////////////////////////////////////
 cancelBooking(key) {
 this.props.cancelBooking(key);
 }
-editMachine(newName,index) {
-let machines = this.state.machines;
-machines[index] = newName;
-
+//////////////////////////////////////////
+///////// MASKINER
+//////////////////////////////////////////
+editMachine(index,newName) {
+let machineArray = this.state.machines;
+machineArray.splice(index,1,newName);
+}
+addMachine() {
+let machineArray = this.state.machines;
+machineArray.push("Namn på ny maskin");
 this.setState({
-  machines: machines
+ machines: machineArray
 })
+}
+deleteMachine(index) {
+ let machineArray = this.state.machines;
+ machineArray.splice(index,1);
+ this.setState({
+  machines: machineArray
+ })
 }
 saveMachines() {
   this.props.saveMachines(this.state.machines)
 }
-
- render() {
-   ////////////////////////////////////////////////
-   /////// SORTERA BOKNINGAR
-   ///////////////////////////////////////////////
+render() {
+////////////////////////////////////////////////
+/////// SORTERA BOKNINGAR
+///////////////////////////////////////////////
   let sortedBookings = this.props.group.bookings;
-  // console.log(typeof(sortedBookings[0]));
-
   var bookingsExist = true;
   if(typeof(sortedBookings[0]) == "string") {
    bookingsExist = false;
@@ -82,13 +100,6 @@ saveMachines() {
   }
   bookingsArray.push(bookingDate);
   }
-  ////////////////////////////////////////////////
-  /////// HANTERA MASKINER
-  ///////////////////////////////////////////////
-  // console.log(this.state.machines);
-
-
-
   return (
    <div className="modal-container">
     <div className="modal-inner-container">
@@ -121,21 +132,19 @@ saveMachines() {
         }.bind(this))
       }
       </ul>
-      <h3>Maskiner</h3>
-      <ul>
       {
-        this.props.group.machines.map(function(machine) {
-        return <Machine
-        machine = {machine}
-        key = {this.props.group.machines.indexOf(machine)}
-        index = {this.props.group.machines.indexOf(machine)}
-        editMachine = {::this.editMachine}
-        />;
-        }.bind(this)
-      )
+       bookingsExist != false ?
+       <p>Du måste ta bort alla bokningar innan du kan ändra maskiner och tider</p> :
+        <TimeAndMachines
+         machines = {this.state.machines}
+         editMachine = {::this.editMachine}
+         deleteMachine = {::this.deleteMachine}
+
+         addMachine = {::this.addMachine}
+         saveMachines = {::this.saveMachines}
+        />
       }
-      </ul>
-      <button onClick={::this.saveMachines}>Uppdatera</button>
+
     </div>
    </div>
   )

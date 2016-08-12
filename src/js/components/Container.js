@@ -100,9 +100,7 @@ componentDidUpdate() {
          if(typeof(groups[i].users[j]) === "object") {
           if(groups[i].users[j].email == authData.email)
           {
-            // console.log("kommer in här");
            component.authenticate(i, j, true);
-          //  this.props.reDirect(false);
            return false;
           }
          }
@@ -188,17 +186,14 @@ authenticate(index, userIndex, action) {
         })
     }
 }
-
 loading(type) {
     this.setState({
         loading: type
     })
 }
-/*###########################################
-############################################
-              BOKA MASKIN
-############################################
-############################################*/
+//////////////////////////////////////////////
+//////// BOKA MASKIN
+/////////////////////////////////////////////
 bookMachine(bookings) {
     let groups = this.state.groups;
     if (bookings.length != 0) {
@@ -210,11 +205,9 @@ bookMachine(bookings) {
         groups: groups
     })
 }
-/*###########################################
-############################################
-              ADMIN
-############################################
-############################################*/
+//////////////////////////////////////////////
+//////// ADMIN
+/////////////////////////////////////////////
 saveMachines(machines) {
 
   let groups = this.state.groups;
@@ -228,14 +221,12 @@ saveMachines(machines) {
   // console.log("hej");
   console.log(this.state.groups);
 }
-
-
  render() {
   return (
    <div className="">
       {
       this.state.loading ? <Loader type="Laddar" /> :
-       this.state.groupIndex == null ?
+      this.state.groupIndex == null ?
        <LoggedOut
            registerUser = {::this.registerUser}
            registerUsergroup = {::this.registerUsergroup}

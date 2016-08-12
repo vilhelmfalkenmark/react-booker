@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
 import Bookings from "./mybookings/Bookings.js";
 import Header from "./header/Header.js";
@@ -12,13 +12,11 @@ export default class LoggedIn extends React.Component {
  calendar: [],
  bookingsModal: false,
  adminModal: true,
- machines: props.group.machines,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
  };
 }
-
 componentDidMount() {
 ///////////////////////////////////////////////////////////////
 //// RADERA TIDIGARE DAGARS BOKNINGAR OCH UPPDATERA ANVÄNDARE
@@ -32,7 +30,6 @@ componentDidMount() {
   let users = this.props.group.users;
   // console.log(users);
   if(this.props.group.bookings.length > 0 && typeof(this.props.group.bookings[0]) != "string") {
-
     this.props.group.bookings.map(function(booking) {
     // Bokningar samma månad
     if(booking.dateObject.day >= today.day && booking.dateObject.month == today.month && booking.dateObject.year == today.year) {
@@ -58,103 +55,91 @@ componentDidMount() {
     this.props.handleUser(users);
     this.props.bookMachine(bookings);
   }
-//////////////////////////////////////////
-//// KALENDER
-//////////////////////////////////////////
- let calendar = [];
- const daysInCal = 7;
- var times = this.props.group.times;
- var machines = this.state.machines;
- console.log(machines);
- const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
- const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
- let booked = [];
- for (var i = 0; i < this.props.group.times.length; i++) {
-  booked.push(false)
- }
-
-  for (var i = 0; i < daysInCal; i++) {
-   /*###########################################
-    ############################################
-    SKAPA DAGAR I KALENDER
-    ############################################
-    ############################################*/
-   let weekday = new Object();
-   let currentDate = new Date(+new Date() + (86400000*i));
-   let formattedDate = currentDate.getDate()+"0"+(currentDate.getMonth()+1)+""+(1900+currentDate.getYear());
-
-   let dateObject = new Object() // SKAPA DATUM SOM OBJEKT
-   dateObject.day = currentDate.getDate();
-   dateObject.month = currentDate.getMonth()+1;
-   dateObject.year = 1900+currentDate.getYear();
-
-   weekday.id = parseInt(formattedDate);
-   weekday.dayname = daynames[currentDate.getDay()];
-   weekday.month = monthnames[currentDate.getMonth()];
-   weekday.date = currentDate.getDate();
-
-   /*###########################################
-    ############################################
-    SKAPA TIDER PÅ DAGAR
-    ############################################
-    ############################################*/
-    weekday.times = new Array();
-    for (var k = 0; k < times.length; k++) {
-    let time = new Object();
-    time.interval = times[k];
-    time.bookedMachines = 0;
-    time.id = weekday.id+""+(time.interval.replace(/-/g, ''));
-    time.id = parseInt(time.id); // DAGENS DATUM + TIDSINTERVALL. EXEMPELVIS 270520161014
-    /*###########################################
-     ############################################
-     SKAPA MASKINER PÅ TIDER
-     ############################################
-     ############################################*/
-    time.machines = new Array();
-    for(var l = 0;l<machines.length;l++)
-    {
-      let machine = {
-          machine: machines[l],
-          booked: booked[l],
-          bookedBy: null,
-          id: parseInt(time.id+""+l), // DAGENS DATUM + TIDSINTERVALL + MASKIN. EXEMPELVIS 270520161014 + 1 (Där 1 är TORKTUMLARE)
-          dateformat: formattedDate,
-          dateObject: dateObject
-      }
-     /*###########################################
-      ############################################
-      KOLLA VAD SOM REDAN ÄR BOKAT. DVS VAD SOM
-      LIGGER LAGRAT I BOOKINGS ARRAYEN
-      ############################################
-      ############################################*/
-      for(var m =0; m<this.props.group.bookings.length; m++) {
-      if(typeof(this.props.group.bookings[m]) !== "undefined") {
-        if(this.props.group.bookings[m].id == machine.id)
-        {
-         machine.booked = this.props.group.bookings[m].booked;
-         machine.bookedBy = this.props.group.bookings[m].bookedBy;
-         time.bookedMachines++;
-        }
-      }
-      }
-      time.machines.push(machine);
-    }
-    weekday.times.push(time);
-    }
-   calendar.push(weekday);
-  }
-this.setState({
- calendar:calendar
-})
+  this.updateCalendarview(this.props.group.machines);
 }
+//////////////////////////////////////////
+//// SKAPA KALENDER
+//////////////////////////////////////////
+updateCalendarview(machines) {
+  let calendar = [];
+  const daysInCal = 7;
+  const times = this.props.group.times;
+  const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
+  const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
+  let booked = [];
+  for (var i = 0; i < this.props.group.times.length; i++) {
+   booked.push(false)
+  }
 
-// componentDidUpdate() {
-//   // this.setState( {
-//   //  calendar:this.props.group
-//   // })
-// }
+   for (var i = 0; i < daysInCal; i++) {
+    //////////////////////////////////////////
+    //// SKAPA DAGAR I KALENDER
+    //////////////////////////////////////////
+    let weekday = new Object();
+    let currentDate = new Date(+new Date() + (86400000*i));
+    let formattedDate = currentDate.getDate()+"0"+(currentDate.getMonth()+1)+""+(1900+currentDate.getYear());
 
+    let dateObject = new Object() // SKAPA DATUM SOM OBJEKT
+    dateObject.day = currentDate.getDate();
+    dateObject.month = currentDate.getMonth()+1;
+    dateObject.year = 1900+currentDate.getYear();
 
+    weekday.id = parseInt(formattedDate);
+    weekday.dayname = daynames[currentDate.getDay()];
+    weekday.month = monthnames[currentDate.getMonth()];
+    weekday.date = currentDate.getDate();
+
+    //////////////////////////////////////////
+    //// SKAPA TIDER PÅ DAGAR
+    //////////////////////////////////////////
+     weekday.times = new Array();
+     for (var k = 0; k < times.length; k++) {
+     let time = new Object();
+     time.interval = times[k];
+     time.bookedMachines = 0;
+     time.id = weekday.id+""+(time.interval.replace(/-/g, ''));
+     time.id = parseInt(time.id); // DAGENS DATUM + TIDSINTERVALL. EXEMPELVIS 270520161014
+     //////////////////////////////////////////
+     //// SKAPA MASKINER PÅ TIDER
+     //////////////////////////////////////////
+     time.machines = new Array();
+     for(var l = 0;l<machines.length;l++)
+     {
+       let machine = {
+           machine: machines[l],
+           booked: booked[l],
+           bookedBy: null,
+           id: parseInt(time.id+""+l), // DAGENS DATUM + TIDSINTERVALL + MASKIN. EXEMPELVIS 270520161014 + 1 (Där 1 är TORKTUMLARE)
+           dateformat: formattedDate,
+           dateObject: dateObject
+       }
+       //////////////////////////////////////////////
+       ////  KOLLA VAD SOM REDAN ÄR BOKAT. DVS
+       ////  VAD SOM LIGGER LAGRAT I BOOKINGS ARRAYEN
+       ///////////////////////////////////////////////
+       for(var m =0; m<this.props.group.bookings.length; m++) {
+       if(typeof(this.props.group.bookings[m]) !== "undefined") {
+         if(this.props.group.bookings[m].id == machine.id)
+         {
+          machine.booked = this.props.group.bookings[m].booked;
+          machine.bookedBy = this.props.group.bookings[m].bookedBy;
+          time.bookedMachines++;
+         }
+       }
+       }
+       time.machines.push(machine);
+     }
+     weekday.times.push(time);
+     }
+    calendar.push(weekday);
+   }
+ this.setState( {
+  calendar:calendar
+ })
+}
+//////////////////////////////////////////////
+////  SLUT KALENDER FUNKTION
+///////////////////////////////////////////////
 
 toggleModal(type) {
 if(type == "bookings") {
@@ -196,12 +181,10 @@ for(var h = 0; h < calendar.length; h++)
           for(var r = 0; r < calendar[h].times[s].machines.length; r++) {
             if(calendar[h].times[s].machines[r].id == key)
             {
-              /*###########################################
-               ############################################
-               RÄTT MASKIN PÅ RÄTT DAG HITTAD.
-               DAGS ATT BÖRJA MANIPULERA DATAN.
-               ############################################
-               ############################################*/
+             //////////////////////////////////////////////
+             //// RÄTT MASKIN PÅ RÄTT DAG HITTAD.
+             //// DAGS ATT BÖRJA MANIPULERA DATAN.
+             ///////////////////////////////////////////////
               // TA BORT BOKNING
               let user = this.props.user;
               if(calendar[h].times[s].machines[r].booked)
@@ -250,11 +233,9 @@ for(var h = 0; h < calendar.length; h++)
   }
 }
 }
-/*###########################################
-############################################
-               ADMIN
-############################################
-############################################*/
+//////////////////////////////////////////////
+////  ADMIN
+///////////////////////////////////////////////
 // ADMIN ELLER ANVÄNDARE
 userStatus(role,key) {
  var users = this.props.group.users;
@@ -280,7 +261,11 @@ userApprove(status,key) {
 // UPPDATERA MASKINER
 saveMachines(machines) {
 this.props.saveMachines(machines);
+this.updateCalendarview(machines);
 }
+//////////////////////////////////////////////
+////  SLUT ADMIN
+///////////////////////////////////////////////
  render() {
   return (
    <div className="container">

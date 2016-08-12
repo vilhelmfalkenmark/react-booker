@@ -9,6 +9,7 @@ export default class RegisterUsergroup extends React.Component {
   this.state = {
     name: "",
     id: "",
+    maxBookings: null,
     machines: [],
     amountofMachines: "",
     times: [],
@@ -21,11 +22,9 @@ this.setState({
  name: e.target.value
 })
 }
-/*###########################################
- ############################################
- MACHINES
- ############################################
- ############################################*/
+/////////////////////////////////////////////
+//// HANTERA MASKINER
+////////////////////////////////////////////
  handleMachines (e) {
   let amountofMachines = parseInt(e.target.value);
   let machineArray = new Array();
@@ -45,12 +44,9 @@ let machineArray = this.state.machines;
    machines: machineArray
   })
 }
-
-/*###########################################
-############################################
-TIMES!
-############################################
-############################################*/
+/////////////////////////////////////////////
+//// HANTERA TIDER
+////////////////////////////////////////////
 handleTimes (e) {
  let amountofTimes = parseInt(e.target.value);
  let timeArray = new Array();
@@ -70,6 +66,16 @@ timeArray.splice(index-1,1,timeInterval);
   timeArray: timeArray
  })
 }
+/////////////////////////////////////////////
+//// SÄTT MAXIMALT BOKNINGAR PER PERSON
+////////////////////////////////////////////
+setMax() {
+
+
+}
+/////////////////////////////////////////////
+//// REGISTRERA GRUPP
+////////////////////////////////////////////
  registerGroup(e) {
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
  let group = new Object();
@@ -78,6 +84,7 @@ timeArray.splice(index-1,1,timeInterval);
  group.machines = this.state.machines;
  group.users = [""];
  group.bookings = [""];
+ group.maxBookings = this.state.maxBookings;
  group.id = Date.now();
  group.key = Date.now();
  this.props.registerGroup(group);
@@ -94,7 +101,7 @@ timeArray.splice(index-1,1,timeInterval);
        onChange={::this.handleName}
        value={this.state.name} required/>
       <label for="machines">Antal maskiner</label>
-      <input type="number" name="machines" placeholder="Antal maskiner"
+      <input type="number" min="0" name="machines" placeholder="Antal maskiner"
        onChange={::this.handleMachines}
        value={this.state.amountofMachines} required/>
        {
@@ -102,10 +109,10 @@ timeArray.splice(index-1,1,timeInterval);
         this.state.machines.map(function(machine) {
          machineIndex++;
          return  <Machine key = {machineIndex} index={machineIndex} addMachine={::this.addMachine}/>
-        }, this) : "" // The this is the context passed to the map function.
+        }, this) : null // The this is the context passed to the map function.
        }
        <label for="times">Antal tider</label>
-       <input type="number" name="times" placeholder="Antal tider" onChange={::this.handleTimes} value={this.state.amountofTimes} required/>
+       <input type="number" min="0" name="times" placeholder="Antal tider" onChange={::this.handleTimes} value={this.state.amountofTimes} required/>
         {
          this.state.times.length > 0 ?
          this.state.times.map(function(time) {
@@ -113,6 +120,8 @@ timeArray.splice(index-1,1,timeInterval);
           return  <Time key = {timeIndex} index={timeIndex} addTime={::this.addTime}/>
          }, this) : "" // The this is the context passed to the map function.
         }
+        <label for="maxBookings">Maximalt antal bokningar samtidigt per medlem</label>
+        <input type="number" min="0" name="maxBookings" placeholder="0" onChange={::this.setMax} />
       <button type="submit" className="create-group-btn" onClick={::this.registerGroup}>Skapa ny användargrupp</button>
     </form>
    </div>

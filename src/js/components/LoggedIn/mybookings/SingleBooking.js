@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 export default class SingleBooking extends React.Component {
  constructor() {

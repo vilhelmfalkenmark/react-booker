@@ -15,7 +15,7 @@
     margin: 0;
     padding: 10px 0;
   }
-}
+
 
 .logo {
   padding: 10px;
@@ -66,4 +66,5 @@ margin: 0 10px;
 }
 .logout-btn {
 @include big-button("\f08b",white,$green)
+}
 }
