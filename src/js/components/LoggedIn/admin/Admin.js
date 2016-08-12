@@ -27,6 +27,7 @@ this.props.cancelBooking(key);
 editMachine(newName,index) {
 let machines = this.state.machines;
 machines[index] = newName;
+
 this.setState({
   machines: machines
 })

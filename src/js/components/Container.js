@@ -25,7 +25,8 @@ export default class Container extends React.Component {
    user: null,
    userIndex: null,
    groupIndex: null,
-   checkAuth: false
+   checkAuth: false,
+   updatedData: false
   }
  }
  componentDidMount(){
@@ -215,12 +216,17 @@ bookMachine(bookings) {
 ############################################
 ############################################*/
 saveMachines(machines) {
+
   let groups = this.state.groups;
       groups[this.state.groupIndex].machines = machines;
-  
+
   this.setState({
-      groups: groups
+      groups: groups,
+      updatedData: false
   })
+  this.forceUpdate()
+  // console.log("hej");
+  console.log(this.state.groups);
 }
 
 

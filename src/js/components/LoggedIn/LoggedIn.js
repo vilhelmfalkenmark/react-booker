@@ -12,13 +12,14 @@ export default class LoggedIn extends React.Component {
  calendar: [],
  bookingsModal: false,
  adminModal: true,
+ machines: props.group.machines,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
  };
 }
-componentDidMount() {
 
+componentDidMount() {
 ///////////////////////////////////////////////////////////////
 //// RADERA TIDIGARE DAGARS BOKNINGAR OCH UPPDATERA ANVÄNDARE
 //////////////////////////////////////////////////////////////
@@ -62,8 +63,9 @@ componentDidMount() {
 //////////////////////////////////////////
  let calendar = [];
  const daysInCal = 7;
- const times = this.props.group.times;
- const machines = this.props.group.machines;
+ var times = this.props.group.times;
+ var machines = this.state.machines;
+ console.log(machines);
  const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
  const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
  let booked = [];
@@ -141,11 +143,18 @@ componentDidMount() {
     }
    calendar.push(weekday);
   }
-this.setState( {
+this.setState({
  calendar:calendar
 })
-
 }
+
+// componentDidUpdate() {
+//   // this.setState( {
+//   //  calendar:this.props.group
+//   // })
+// }
+
+
 
 toggleModal(type) {
 if(type == "bookings") {
