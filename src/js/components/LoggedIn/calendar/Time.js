@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Machine from "./Machine.js";
 export default class Time extends React.Component {
 

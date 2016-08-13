@@ -9,7 +9,8 @@ export default class RegisterUsergroup extends React.Component {
   this.state = {
     name: "",
     id: "",
-    maxBookings: null,
+    maxBookings: "",
+    setMax: false,
     machines: [],
     amountofMachines: "",
     times: [],
@@ -69,9 +70,25 @@ timeArray.splice(index-1,1,timeInterval);
 /////////////////////////////////////////////
 //// SÄTT MAXIMALT BOKNINGAR PER PERSON
 ////////////////////////////////////////////
-setMax() {
-
-
+toggleMax() {
+ var toggle;
+ if(this.state.setMax) {
+  toggle = false;
+  this.setState({
+   maxBookings: ""
+  })
+ }
+ else {
+  toggle = true;
+ }
+ this.setState({
+  setMax: toggle
+ })
+}
+setMax(e) {
+this.setState({
+ maxBookings: e.target.value
+})
 }
 /////////////////////////////////////////////
 //// REGISTRERA GRUPP
@@ -87,6 +104,9 @@ setMax() {
  group.maxBookings = this.state.maxBookings;
  group.id = Date.now();
  group.key = Date.now();
+ console.log(this.state.maxBookings);
+
+
  this.props.registerGroup(group);
  }
  render() {
@@ -120,8 +140,20 @@ setMax() {
           return  <Time key = {timeIndex} index={timeIndex} addTime={::this.addTime}/>
          }, this) : "" // The this is the context passed to the map function.
         }
-        <label for="maxBookings">Maximalt antal bokningar samtidigt per medlem</label>
-        <input type="number" min="0" name="maxBookings" placeholder="0" onChange={::this.setMax} />
+        <label>Sätt maximalt antal bokningar per person</label>
+        <div className="checkbox-container">
+         <input type="checkbox" className="checkbox" name="setMax" onChange={::this.toggleMax} checked={this.state.setMax}/>
+          {
+           this.state.setMax ?  <label for="setMax">JA</label> : <label for="setMax">NEJ</label>
+          }
+        </div>
+         {
+          this.state.setMax ?
+          <div>
+           <label for="maxBookings">Maximalt antal bokningar samtidigt per medlem</label>
+           <input type="number" min="0" name="maxBookings" placeholder="0" onChange={::this.setMax} />
+          </div> : null
+         }
       <button type="submit" className="create-group-btn" onClick={::this.registerGroup}>Skapa ny användargrupp</button>
     </form>
    </div>

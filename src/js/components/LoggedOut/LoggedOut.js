@@ -10,9 +10,9 @@ constructor(props) {
  super(props);
  this.state = {
   groups: [],
-  login: true, // VIEW
+  login: false, // VIEW
   registerUsergroup: false, // VIEW
-  registerUser: false // VIEW
+  registerUser: true // VIEW
  }
 }
 componentWillReceiveProps() {
@@ -20,7 +20,6 @@ this.setState({
  groups: this.props.groups,
 })
 }
-
 /*###########################################
  ############################################
  VIEWS
@@ -99,7 +98,7 @@ this.props.logIn(email,password)
     <div className="logged-out-forms-container">
     {
      this.state.login ?  <Login login={::this.logIn}/> :
-     this.state.registerUser ? <RegisterUser groups = {this.state.groups} registerUser = {::this.registerUser}/> :
+     this.state.registerUser ? <RegisterUser groups = {this.props.groups} registerUser = {::this.registerUser}/> :
      this.state.registerUsergroup ? <RegisterUsergroup groups = {this.state.groups} registerGroup = {::this.registerGroup}/> :
      ""
     }

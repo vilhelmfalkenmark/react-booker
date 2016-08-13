@@ -1,9 +1,12 @@
 import React from "react";
+import ReactCSSTransitionGroup from'react-addons-css-transition-group';
+
 // import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
 import Bookings from "./mybookings/Bookings.js";
 import Header from "./header/Header.js";
 import Admin from "./admin/Admin.js";
+import Warning from "./warning/Warning.js";
 
 export default class LoggedIn extends React.Component {
  constructor(props) {
@@ -11,10 +14,11 @@ export default class LoggedIn extends React.Component {
  this.state = {
  calendar: [],
  bookingsModal: false,
- adminModal: true,
+ adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
- checkedOldBookings: false // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
+ checkedOldBookings: false, // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
+ warningOpen: false // Varningsmeddelandet som kommer om man försöker boka fler än man får
  };
 }
 componentDidMount() {
@@ -159,12 +163,12 @@ else if(type=="admin") {
 }
 
 bookMachine(key) {
+let group = this.props.group;
 let newArray = [];
 let calendar = this.state.calendar;
 let bookings = [];
-let oldBookings = this.props.group.bookings;
+let oldBookings = group.bookings;
 for (var i = 0; i < oldBookings.length; i++) {
-
 if(typeof(oldBookings[i]) == "object") {
  bookings.push(oldBookings[i]);
 }
@@ -201,6 +205,15 @@ for(var h = 0; h < calendar.length; h++)
               }
               // LÄGG TILL BOKNING
               else {
+               // OM ADMIN HAR SATT MAXIMALT ANTAL BOKINGAR
+               if(typeof(group.maxBookings) == "number") {
+                   if(this.props.user.bookings == group.maxBookings) {
+                    this.setState({
+                     warningOpen: true
+                    })
+                    return false;
+                   }
+               }
                 user.bookings++; // LÄGG TILL EN PÅ DEN INLOGGADES BOKNING
                 calendar[h].times[s].machines[r].booked = true;
                 calendar[h].times[s].machines[r].bookedBy = user;
@@ -264,8 +277,17 @@ this.props.saveMachines(machines);
 this.updateCalendarview(machines);
 }
 //////////////////////////////////////////////
-////  SLUT ADMIN
+////  STÄNG VARNINGSMEDDELANDET
 ///////////////////////////////////////////////
+closeWarning() {
+ this.setState({
+  warningOpen: false
+ })
+}
+
+
+
+
  render() {
   return (
    <div className="container">
@@ -302,6 +324,17 @@ this.updateCalendarview(machines);
      userApprove = {::this.userApprove}
      saveMachines = {::this.saveMachines}
      />
+    : null
+   }
+   {
+    this.state.warningOpen ?
+    <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={500}>
+     <Warning
+      key = {1}
+      max = {this.props.group.maxBookings}
+      closeWarning = {::this.closeWarning}
+     />
+    </ReactCSSTransitionGroup>
     : null
    }
    </div>

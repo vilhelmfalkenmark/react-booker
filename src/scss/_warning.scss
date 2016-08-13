@@ -1,0 +1,21 @@
+.warning-container {
+  position: fixed;
+  z-index: 5;
+  height: 200px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $red;
+  color: white;
+  @extend .flex-center;
+}
+// .example-appear {
+//   // opacity: 0.00;
+//   bottom: -200px;
+//   transition: all .1s ease-in;
+// }
+//
+// .example-appear.example-appear-active {
+//   // opacity: 1;
+//   bottom: 0;
+// }

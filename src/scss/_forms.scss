@@ -1,10 +1,7 @@
 .form-container {
   max-width: 420px;
   width: 90%;
-
-
-
-  input {
+  input[type="text"],input[type="number"],input[type="email"],input[type="password"] {
     box-sizing: border-box;
     height: 40px;
     width: 100%;
@@ -43,4 +40,16 @@ select {
   overflow: hidden;
   // background: url("../images/arrow-white.svg") no-repeat right #353535;
   border: none;
+}
+.register-container {
+  .checkbox-container {
+    position: relative;
+    label {
+      position: absolute;
+      left: 30px;
+      margin: 0;
+      top: 2px;
+    }
+  }
+
 }
