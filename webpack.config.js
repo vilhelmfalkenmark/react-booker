@@ -1,5 +1,5 @@
 var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
+var Webpack = require('webpack');
 
 module.exports = {
   context: __dirname + '/src',
@@ -28,8 +28,8 @@ module.exports = {
       filename: 'bundle.js'
   },
   plugins: debug ? [] : [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({mangle: false, sourcemap: false}),
+    new Webpack.optimize.DedupePlugin(),
+    new Webpack.optimize.OccurenceOrderPlugin(),
+    new Webpack.optimize.UglifyJsPlugin({mangle: false, sourcemap: false}),
   ],
 };

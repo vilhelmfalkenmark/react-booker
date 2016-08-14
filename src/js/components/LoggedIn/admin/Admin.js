@@ -1,7 +1,6 @@
 import React from "react";
 import User from "./User.js";
 import Bookings from "./Bookings.js";
-import Machine from "./Machine.js";
 import TimeAndMachines from "./TimeAndMachines.js";
 
 export default class Admin extends React.Component {

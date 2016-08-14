@@ -51,7 +51,7 @@ this.setState({
  this.props.registerUser(newUser, this.state.selectedGroup)
  }
  render() {
-   console.log(this.props.groups);
+   // console.log(this.props.groups);
   return (
    <div className="form-container register-container">
     <form className="" method="" action="">

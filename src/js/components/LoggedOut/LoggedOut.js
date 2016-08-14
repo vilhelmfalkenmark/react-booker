@@ -1,18 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Link} from "react-router";
+
 import Firebase from "firebase"
 import Login from "./login/Login.js";
 import RegisterUser from "./user/RegisterUser.js";
 import RegisterUsergroup from "./usergroup/RegisterUsergroup.js";
 
+// var children = React.Children.map(this.props.children, function(child) {
+//     return React.cloneElement(child, {
+//       something: _this.state.something});
+// });
+
+
+
 export default class LoggedOut extends React.Component {
 constructor(props) {
  super(props);
  this.state = {
-  groups: [],
-  login: false, // VIEW
-  registerUsergroup: false, // VIEW
-  registerUser: true // VIEW
+  groups: []
+  // ,
+  // login: false, // VIEW
+  // registerUsergroup: false, // VIEW
+  // registerUser: true // VIEW
  }
 }
 componentWillReceiveProps() {
@@ -80,7 +90,25 @@ LOGGA IN
 logIn(email,password) {
 this.props.logIn(email,password)
 }
+sayHi() {
+ console.log("Hejsan!");
+}
+
+
  render() {
+  console.log(this.props.children);
+
+  const childrenWithProps = React.Children.map(this.props.children,
+     (child) => React.cloneElement(child, {
+      groups: this.state.groups,
+      registerUser: this.registerUser,
+      registerGroup: this.registerGroup,
+      sayHi: this.sayHi
+     })
+    );
+
+
+
   return (
    <div className="logged-out-container">
     <div className="header-container ">
@@ -90,17 +118,33 @@ this.props.logIn(email,password)
        </div>
       </div>
       <div className="header-btns-container">
+
+       {/*<Route path="logged-out" component={loggedOut} location="history">
+          <Route path="register-user" component={RegisterUser} />
+          <Route path="register-group" component={RegisterUsergroup} />
+          <Route path="login" component={Login} /*/}
+
+
+        <Link to="/register-user">Skapa användare</Link>
+        <Link to="/register-group">Skapa förening</Link>
+        <Link to="/login">Logga in</Link>
+        <Link to="/test">TEST</Link>
        <button className="log-in-btn" onClick={() => this.handleView("login")}>Logga in</button>
        <button className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
        <button className="create-user-btn" onClick={() => this.handleView("user")}>Skapa användare</button>
       </div>
     </div>
     <div className="logged-out-forms-container">
+     {childrenWithProps}
+
+     {/*<Login login={::this.logIn}/>
+     <RegisterUser groups = {this.props.groups} registerUser = {::this.registerUser}/>
+     <RegisterUsergroup groups = {this.state.groups} registerGroup = {::this.registerGroup}/>*/}
     {
-     this.state.login ?  <Login login={::this.logIn}/> :
-     this.state.registerUser ? <RegisterUser groups = {this.props.groups} registerUser = {::this.registerUser}/> :
-     this.state.registerUsergroup ? <RegisterUsergroup groups = {this.state.groups} registerGroup = {::this.registerGroup}/> :
-     ""
+     // this.state.login ?  <Login login={::this.logIn}/> :
+     // this.state.registerUser ? <RegisterUser groups = {this.props.groups} registerUser = {::this.registerUser}/> :
+     // this.state.registerUsergroup ? <RegisterUsergroup groups = {this.state.groups} registerGroup = {::this.registerGroup}/> :
+     // ""
     }
     </div>
    </div>

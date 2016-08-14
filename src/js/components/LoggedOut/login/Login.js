@@ -14,6 +14,15 @@ export default class Login extends React.Component {
    name: e.target.value
   });
  };
+
+ sayHi(e) {
+  e.preventDefault();
+
+  this.props.sayHi();
+
+ }
+
+
  handlePassword (e) {
   this.setState({
    password: e.target.value
@@ -33,6 +42,7 @@ export default class Login extends React.Component {
       <label for="password">Användarnamn</label>
       <input name="password" type="text" onChange={::this.handlePassword} value={this.state.password} placeholder="Ditt lösenord" />
       <button type="submit" className="log-in-btn" onClick={::this.login} >Logga in</button>
+      <button type="submit" className="log-in-btn" onClick={::this.sayHi} >Säg hej!</button>
     </form>
    </div>
   )

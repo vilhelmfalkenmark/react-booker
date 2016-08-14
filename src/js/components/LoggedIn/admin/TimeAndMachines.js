@@ -1,5 +1,5 @@
 import React from "react";
-import Machine from "./Machine.js";
+import AdminMachine from "./AdminMachine.js";
 
 export default class TimeAndMachines extends React.Component {
 
@@ -30,7 +30,7 @@ constructor(props) {
     <ul>
     {
       this.state.machines.map(function(machine,index) {
-      return <Machine
+      return <AdminMachine
       machine = {machine}
       key = {index}
       index = {index}
