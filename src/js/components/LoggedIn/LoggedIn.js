@@ -14,7 +14,7 @@ export default class LoggedIn extends React.Component {
  this.state = {
  calendar: [],
  bookingsModal: false,
- adminModal: false,
+ adminModal: true,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false, // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
@@ -59,19 +59,20 @@ componentDidMount() {
     this.props.handleUser(users);
     this.props.bookMachine(bookings);
   }
-  this.updateCalendarview(this.props.group.machines);
+  this.updateCalendarview(this.props.group.machines,this.props.group.times);
 }
 //////////////////////////////////////////
 //// SKAPA KALENDER
 //////////////////////////////////////////
-updateCalendarview(machines) {
+// updateCalendarview(machines) {
+updateCalendarview(machines,times) {
   let calendar = [];
   const daysInCal = 7;
-  const times = this.props.group.times;
+  // const times = this.props.group.times;
   const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
   const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
   let booked = [];
-  for (var i = 0; i < this.props.group.times.length; i++) {
+  for (var i = 0; i < times.length; i++) {
    booked.push(false)
   }
 
@@ -274,7 +275,12 @@ userApprove(status,key) {
 // UPPDATERA MASKINER
 saveMachines(machines) {
 this.props.saveMachines(machines);
-this.updateCalendarview(machines);
+this.updateCalendarview(machines,this.props.group.times);
+}
+// UPPDATERA TIDER
+saveTimes(times) {
+this.props.saveTimes(times);
+this.updateCalendarview(this.props.group.machines,times);
 }
 //////////////////////////////////////////////
 ////  STÄNG VARNINGSMEDDELANDET
@@ -284,9 +290,6 @@ closeWarning() {
   warningOpen: false
  })
 }
-
-
-
 
  render() {
   return (
@@ -323,6 +326,7 @@ closeWarning() {
      userStatus = {::this.userStatus}
      userApprove = {::this.userApprove}
      saveMachines = {::this.saveMachines}
+     saveTimes = {::this.saveTimes}
      />
     : null
    }

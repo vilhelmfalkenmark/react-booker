@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class AdminMachine extends React.Component {
+export default class Machine extends React.Component {
 constructor(props) {
  super(props);
  this.state = {

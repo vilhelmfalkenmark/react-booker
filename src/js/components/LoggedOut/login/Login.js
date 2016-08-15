@@ -28,9 +28,9 @@ export default class Login extends React.Component {
    password: e.target.value
   });
  };
- login(e) {
+ logIn(e) {
   e.preventDefault();
-  this.props.login(this.state.name,this.state.password);
+  this.props.logIn(this.state.name,this.state.password);
  }
  render() {
   return (
@@ -41,8 +41,7 @@ export default class Login extends React.Component {
       <input name="username"  type="email" onChange={::this.handleName} value={this.state.name} placeholder="Ange din mailadress" />
       <label for="password">Användarnamn</label>
       <input name="password" type="text" onChange={::this.handlePassword} value={this.state.password} placeholder="Ditt lösenord" />
-      <button type="submit" className="log-in-btn" onClick={::this.login} >Logga in</button>
-      <button type="submit" className="log-in-btn" onClick={::this.sayHi} >Säg hej!</button>
+      <button type="submit" className="log-in-btn" onClick={::this.logIn} >Logga in</button>
     </form>
    </div>
   )

@@ -7,9 +7,12 @@ export default class Loader extends React.Component {
    <div className="loader-wall">
     <div>
      {
-      <h1>{this.props.type}</h1>
-
+       <h1>Laddar data</h1>
      }
+   <div class="spinner">
+     <div class="double-bounce1"></div>
+     <div class="double-bounce2"></div>
+   </div>
     </div>
    </div>
   )

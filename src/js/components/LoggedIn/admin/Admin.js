@@ -7,7 +7,8 @@ export default class Admin extends React.Component {
  constructor(props) {
  super(props);
   this.state = {
-  machines: props.group.machines
+  machines: props.group.machines,
+  times: props.group.times
   }
 }
 //////////////////////////////////////////
@@ -31,6 +32,7 @@ toggleModal(type) {
 cancelBooking(key) {
 this.props.cancelBooking(key);
 }
+
 //////////////////////////////////////////
 ///////// MASKINER
 //////////////////////////////////////////
@@ -55,6 +57,32 @@ deleteMachine(index) {
 saveMachines() {
   this.props.saveMachines(this.state.machines)
 }
+//////////////////////////////////////////
+///////// TIDER
+//////////////////////////////////////////
+editTime(index,newName) {
+ let timeArray = this.state.times;
+ timeArray.splice(index,1,newName);
+ console.log(this.state.times);
+}
+addTime() {
+let timeArray = this.state.times;
+timeArray.push("Nytt tidsintervall");
+this.setState({
+ times: timeArray
+})
+}
+deleteTime(index) {
+ let timeArray = this.state.times;
+ timeArray.splice(index,1);
+ this.setState({
+  times: timeArray
+ })
+}
+saveTimes() {
+ this.props.saveTimes(this.state.times)
+}
+
 render() {
 ////////////////////////////////////////////////
 /////// SORTERA BOKNINGAR
@@ -131,19 +159,25 @@ render() {
         }.bind(this))
       }
       </ul>
+      <h2>Maskiner och Tider</h2>
       {
        bookingsExist != false ?
        <p>Du måste ta bort alla bokningar innan du kan ändra maskiner och tider</p> :
         <TimeAndMachines
+         // MASKINER
          machines = {this.state.machines}
          editMachine = {::this.editMachine}
          deleteMachine = {::this.deleteMachine}
-
          addMachine = {::this.addMachine}
          saveMachines = {::this.saveMachines}
+         // TIDER
+         times = {this.state.times}
+         editTime = {::this.editTime}
+         deleteTime = {::this.deleteTime}
+         addTime = {::this.addTime}
+         saveTimes = {::this.saveTimes}
         />
       }
-
     </div>
    </div>
   )

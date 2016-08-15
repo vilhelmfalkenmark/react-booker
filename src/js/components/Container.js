@@ -74,6 +74,7 @@ registerUsergroup(newGroup) {
 }
 
 handleUser(users) {
+ console.log("handleUser kallad");
      let groups = this.state.groups;
      groups[this.state.groupIndex].users = users;
      this.setState({
@@ -125,7 +126,7 @@ componentDidUpdate() {
 /////////////////////////////////////////////
 logIn(email, password) {
   // console.log(email);
-  // console.log("login kallad");
+  console.log("login kallad");
   var component = this;
   component.loading(true);
    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
@@ -208,8 +209,9 @@ bookMachine(bookings) {
 //////////////////////////////////////////////
 //////// ADMIN
 /////////////////////////////////////////////
-saveMachines(machines) {
 
+// SPARA MASKINER
+saveMachines(machines) {
   let groups = this.state.groups;
       groups[this.state.groupIndex].machines = machines;
 
@@ -217,10 +219,22 @@ saveMachines(machines) {
       groups: groups,
       updatedData: false
   })
-  this.forceUpdate()
-  // console.log("hej");
-  console.log(this.state.groups);
+  // console.log(this.state.groups);
 }
+// SPARA MASKINER
+saveTimes(times) {
+  let groups = this.state.groups;
+      groups[this.state.groupIndex].times = times;
+
+  this.setState({
+      groups: groups,
+      updatedData: false
+  })
+  // console.log(this.state.groups);
+}
+
+
+
  render() {
   return (
    <div className="">
@@ -242,6 +256,7 @@ saveMachines(machines) {
         handleUser = {::this.handleUser}
         logOut = {::this.logOut}
         saveMachines = {::this.saveMachines}
+        saveTimes = {::this.saveTimes}
         />
     }
    </div>

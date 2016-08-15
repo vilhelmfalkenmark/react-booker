@@ -25,13 +25,15 @@ require("../scss/stylesheet.scss");
 
 ReactDOM.render(
 <Router history={browserHistory}>
-
-         <Route path="/" component={LoggedOut} >
+<Route path="/" component={Container} >
+    <IndexRoute component={Container} />
+</Route>
+         {/*<Route path="/" component={LoggedOut} >
             <IndexRoute component={Login} />
             <Route path="/register-user" component={RegisterUser}/>
             <Route path="/register-group" component={RegisterUsergroup} />
             <Route path="/login" component={Login} />
             <Route path="/test" component={Test} />
-         </Route>
+         </Route>*/}
   </Router>,
 document.getElementById('app-container') );
