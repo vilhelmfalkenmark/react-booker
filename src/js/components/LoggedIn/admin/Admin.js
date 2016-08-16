@@ -29,8 +29,8 @@ toggleModal(type) {
 //////////////////////////////////////////
 ///////// BOKNINGAR
 //////////////////////////////////////////
-cancelBooking(key) {
-this.props.cancelBooking(key);
+cancelBooking(bookingID,userID) {
+this.props.cancelBooking(bookingID,userID);
 }
 
 //////////////////////////////////////////
@@ -128,13 +128,17 @@ render() {
   bookingsArray.push(bookingDate);
   }
   return (
-   <div className="modal-container">
-    <div className="modal-inner-container">
-     <h2>ADMIN</h2>
+   <div className= "modal-background" >
+    <div className="modal-container">
+     <div className="modal-inner-container">
+     <h1>Redigera grupp {this.props.group.groupName}</h1>
+     <p>ID för den här gruppen är: {this.props.group.id}. Nya användare behöver ange detta ID för att kunna gå med i gruppen.</p>
      <div className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
        <div>Stäng</div>
      </div>
-       <h3>Bokningar</h3>
+
+
+       <h2 className="admin-header-bookings">Bokningar</h2>
        <ul>
         { bookingsExist ?
           bookingsArray.map(function(bookings) {
@@ -146,7 +150,8 @@ render() {
         }.bind(this)) : null
         }
        </ul>
-       <h3>Användare</h3>
+
+       <h2 className="admin-header-users">Användare</h2>
      <ul>
       {
         this.props.group.users.map(function(user) {
@@ -159,7 +164,9 @@ render() {
         }.bind(this))
       }
       </ul>
-      <h2>Maskiner och Tider</h2>
+
+
+      <h2 className="admin-header-time-machines">Maskiner och Tider</h2>
       {
        bookingsExist != false ?
        <p>Du måste ta bort alla bokningar innan du kan ändra maskiner och tider</p> :
@@ -178,6 +185,7 @@ render() {
          saveTimes = {::this.saveTimes}
         />
       }
+    </div>
     </div>
    </div>
   )

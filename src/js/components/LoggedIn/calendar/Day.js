@@ -2,9 +2,9 @@ import React from "react";
 import Time from "./Time.js";
 
 export default class Day extends React.Component {
-  bookMachine(id) {
-   this.props.bookMachine(id);
-  }
+ bookMachine(id,userID) {
+  this.props.bookMachine(id,userID);
+ }
  render() {
    return (
      <div className="day-container row">

@@ -5,8 +5,8 @@ export default class Time extends React.Component {
  constructor() {
   super();
  }
-  bookMachine(id) {
-   this.props.bookMachine(id);
+  bookMachine(id,userID) {
+   this.props.bookMachine(id,userID);
   }
  render() {
   return (

@@ -14,7 +14,7 @@ export default class LoggedIn extends React.Component {
  this.state = {
  calendar: [],
  bookingsModal: false,
- adminModal: true,
+ adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false, // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
@@ -163,7 +163,8 @@ else if(type=="admin") {
 }
 }
 
-bookMachine(key) {
+bookMachine(key, userID) {
+
 let group = this.props.group;
 let newArray = [];
 let calendar = this.state.calendar;
@@ -191,6 +192,9 @@ for(var h = 0; h < calendar.length; h++)
              //// DAGS ATT BÖRJA MANIPULERA DATAN.
              ///////////////////////////////////////////////
               // TA BORT BOKNING
+
+              // TODO SE TILL ATT DEN TAR BORT BOKNING FRÅN RÄTT PERSON
+
               let user = this.props.user;
               if(calendar[h].times[s].machines[r].booked)
               {
@@ -202,7 +206,13 @@ for(var h = 0; h < calendar.length; h++)
                   bookings.splice(t,1);
                  }
                 }
+
+
+
                 user.bookings--; // TA BORT EN PÅ DEN INLOGGADES BOKNING
+
+
+
               }
               // LÄGG TILL BOKNING
               else {
@@ -337,6 +347,7 @@ closeWarning() {
       key = {1}
       max = {this.props.group.maxBookings}
       closeWarning = {::this.closeWarning}
+      admin = {this.props.group.users[0]}
      />
     </ReactCSSTransitionGroup>
     : null

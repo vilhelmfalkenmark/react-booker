@@ -66,8 +66,10 @@ constructor() {
   }
   }
   return (
-       <div className= "modal-container" >
-        <div className="modal-inner-container">
+       <div className= "modal-background" >
+        <div className="modal-container">
+         <div className="modal-inner-container">
+
         <div className="close-modal-btn" onClick={() => this.toggleModal("bookings")}>
           <div>Stäng</div>
         </div>
@@ -85,6 +87,7 @@ constructor() {
             />;
           }.bind(this)) : null
          }
+        </div>
         </div>
        </div>
   )

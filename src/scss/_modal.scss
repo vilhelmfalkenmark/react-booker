@@ -22,9 +22,7 @@
          opacity: 1;
      }
  }
-
-
-.modal-container {
+.modal-background {
   display: block;
   position: fixed;
   height: 100%;
@@ -39,16 +37,20 @@
   animation: fadeInFromNone 0.1s ease-out;
   transition: opacity 0.2s ease-in-out;
 }
-.modal-inner-container {
+.modal-container {
+  // background-color: $lightgrey;
   background-color: white;
   width: 90%;
   max-width: 1000px;
   min-width: 300px;
   margin: 60px auto 0 auto;
-  padding: 30px;
   overflow: auto;
   position: relative;
   max-height: calc(80vh - 40px);
+}
+.modal-inner-container {
+  padding: 40px;
+  margin: 0 auto;
 }
 .close-modal-btn {
   position: fixed;
@@ -89,6 +91,9 @@
     position: absolute;
     left: 140px;
     @include small-button("\f00d",white,$red)
+    &:hover {
+      border: 1px solid $red;
+    }
   }
 
 

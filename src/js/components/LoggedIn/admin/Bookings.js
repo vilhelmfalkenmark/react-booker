@@ -3,45 +3,31 @@ import ReactDOM from "react-dom";
 export default class Bookings extends React.Component {
  constructor() {
  super();
-
 }
 
-
-
-
-
-cancelBooking(key) {
-this.props.cancelBooking(key);
+cancelBooking(key,userID) {
+this.props.cancelBooking(key,userID);
 }
  render() {
 
-  // var bookingsExist = false;
-  // console.log(typeof(this.props.bookings.bookings[0]));
-  // if(typeof(this.props.bookings.bookings[0] === "object")) {
-  //  console.log("bookingsExist = true");
-  //  bookingsExist = true;
-  // }
-  // else if (typeof(this.props.bookings.bookings[0] === "string")) {
-  //  bookingsExist = false;
-  //  console.log("bookingsExist = false");
-  // }
-
   return (
 
-    <li className="admin-booking-container">
-     <h4>Datum: {this.props.bookings.dateString}</h4>
+    <li className="admin-booking-date-container">
+     <h3 className="capitalize">Datum: {this.props.bookings.dateString}</h3>
      {
       this.props.bookings.bookings.map(function(booking) {
-       return <div key={booking.id}>
-        <p>{booking.machine} {booking.interval}
-         <button onClick={() => this.cancelBooking(booking.id)}>Radera bokning</button>
-        </p>
-        <p>Bokat av: {booking.bookedBy.name}</p>
+       return <div className="admin-booking" key={booking.id}>
+        <div className="admin-booking-info-container">
+         <span className="admin-booking-info">{booking.machine} {booking.interval} </span>
+         <span className="admin-booking-bookedby">Bokat av: {booking.bookedBy.name}</span>
+        </div>
+        <div className="admin-cancel-booking-container">
+        <button className="admin-cancel-booking" onClick={() => this.cancelBooking(booking.id, booking.bookedBy.id)}>Avboka</button>
+        </div>
        </div>
-
       }.bind(this))
      }
-    </li> 
+    </li>
   )
  }
 }

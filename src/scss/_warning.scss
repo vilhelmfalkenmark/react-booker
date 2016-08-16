@@ -1,14 +1,33 @@
 .warning-container {
   position: fixed;
   z-index: 5;
-  height: 200px;
+  height: 300px;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: $red;
   color: white;
   @extend .flex-center;
+  @include respond-to(not-mobile) {
+    height: 200px;
+  };
 }
+.warning-inner-container {
+  width: 50%;
+  max-width: 500px;
+}
+.warning-link {
+  color: white;
+  &:hover {
+    color: $darkgrey;
+  }
+}
+
+.close-warning {
+  @include big-button("\f00d",white,$red);
+}
+
+
 // .example-appear {
 //   // opacity: 0.00;
 //   bottom: -200px;

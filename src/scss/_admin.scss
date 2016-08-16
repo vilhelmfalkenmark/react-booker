@@ -1,0 +1,120 @@
+//////////////////////////////////////////
+ ///////// HEADERS
+ //////////////////////////////////////////
+.admin-header-bookings,
+.admin-header-users,
+.admin-header-time-machines {
+  position: relative;
+  padding-left: 25px;
+  &:before {
+    position: absolute;
+    font-family: FontAwesome;
+    color: inherit;
+    font-size: 17px;
+    // content: $icon;
+    top: 5px;
+    left: 0;
+  }
+}
+.admin-header-bookings:before {
+content: "\f073";
+}
+.admin-header-users:before {
+ content: "\f0c0";
+}
+.admin-header-time-machines:before {
+content: "\f017";
+}
+
+//////////////////////////////////////////
+///////// BOOKINGS
+//////////////////////////////////////////
+.admin-booking {
+  padding: 10px 0;
+  &:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+.admin-booking-info {
+  display: block;
+  // font-size: 14px;
+}
+.admin-booking-bookedby {
+  font-style: italic;
+}
+.admin-booking-info-container {
+float: left;
+width: 190px;
+
+
+}
+
+.admin-cancel-booking-container {
+  float: left;
+  margin-left: 25px;
+}
+.admin-cancel-booking {
+  @include small-button("\f00d",white,$red)
+  &:hover {
+    border: 1px solid $red;
+  }
+}
+//////////////////////////////////////////
+///////// USERS
+//////////////////////////////////////////
+.admin-block-container {
+  &:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+.admin-left-block, .admin-right-block {
+  float: left;
+}
+
+.admin-left-block {
+  width: 120px;
+  p {
+    margin: 10px 0;
+    padding: 5px 0;
+  }
+}
+.admin-right-block {
+  margin-left: 15px;
+}
+.admin-user-info {
+  padding: 5px 0;
+  .admin-user-name {
+    display: block;
+  }
+}
+
+
+.admin-set-admin {
+  @include small-button("\f062",white,$green)
+  &:hover {
+    border: 1px solid $green;
+  }
+}
+.admin-set-user {
+  @include small-button("\f063",white,$red)
+  &:hover {
+    border: 1px solid $red;
+  }
+}
+
+.admin-ban-user {
+  @include small-button("\f00d",white,$red)
+  &:hover {
+    border: 1px solid $red;
+  }
+}
+.admin-approve-user {
+  @include small-button("\f00c",white,$green)
+  &:hover {
+    border: 1px solid $green;
+  }
+}

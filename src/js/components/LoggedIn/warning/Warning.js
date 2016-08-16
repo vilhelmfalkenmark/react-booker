@@ -8,8 +8,11 @@ export default class Warning extends React.Component {
   return (
    <div className="warning-container">
     <div className="warning-inner-container">
-     Du har försöket boka fler maskiner än man får. Max är {this.props.max}
-     <button onClick={::this.closeWarning}>Stäng</button>
+     <p>Maximalt antal maskiner/enheter som får vara bokade samtidigt är {this.props.max} stycken. <br/>
+     Vänligen avboka någon av dina andra bokningar alternativt kontakta administratören
+     <a className="warning-link" href={"mailto:"+this.props.admin.email}> {this.props.admin.name} </a> 
+     för att höja maxantalet.</p>
+     <button className="close-warning" onClick={::this.closeWarning}>Stäng</button>
     </div>
    </div>
   )
