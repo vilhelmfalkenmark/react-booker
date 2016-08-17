@@ -1,5 +1,5 @@
 import React from "react";
-import ReactCSSTransitionGroup from'react-addons-css-transition-group';
+// import ReactCSSTransitionGroup from'react-addons-css-transition-group';
 
 // import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
@@ -162,9 +162,10 @@ else if(type=="admin") {
  })
 }
 }
-
+//////////////////////////////////////////////////////
+//// FUNKTION FÖR ATT TA BORT OCH LÄGGA TILL BOKNING
+/////////////////////////////////////////////////////
 bookMachine(key, userID) {
-
 let group = this.props.group;
 let newArray = [];
 let calendar = this.state.calendar;
@@ -174,7 +175,6 @@ for (var i = 0; i < oldBookings.length; i++) {
 if(typeof(oldBookings[i]) == "object") {
  bookings.push(oldBookings[i]);
 }
-
 }
 for(var h = 0; h < calendar.length; h++)
 {
@@ -192,9 +192,6 @@ for(var h = 0; h < calendar.length; h++)
              //// DAGS ATT BÖRJA MANIPULERA DATAN.
              ///////////////////////////////////////////////
               // TA BORT BOKNING
-
-              // TODO SE TILL ATT DEN TAR BORT BOKNING FRÅN RÄTT PERSON
-
               let user = this.props.user;
               if(calendar[h].times[s].machines[r].booked)
               {
@@ -206,13 +203,19 @@ for(var h = 0; h < calendar.length; h++)
                   bookings.splice(t,1);
                  }
                 }
-
-
-
-                user.bookings--; // TA BORT EN PÅ DEN INLOGGADES BOKNING
-
-
-
+                // OM MAN AVBOKAR VIA ADMIN PANELEN SÅ SKA BOKNINGEN INTE NÖDVÄNDIGTVIS SUBTRAHERAS FRÅN DEN PERSONEN SOM ÄR INLOGGAD
+                if(user.id != userID) {
+                  let users = this.props.group.users;
+                  users.map(function(user) {
+                    if (user.id == userID) {
+                      user.bookings--;
+                    }
+                  })
+                }
+                // TA BORT EN PÅ DEN INLOGGADES BOKNING
+                else {
+                  user.bookings--;
+                }
               }
               // LÄGG TILL BOKNING
               else {
@@ -342,14 +345,14 @@ closeWarning() {
    }
    {
     this.state.warningOpen ?
-    <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={500}>
+    // <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={500}>
      <Warning
       key = {1}
       max = {this.props.group.maxBookings}
       closeWarning = {::this.closeWarning}
       admin = {this.props.group.users[0]}
      />
-    </ReactCSSTransitionGroup>
+    // </ReactCSSTransitionGroup>
     : null
    }
    </div>

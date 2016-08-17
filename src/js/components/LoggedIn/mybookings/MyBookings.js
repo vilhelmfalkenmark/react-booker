@@ -8,14 +8,12 @@ export default class MyBookings extends React.Component {
   super();
 
 }
-cancelBooking(key) {
-this.props.cancelBooking(key);
+cancelBooking(key,userID) {
+this.props.cancelBooking(key,userID);
 }
 
  render() {
-
    console.log(this.props.bookings);
-
   return (
    <div className="mybookings-date-container">
    <h4 className="mybookings-date-header">{this.props.dateString}</h4>
@@ -27,6 +25,8 @@ this.props.cancelBooking(key);
       id = {singlebooking.id}
       machine = {singlebooking.machine}
       interval = {singlebooking.interval}
+      user = {this.props.user}
+
       />;
      }.bind(this))
    }
