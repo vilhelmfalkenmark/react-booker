@@ -18,6 +18,7 @@ export default class Day extends React.Component {
           bookedMachines = {time.bookedMachines} // Antal maskiner som är bokade på tiden
           machines = {time.machines}
           user = {this.props.user}
+          columns = {this.props.times.length}
           />;
           }.bind(this))
         }

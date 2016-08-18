@@ -114,7 +114,7 @@ TABLET  768px - 1024px
 =================================================*/
 
 @include respond-to(tablet) {
-  .col-12-tab
+  .col-12-tab 
   {
     width: percentage(12/12);
   }

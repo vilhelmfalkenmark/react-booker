@@ -90,6 +90,11 @@ logIn(email,password) {
  this.props.logIn(email,password);
 };
 
+
+toggleMenu(state) {
+ this.props.toggleMenu(state)
+}
+
  render() {
   // var component = this;
   //
@@ -107,25 +112,39 @@ logIn(email,password) {
 
   return (
    <div className="logged-out-container">
-    <div className="header-container ">
-      <div className="col-3">
-       <div className="logo">
-         <h2>REACT BOKNINGSAPP</h2>
-       </div>
+
+    <header className="header-container">
+     <div className={this.props.menuOpen ? "hamburger-container open":"hamburger-container"} onClick={() => this.toggleMenu(this.props.menuOpen)}>
+       <div className="hamburger-inner-container">
+         <div className="hamburger"></div>
       </div>
-      <div className="header-btns-container">
+     </div>
 
-        {/*<Link to="/register-user">Skapa användare</Link>
-        <Link to="/register-group">Skapa förening</Link>
-        <Link to="/login">Logga in</Link>
-        <Link to="/test">TEST</Link>*/}
-
-       <button className="log-in-btn" onClick={() => this.handleView("login")}>Logga in</button>
-       <button className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
-       <button className="create-user-btn" onClick={() => this.handleView("user")}>Skapa användare</button>
+     <div className={this.props.menuOpen ? "header-inner-container open":"header-inner-container"}>
+     <div className="header-logo-container">
+      <div className="header-logo-inner-container">
+       <h1 className="app-header">React Bokningsapp</h1>
       </div>
     </div>
-    <div className="logged-out-forms-container">
+
+
+
+
+     <div className="header-btns-container">
+      <button className="log-in-btn" onClick={() => this.handleView("login")}>Logga in</button>
+      <button className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
+      <button className="create-user-btn" onClick={() => this.handleView("user")}>Skapa användare</button>
+     </div>
+     </div>
+     </header>
+
+
+
+
+
+
+
+    <div className={this.props.menuOpen ? "logged-out-forms-container open":"logged-out-forms-container"}>
      {/*{childrenWithProps}*/}
     {
      this.state.login ?  <Login logIn={::this.logIn}/> :

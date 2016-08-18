@@ -1,45 +1,64 @@
+$basePadding: 20px;
 
 .header-container {
+  // background-color: $green;
+  // color: white;
+  // z-index: 3;
+  // position: fixed;
+  // margin: 0;
+  // padding: 0;
+}
+
+.header-inner-container {
+  @extend .row;
   background-color: $green;
   color: white;
-  width: 100%;
-  left: 0;
-  right: 0;
-  top: 0;
   z-index: 3;
   position: fixed;
   margin: 0;
   padding: 0;
-  @extend .row;
-  h3 {
-    margin: 0;
-    padding: 10px 0;
+}
+
+//////////////////////////////////////////
+ ///////// HEADER-LOGO BLOCK
+ //////////////////////////////////////////
+.header-logo-inner-container {
+  padding: $basePadding;
+  .app-header { //  H1
+    margin-top: 0;
+    font-size: 24px;
+  }
+}
+.header-logo-container {
+@extend .col-3-desk;
+}
+//////////////////////////////////////////
+///////// USER BLOCK
+//////////////////////////////////////////
+.header-user-inner-container {
+  padding: $basePadding;
+
+  p {
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
 
-
-.logo {
-  padding: 10px;
-  h1 {
-    font-size: 20px;
-  }
 }
-.user-info-container {
+.header-user-name {
+  margin-top: 0;
+}
+.header-user-container {
+  @extend .col-3-desk;
 }
 
-.header-btns-container {
-float: right;
-padding: 20px;
 
-}
+//////////////////////////////////////////
+///////// BUTTON BLOCK
+//////////////////////////////////////////
 
-/*###########################################
- ############################################
- LOGGED OUT
- ############################################
- ############################################*/
+// LOGGED IN OUT BUTTONS
  .log-in-btn {
    @include big-button("\f090",white,$green)
-
  }
  .create-group-btn {
    @include big-button("\f0c0",white,$green)
@@ -49,16 +68,10 @@ padding: 20px;
 .create-user-btn {
   @include big-button("\f234",white,$green)
 }
-
-
-/*###########################################
- ############################################
- LOGGED IN
- ############################################
- ############################################*/
+// LOGGED IN BUTTONS
  .edit-group-btn {
  @include big-button("\f044",white,$green)
- margin: 0 10px;
+ margin: 0;
  }
 .show-mybookings-btn {
 @include big-button("\f274",white,$green)
@@ -67,4 +80,149 @@ margin: 0 10px;
 .logout-btn {
 @include big-button("\f08b",white,$green)
 }
+
+
+@include respond-to(desktop) {
+  .header-logo-container,.header-user-container {
+    float: left;
+  }
+  .header-btns-container {
+    float: right;
+  }
+}
+
+//////////////////////////////////////////
+///////// RESPONSIVE NOT-DESKTOP
+//////////////////////////////////////////
+@include respond-to(not-desktop) {
+.calendar-container, .logged-out-forms-container {
+  margin-top: 20px;
+  transform: translate3d(0,0px,0px);
+  transition: transform .5s cubic-bezier(1,-0.02,0.695,0.79);
+  position: relative;
+  &.open {
+    transform: translate3d(100%,0px,0px);
+  }
+}
+.header-inner-container {
+transform: translate3d(-100%,0px,0px);
+height: 100%;
+width: 100%;
+left: 0;
+top: 0;
+bottom: 0;
+transition: transform .5s cubic-bezier(1,-0.02,0.695,0.79);
+&.open {
+  transform: translate3d(0px,0px,0px);
+}
+}
+
+.header-btns-container {
+  display: block;
+
+  button {
+    margin: $basePadding 0 0 $basePadding;
+    width: 225px;
+    display: block;
+  }
+}
+
+
+//////////////////////////////////////////
+///////// HAMBURGER
+//////////////////////////////////////////
+$gray: darken(gray,25%);
+$lineThick:  3px;
+
+.hamburger-container {
+  z-index: 999;
+  width: 40px;
+  height: 40px;
+  top: $basePadding;
+  right: $basePadding;
+  position: fixed;
+  background-color: $green;
+  cursor: pointer;
+  perspective: 40px;
+}
+.hamburger-inner-container {
+  transform: translate3d(0,0,0);
+  width: 100%;
+  height: 100%;
+  transition: transform .5s ease-out;
+  transform: translate3d(0,0,0);
+}
+.hamburger {
+  position: absolute;
+  height: $lineThick;
+  top: 19px;
+  width: 80%;
+  right: 10%;
+  background-color: white;
+  transition: all 0.3s ease-in;
+  &:before {
+    background-color: white;
+    position: absolute;
+    content:"";
+    height: $lineThick;
+    width: 100%;
+    right: 0;
+    top: -11px;
+    transition: transform .6s cubic-bezier(0.6,0,.4,1);
+   }
+  &:after {
+    background-color: white;
+    position: absolute;
+    content:"";
+    height: $lineThick;
+    width: 100%;
+    right: 0;
+    top: 11px;
+    transition: transform .6s cubic-bezier(0.6,0,.4,1);
+  }
+}
+.open {
+  .hamburger-inner-container {
+    transform: rotateY(0) rotateX(180deg);
+    }
+  .hamburger {
+    background-color: $green;
+  }
+  .hamburger:before {
+    opacity: 1;
+    transform: translateY(10px) translateX(0px) rotate(-45deg);
+  }
+  .hamburger:after {
+    opacity: 1;
+    transform: translateY(-12px) translateX(0px) rotate(45deg);
+  }
+}
+
+}
+
+
+
+//////////////////////////////////////////
+///////// RESPONSIVE DESKTOP
+//////////////////////////////////////////
+@include respond-to(desktop) {
+
+  .header-inner-container  {
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 3;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-btns-container {
+  position: absolute;
+  right: $basePadding;
+  top: $basePadding;
+  }
+
+
+
 }

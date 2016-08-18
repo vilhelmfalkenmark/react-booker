@@ -206,12 +206,7 @@ for(var h = 0; h < calendar.length; h++)
                   bookings.splice(t,1);
                  }
                 }
-
-
-
                 user.bookings--; // TA BORT EN PÅ DEN INLOGGADES BOKNING
-
-
 
               }
               // LÄGG TILL BOKNING
@@ -300,6 +295,12 @@ closeWarning() {
   warningOpen: false
  })
 }
+//////////////////////////////////////////
+///////// TOGGLE MENY
+//////////////////////////////////////////
+toggleMenu(state) {
+ this.props.toggleMenu(state)
+}
 
  render() {
   return (
@@ -309,11 +310,14 @@ closeWarning() {
      toggleModal = {::this.toggleModal}
      logOut = {::this.props.logOut}
      groupName = {this.props.group.groupName}
+     menuOpen = {this.props.menuOpen}
+     toggleMenu = {::this.props.toggleMenu}
      />
     <Calendar
     calendar = {this.state.calendar}
     bookMachine = {::this.bookMachine}
     user = {this.props.user}
+    menuOpen = {this.props.menuOpen}
     />
    {
      this.state.bookingsModal ?

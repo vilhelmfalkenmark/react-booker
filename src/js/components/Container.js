@@ -26,7 +26,8 @@ export default class Container extends React.Component {
    userIndex: null,
    groupIndex: null,
    checkAuth: false,
-   updatedData: false
+   updatedData: false,
+   menuOpen: false
   }
  }
  componentDidMount(){
@@ -230,11 +231,19 @@ saveTimes(times) {
       groups: groups,
       updatedData: false
   })
-  // console.log(this.state.groups);
+}
+//////////////////////////////////////////////
+//////// TOGGLA MENY I MOBILLÄGE
+/////////////////////////////////////////////
+toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
+ this.setState({
+  menuOpen: !state
+ })
 }
 
-
-
+//////////////////////////////////////////
+///////// RENDER
+//////////////////////////////////////////
  render() {
   return (
    <div className="">
@@ -248,6 +257,8 @@ saveTimes(times) {
            groups = {this.state.groups}
            logOut = {::this.logOut}
            logIn = {::this.logIn}
+           menuOpen = {this.state.menuOpen}
+           toggleMenu = {::this.toggleMenu}
        /> :
        <LoggedIn
         group = {this.state.groups[this.state.groupIndex]}
@@ -257,6 +268,8 @@ saveTimes(times) {
         logOut = {::this.logOut}
         saveMachines = {::this.saveMachines}
         saveTimes = {::this.saveTimes}
+        menuOpen = {this.state.menuOpen}
+        toggleMenu = {::this.toggleMenu}
         />
     }
    </div>

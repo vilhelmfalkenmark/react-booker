@@ -1,9 +1,10 @@
-.calendar-container {
-  margin-top:135px;
+@include respond-to(desktop) {
+  .calendar-container {
+    margin-top:135px;
+  }
 }
 
 .day-container {
-  // border-bottom: 1px solid gray;
   border: 1px solid darken($grey,10%);
   border-radius: 3px;
   margin: 10px 0;
@@ -11,29 +12,109 @@
 }
 
 .date-header {
-  margin-bottom: 0;
   font-size: 22px;
-  padding-left: 30px;
+  padding-left: 25px;
+  margin-bottom: 5px;
 }
 
+//////////////////////////////////////////
+///////// TIME-COLUMNS IN A DAY
+//////////////////////////////////////////
 
+@mixin time-col($width) {
+width: calc(#{$width} - 61px)
+}
+@mixin time-col-mobile($width) {
+width: calc(#{$width} - 31px)
+}
 
-.time-container {
+[class*="time-col-"] {
+  float: left;
   padding: 0 30px;
   margin-bottom: 14px;
-  border-right: 1px solid darken($grey,10%);
-  width: calc(25% - 61px);
   &:last-of-type {
     border: none;
   };
+}
 
-  @include respond-to (mobile-large) {
-    width: calc(50% - 61px);
+//////////////////////////////////////////
+/////////  TABLET
+//////////////////////////////////////////
+@include respond-to(mobile) {
+  .date-header {
+    padding-left: 10px;
+    margin-bottom: 10px;
+
   }
-
-    @include respond-to (mobile-small) {
-      width: calc(100% - 61px);
+  [class*="time-col-"] {
+    border-right: 1px solid darken($grey,10%);
+    padding: 0 15px;
+    width: calc(50% - 31px);
+    &:nth-of-type(even) {
+      border: none;
+    };
+    .fa-clock-o {
+      display: none;
     }
-
+  }
+}
+//////////////////////////////////////////
+/////////  TABLET
+//////////////////////////////////////////
+@include respond-to(tablet) {
+[class*="time-col-"] {
+  border-right: 1px solid darken($grey,10%);
 
 }
+.time-col-1, .time-col-2 {
+  width: 50%;
+}
+.time-col-3 {
+  @include time-col(33%);
+}
+.time-col-4 {
+  @include time-col(50%);
+  &:nth-of-type(2) {
+    border: none;
+  };
+}
+.time-col-5,.time-col-6,.time-col-7, .time-col-8   {
+  @include time-col(33%);
+  &:nth-of-type(3),&:nth-of-type(6)  {
+    border: none;
+  };
+}
+}
+//////////////////////////////////////////
+/////////  DESKTOP
+//////////////////////////////////////////
+@include respond-to(desktop) {
+[class*="time-col-"] {
+  border-right: 1px solid darken($grey,10%);
+
+}
+.time-col-1, .time-col-2 {
+  width: 50%;
+}
+.time-col-3 {
+  @include time-col(33%);
+}
+.time-col-4 {
+  @include time-col(25%);
+}
+.time-col-5 {
+  @include time-col(20%);
+}
+.time-col-6  {
+  @include time-col(33%);
+  &:nth-of-type(3) {
+    border: none;
+  };
+}
+.time-col-7, .time-col-8  {
+  @include time-col(25%);
+  &:nth-of-type(4) {
+    border: none;
+  };
+}
+};

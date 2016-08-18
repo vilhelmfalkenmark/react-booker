@@ -16,6 +16,10 @@ constructor() {
 logOut() {
  this.props.logOut();
 }
+toggleMenu(state) {
+ this.props.toggleMenu(state)
+}
+
 updateClock(id) {
 let allDate = new Date();
 let weekDays = ["söndag", "måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag"];
@@ -45,17 +49,29 @@ componentWillUnmount() {
  render() {
   return (
    <header className="header-container">
-    <div className="header-container-inner">
-    <div className="logo-container col-3">
-     <div class="logo"> <h2>React Bokningsapp</h2> <div className="current-time capitalize">
-      <p>Dagens datum: {this.state.date} {this.state.time}</p>
-      </div>
-      </div>
+    <div className={this.props.menuOpen ? "hamburger-container open":"hamburger-container"} onClick={() => this.toggleMenu(this.props.menuOpen)}>
+      <div className="hamburger-inner-container">
+        <div className="hamburger"></div>
+     </div>
+    </div>
+
+    <div className={this.props.menuOpen ? "header-inner-container open":"header-inner-container"}>
+    <div className="header-logo-container">
+     <div className="header-logo-inner-container">
+      <h1 className="app-header">React Bokningsapp</h1>
+      <p className="capitalize">Dagens datum: {this.state.date} {this.state.time}</p>
+     </div>
    </div>
-   <div className="user-info-container col-2">
-    <h4>Inloggad som {this.props.user.name} som har id {this.props.user.id}</h4>
-    <h4>Tillhör förening: {this.props.groupName}</h4>
+
+
+   <div className="header-user-container">
+    <div className="header-user-inner-container">
+     <h4 className="header-user-name">Användare: {this.props.user.name}</h4>
+     <p>Tillhör förening: {this.props.groupName}</p>
+    </div>
    </div>
+
+
     <div className="header-btns-container">
      {
       this.props.user.role == "admin" || this.props.user.role == "superadmin" ?

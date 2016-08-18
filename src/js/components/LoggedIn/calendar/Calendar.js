@@ -6,8 +6,12 @@ export default class Calendar extends React.Component {
   this.props.bookMachine(id,userID);
  }
  render() {
+
+
+
   return (
-    <div className="calendar-container">
+    <div className={this.props.menuOpen ? "calendar-container open":"calendar-container"}>
+   
    {
      this.props.calendar.map(function(calendar) {
      return <Day
