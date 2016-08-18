@@ -8,9 +8,9 @@ constructor() {
 
 }
 
- cancelBooking(key) {
- this.props.cancelBooking(key);
- }
+cancelBooking(key,userID) {
+this.props.cancelBooking(key,userID);
+}
 
  toggleModal(type) {
   this.props.toggleModal(type)
@@ -84,6 +84,7 @@ constructor() {
             bookings={myBooking.bookings}
             key = {myBooking.id}
             cancelBooking = {::this.cancelBooking}
+            user = {this.props.user}
             />;
           }.bind(this)) : null
          }
