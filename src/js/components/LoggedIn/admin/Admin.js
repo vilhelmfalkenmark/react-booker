@@ -2,13 +2,17 @@ import React from "react";
 import User from "./User.js";
 import Bookings from "./Bookings.js";
 import TimeAndMachines from "./TimeAndMachines.js";
+import ReactCollapse from 'react-collapse';
+
 
 export default class Admin extends React.Component {
  constructor(props) {
  super(props);
   this.state = {
   machines: props.group.machines,
-  times: props.group.times
+  times: props.group.times,
+  bookingsOpen: false,
+  usersOpen: false,
   }
 }
 //////////////////////////////////////////
@@ -139,6 +143,8 @@ render() {
 
 
        <h2 className="admin-header-bookings">Bokningar</h2>
+       <button onClick={() => this.setState({bookingsOpen: !this.state.bookingsOpen})}>Visa bokningar</button>
+       <ReactCollapse isOpened={this.state.bookingsOpen}>
        <ul>
         { bookingsExist ?
           bookingsArray.map(function(bookings) {
@@ -150,20 +156,23 @@ render() {
         }.bind(this)) : null
         }
        </ul>
-
+       </ReactCollapse>
        <h2 className="admin-header-users">Användare</h2>
-     <ul>
-      {
-        this.props.group.users.map(function(user) {
-        return <User
-        user = {user}
-        key = {user.key}
-        userStatus = {::this.userStatus}
-        userApprove = {::this.userApprove}
-        />;
-        }.bind(this))
-      }
-      </ul>
+       <button onClick={() => this.setState({usersOpen: !this.state.usersOpen})}>Visa Användare</button>
+       <ReactCollapse isOpened={this.state.usersOpen}>
+       <ul>
+        {
+          this.props.group.users.map(function(user) {
+          return <User
+          user = {user}
+          key = {user.key}
+          userStatus = {::this.userStatus}
+          userApprove = {::this.userApprove}
+          />;
+          }.bind(this))
+        }
+        </ul>
+      </ReactCollapse>
 
 
       <h2 className="admin-header-time-machines">Maskiner och Tider</h2>
