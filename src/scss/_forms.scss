@@ -22,9 +22,12 @@
   }
   .create-group-btn {
     @include big-button("\f0c0",white,$green)
+    margin: 0;
+
   }
  .create-user-btn {
    @include big-button("\f234",white,$green)
+   margin: 0;
  }
 }
 select {

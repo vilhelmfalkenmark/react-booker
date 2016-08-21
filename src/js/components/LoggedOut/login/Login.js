@@ -38,10 +38,13 @@ export default class Login extends React.Component {
     <h1>Logga in</h1>
     <form className="" method="" action="">
       <label for="username">Användarnamn</label>
-      <input name="username"  type="email" onChange={::this.handleName} value={this.state.name} placeholder="Ange din mailadress" />
+      <input name="username"  type="email" onChange={::this.handleName} value={this.state.name} placeholder="Ange din mailadress" required/>
       <label for="password">Användarnamn</label>
-      <input name="password" type="text" onChange={::this.handlePassword} value={this.state.password} placeholder="Ditt lösenord" />
+      <input name="password" type="password" onChange={::this.handlePassword} value={this.state.password} placeholder="Ditt lösenord" required/>
       <button type="submit" className="log-in-btn" onClick={::this.logIn} >Logga in</button>
+      {
+       this.props.credentials != true ? <p>Felaktig mailadress eller lösenord</p> : null
+      }
     </form>
    </div>
   )

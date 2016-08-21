@@ -7,7 +7,7 @@ export default class Machine extends React.Component {
  render() {
   return (
    <div className="">
-    <h4>Maskin {this.props.index}</h4>
+    <h5>Maskin {this.props.index}</h5>
     <input type="text"
       onChange = {::this.addMachine}
       placeholder = {"Namn på maskin nummer "+this.props.index}

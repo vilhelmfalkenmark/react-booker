@@ -67,16 +67,17 @@
   &:hover {
     background-color: darken($red,5%);
   }
+  i {
+    position: absolute;
+    font-size: 20px;
+    left: 45px;
+    top: 15px;
+  }
 }
-
-
 
 .mybookings-date-container {
-  // padding: 20px;
   margin: 15px 0;
-  // background-color: $grey;
 }
-
 .single-booking-container {
   position: relative;
   margin: 25px 0;
@@ -90,39 +91,19 @@
   button {
     position: absolute;
     left: 140px;
-    @include small-button("\f00d",white,$red)
-    &:hover {
-      border: 1px solid $red;
-    }
+    @include big-button("\f00d",white,$red)
   }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
 .hide-modal {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.2s ease-out;
-
 }
-
 .show-modal {
   transition: opacity 0.2s ease-out;
   opacity: 1;
   visibility: visible;
 }
-
-
 .mybookings-date-header {
   font-size: 20px;
   text-transform: capitalize;

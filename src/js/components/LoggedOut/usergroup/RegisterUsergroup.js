@@ -86,28 +86,39 @@ toggleMax() {
  })
 }
 setMax(e) {
-this.setState({
- maxBookings: e.target.value
-})
+ let maxValue = parseInt(e.target.value)
+ if(maxValue > 999) {
+  maxValue = 999;
+ }
+ this.setState({
+  maxBookings: maxValue
+ })
 }
+
 /////////////////////////////////////////////
 //// REGISTRERA GRUPP
 ////////////////////////////////////////////
  registerGroup(e) {
+
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
- let group = new Object();
- group.groupName = this.state.name;
- group.times = this.state.times;
- group.machines = this.state.machines;
- group.users = [""];
- group.bookings = [""];
- group.maxBookings = this.state.maxBookings;
- group.id = Date.now();
- group.key = Date.now();
- console.log(this.state.maxBookings);
+ let verify = false;
+ let group = {
+  groupName: this.state.name,
+  times: this.state.times,
+  machines: this.state.machines,
+  users: [""],
+  bookings: [""],
+  maxBookings: this.state.maxBookings,
+  id: Date.now(),
+  key: Date.now()
+ }
 
-
- this.props.registerGroup(group);
+ if(group.groupName == "" || group.machines == "" || group.times == "") {
+  this.props.alert(true,"fail-group",false)
+ } else {
+  this.props.registerGroup(group);
+  this.props.alert(true,"success-group",group)
+ }
  }
  render() {
   let machineIndex = 0;
@@ -151,7 +162,7 @@ this.setState({
           this.state.setMax ?
           <div>
            <label for="maxBookings">Maximalt antal bokningar samtidigt per medlem</label>
-           <input type="number" min="0" name="maxBookings" placeholder="0" onChange={::this.setMax} />
+           <input type="number" min="0" max="1000" name="maxBookings" placeholder="0" value={this.state.maxBookings} onChange={::this.setMax} required/>
           </div> : null
          }
       <button type="submit" className="create-group-btn" onClick={::this.registerGroup}>Skapa ny användargrupp</button>

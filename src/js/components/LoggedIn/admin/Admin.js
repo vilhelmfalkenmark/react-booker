@@ -2,7 +2,7 @@ import React from "react";
 import User from "./User.js";
 import Bookings from "./Bookings.js";
 import TimeAndMachines from "./TimeAndMachines.js";
-import ReactCollapse from 'react-collapse';
+// import ReactCollapse from 'react-collapse';
 
 
 export default class Admin extends React.Component {
@@ -13,6 +13,7 @@ export default class Admin extends React.Component {
   times: props.group.times,
   bookingsOpen: false,
   usersOpen: false,
+  machineTimesOpen: false
   }
 }
 //////////////////////////////////////////
@@ -138,13 +139,17 @@ render() {
      <h1>Redigera grupp {this.props.group.groupName}</h1>
      <p>ID för den här gruppen är: {this.props.group.id}. Nya användare behöver ange detta ID för att kunna gå med i gruppen.</p>
      <div className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
-       <div>Stäng</div>
+       <i className="fa fa-close"></i>Stäng
      </div>
 
-
        <h2 className="admin-header-bookings">Bokningar</h2>
-       <button onClick={() => this.setState({bookingsOpen: !this.state.bookingsOpen})}>Visa bokningar</button>
-       <ReactCollapse isOpened={this.state.bookingsOpen}>
+       {
+        bookingsExist ?
+        <button onClick={() => this.setState({bookingsOpen: !this.state.bookingsOpen})}>Visa Bokningar</button> :
+        <p>Det finns inga bokningar</p>
+       }
+
+       <div className={this.state.bookingsOpen ? "toggle-container open" : "toggle-container closed"}>
        <ul>
         { bookingsExist ?
           bookingsArray.map(function(bookings) {
@@ -156,11 +161,11 @@ render() {
         }.bind(this)) : null
         }
        </ul>
-       </ReactCollapse>
+       </div>
        <h2 className="admin-header-users">Användare</h2>
        <button onClick={() => this.setState({usersOpen: !this.state.usersOpen})}>Visa Användare</button>
-       <ReactCollapse isOpened={this.state.usersOpen}>
-       <ul>
+       <div className={this.state.usersOpen ? "toggle-container open" : "toggle-container closed"}>
+       <div className="flex-row">
         {
           this.props.group.users.map(function(user) {
           return <User
@@ -171,30 +176,34 @@ render() {
           />;
           }.bind(this))
         }
-        </ul>
-      </ReactCollapse>
-
-
+       </div>
+      </div>
       <h2 className="admin-header-time-machines">Maskiner och Tider</h2>
+
       {
-       bookingsExist != false ?
-       <p>Du måste ta bort alla bokningar innan du kan ändra maskiner och tider</p> :
-        <TimeAndMachines
-         // MASKINER
-         machines = {this.state.machines}
-         editMachine = {::this.editMachine}
-         deleteMachine = {::this.deleteMachine}
-         addMachine = {::this.addMachine}
-         saveMachines = {::this.saveMachines}
-         // TIDER
-         times = {this.state.times}
-         editTime = {::this.editTime}
-         deleteTime = {::this.deleteTime}
-         addTime = {::this.addTime}
-         saveTimes = {::this.saveTimes}
-        />
+       bookingsExist != true ?
+       <button onClick={() => this.setState({machineTimesOpen: !this.state.machineTimesOpen})}>Visa Maskiner och tider</button> : null
       }
-    </div>
+      {
+       bookingsExist != true ?
+       <div className={this.state.machineTimesOpen ? "toggle-container open" : "toggle-container closed"}>
+         <TimeAndMachines
+          // MASKINER
+          machines = {this.state.machines}
+          editMachine = {::this.editMachine}
+          deleteMachine = {::this.deleteMachine}
+          addMachine = {::this.addMachine}
+          saveMachines = {::this.saveMachines}
+          // TIDER
+          times = {this.state.times}
+          editTime = {::this.editTime}
+          deleteTime = {::this.deleteTime}
+          addTime = {::this.addTime}
+          saveTimes = {::this.saveTimes}
+         />
+       </div> : <p>Alla tider måste vara avbokade innan tider och maskiner kan ändras.</p>
+      }
+     </div>
     </div>
    </div>
   )

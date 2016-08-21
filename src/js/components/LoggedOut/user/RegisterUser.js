@@ -42,13 +42,13 @@ this.setState({
  let newUser = new Object();
  newUser.email = this.state.email;
  newUser.name = this.state.name;
- newUser.name = this.state.name;
  newUser.info = this.state.info;
  newUser.password = this.state.password;
  newUser.bookings = 0;
  newUser.id = Date.now();
  newUser.key = Date.now();
  this.props.registerUser(newUser, this.state.selectedGroup)
+
  }
  render() {
    // console.log(this.props.groups);

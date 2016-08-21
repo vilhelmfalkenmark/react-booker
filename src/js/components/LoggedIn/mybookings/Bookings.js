@@ -66,13 +66,14 @@ this.props.cancelBooking(key,userID);
   }
   }
   return (
-       <div className= "modal-background" >
+       <div className= "modal-background">
         <div className="modal-container">
          <div className="modal-inner-container">
 
         <div className="close-modal-btn" onClick={() => this.toggleModal("bookings")}>
-          <div>Stäng</div>
+         <i className="fa fa-close"></i>Stäng
         </div>
+
         {
            bookingsExist ?   <h2>Mina Bokningar</h2> : <h2>Du har inga bokningar</h2>
         }

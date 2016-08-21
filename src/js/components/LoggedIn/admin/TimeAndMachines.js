@@ -44,10 +44,12 @@ constructor(props) {
 
  render() {
   return (
-   <div className="time-and-machines-container">
-    <div>
+   <div className="time-and-machines-container flex-row">
+    <div className="time-machine-card-container">
+    <div className="time-machine-card-inner-container">
      <h3>Maskiner</h3>
-     <ul>
+      <div>
+     <ul className="time-machine-list">
      {
        this.props.machines.map(function(machine,index) {
        return <Machine
@@ -61,12 +63,17 @@ constructor(props) {
      )
      }
       </ul>
-      <button onClick={::this.addMachine}>Lägg till maskin</button>
-      <button onClick={::this.saveMachines}>Uppdatera</button>
+      <button className="add-btn" onClick={::this.addMachine}></button>
+      <button className="update-btn" onClick={::this.saveMachines}>Uppdatera maskiner</button>
+      </div>
+      </div>
    </div>
-   <div>
+   <div className="time-machine-card-container">
+    <div className="time-machine-card-inner-container">
+
     <h3>Tider</h3>
-    <ul>
+     <div>
+    <ul className="time-machine-list">
     {
       this.props.times.map(function(time,index) {
       return <Time
@@ -80,8 +87,10 @@ constructor(props) {
     )
     }
      </ul>
-     <button onClick={::this.addTime}>Lägg till tid</button>
-     <button onClick={::this.saveTimes}>Uppdatera tider</button>
+     <button className="add-btn" onClick={::this.addTime}></button>
+     <button className="update-btn" onClick={::this.saveTimes}>Uppdatera tider</button>
+     </div>
+  </div>
   </div>
    </div>
   )

@@ -27,7 +27,8 @@ export default class Container extends React.Component {
    groupIndex: null,
    checkAuth: false,
    updatedData: false,
-   menuOpen: false
+   menuOpen: false,
+   credentials: true // När man försöker logga in
   }
  }
  componentDidMount(){
@@ -40,11 +41,9 @@ export default class Container extends React.Component {
        }
      });
  }
-/*###########################################
-############################################
-        REGISTERA GRUPP & ANVÄNDARE
-############################################
-############################################*/
+//////////////////////////////////////////
+///////// REGISTERA GRUPP & ANVÄNDARE
+//////////////////////////////////////////
 registerUser(newUser, groupID) {
     let groups = this.state.groups;
     for (var i = 0; i < groups.length; i++) {
@@ -131,11 +130,11 @@ logIn(email, password) {
   var component = this;
   component.loading(true);
    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-     // Handle Errors here.
-     console.log("kommer in här");
+
      var errorCode = error.code;
      var errorMessage = error.message;
      if(errorCode = false) {
+
        let groups = this.state.groups;
            for (var i = 0; i < groups.length; i++) {
             for (var j = 0; j < groups[i].users.length; j++) {
@@ -150,6 +149,10 @@ logIn(email, password) {
      }
      else {
        console.log(errorMessage);
+       component.setState({
+        credentials: false,
+        loading: false
+       })
      }
    });
 }
@@ -179,7 +182,8 @@ authenticate(index, userIndex, action) {
         this.setState({
             groupIndex: index,
             userIndex: userIndex,
-            loading: false
+            loading: false,
+            credentials: true
         })
     } else {
         this.setState({
@@ -210,7 +214,6 @@ bookMachine(bookings) {
 //////////////////////////////////////////////
 //////// ADMIN
 /////////////////////////////////////////////
-
 // SPARA MASKINER
 saveMachines(machines) {
   let groups = this.state.groups;
@@ -259,6 +262,7 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
            logIn = {::this.logIn}
            menuOpen = {this.state.menuOpen}
            toggleMenu = {::this.toggleMenu}
+           credentials = {this.state.credentials}
        /> :
        <LoggedIn
         group = {this.state.groups[this.state.groupIndex]}

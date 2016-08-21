@@ -1,3 +1,7 @@
+//////////////////////////////////////////
+///////// KNAPP MED TEXT
+//////////////////////////////////////////
+
 @mixin big-button ($icon, $color, $background) {
 background-color: $background;
 outline: 0;
@@ -13,6 +17,7 @@ position: relative;
 &:hover {
   background-color: $color;
   color: $background;
+  border: 1px solid $background;
 }
 &:active {
   background-color: darken($color,10%);
@@ -28,12 +33,15 @@ position: relative;
   left: 12px;
 }
 }
-
+//////////////////////////////////////////
+///////// KNAPP UTAN TEXT
+//////////////////////////////////////////
 @mixin small-button ($icon, $color, $background) {
 background-color: $background;
 outline: 0;
 border-radius: 5px;
-padding: 12px 24px 12px 30px;
+height: 40px;
+width: 40px;
 border: 1px solid $color;
 border-radius: 6px;
 color: $color;
@@ -43,6 +51,7 @@ position: relative;
 &:hover {
   background-color: $color;
   color: $background;
+  border: 1px solid $background;
 }
 &:active {
   background-color: darken($color,10%);

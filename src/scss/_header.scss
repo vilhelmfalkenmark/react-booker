@@ -57,6 +57,8 @@ $basePadding: 20px;
 //////////////////////////////////////////
 
 // LOGGED IN OUT BUTTONS
+// .header-container {
+
  .log-in-btn {
    @include big-button("\f090",white,$green)
  }
@@ -80,7 +82,7 @@ margin: 0 10px;
 .logout-btn {
 @include big-button("\f08b",white,$green)
 }
-
+// }
 
 @include respond-to(desktop) {
   .header-logo-container,.header-user-container {
@@ -94,6 +96,10 @@ margin: 0 10px;
 //////////////////////////////////////////
 ///////// RESPONSIVE NOT-DESKTOP
 //////////////////////////////////////////
+
+$slideX: 300px;
+
+
 @include respond-to(not-desktop) {
 .calendar-container, .logged-out-forms-container {
   margin-top: 20px;
@@ -101,19 +107,19 @@ margin: 0 10px;
   transition: transform .5s cubic-bezier(1,-0.02,0.695,0.79);
   position: relative;
   &.open {
-    transform: translate3d(100%,0px,0px);
+    transform: translate3d($slideX,0px,0px);
   }
 }
 .header-inner-container {
-transform: translate3d(-100%,0px,0px);
+transform: translate3d(-300px ,0px,0px);
 height: 100%;
-width: 100%;
+width: $slideX;
 left: 0;
 top: 0;
 bottom: 0;
 transition: transform .5s cubic-bezier(1,-0.02,0.695,0.79);
 &.open {
-  transform: translate3d(0px,0px,0px);
+  transform: translate3d(0,0px,0px);
 }
 }
 

@@ -16,58 +16,41 @@ this.props.userApprove(status,id);
 
  render() {
   return (
-   <li className="admin-user-container">
-     <h3>Namn: {this.props.user.name}</h3>
-     <div className="admin-user-info">
-       <span className="admin-user-name">Användarnamn: {this.props.user.email}</span>
-       <span>Bokningar: {this.props.user.bookings}</span>
-     </div>
-     {
-      this.props.user.role == "superadmin" ?
-      <p>Roll: Superadministratör</p> : null
-     }
-      {
-       this.props.user.role == "user" ?
-        <div className="admin-block-container">
-          <div className="admin-left-block">
-           <p>Roll: Användare</p>
-          </div>
-          <div className="admin-right-block">
-           <button className="admin-set-admin" onClick={() => this.userStatus("admin", this.props.user.id)}>Sätt till admin</button>
-          </div>
-         </div> : this.props.user.role == "admin" ?
-         <div className="admin-block-container">
-           <div className="admin-left-block">
-            <p>Roll: Administratör</p>
-           </div>
-           <div className="admin-right-block">
-            <button className="admin-set-user" onClick={() => this.userStatus("user", this.props.user.id)}>Sätt till status Användare</button>
-           </div>
-          </div>
-         : null
-      }
-      {
-      this.props.user.approved && this.props.user.role != "superadmin" ?
-      <div className="admin-block-container">
-        <div className="admin-left-block">
-         <p>Status: Godkänd</p>
-        </div>
-        <div className="admin-right-block">
-         <button className="admin-ban-user" onClick={() => this.userApprove(false, this.props.user.id)}>Spärra användare</button>
-        </div>
-       </div>
-      : this.props.user.approved != true && this.props.user.role != "superadmin" ?
-      <div className="admin-block-container">
-        <div className="admin-left-block">
-         <p>Status: Ej Godkänd</p>
-        </div>
-        <div className="admin-right-block">
-         <button className="admin-approve-user" onClick={() => this.userApprove(true, this.props.user.id)}>Godkänn användare</button>
-        </div>
-       </div>
-: null
-      }
-   </li>
+   // <div className="admin-user-container col-4-desk">
+
+    <div className="user-card-container">
+      {/* <div className="face-container"> </div> */}
+      <div className="adress-text-container">
+      <div className="user-info-row"><i className="icon fa fa-user"></i><div className="user-info-row-info"><h3>{this.props.user.name} </h3></div></div>
+       <div className="user-info-row"><i className="icon fa fa-user">
+      </i><div className="user-info-row-info">{this.props.user.role == "user" ? "Användare": this.props.user.role == "admin" ? "Administratör" : "Superadministratör" }
+     </div> </div>
+      <div className="user-info-row"><i className="icon fa fa-envelope"></i><div className="user-info-row-info">{this.props.user.email}</div></div>
+      <div className="user-info-row"><i className="icon fa fa-calendar-check-o"></i><div className="user-info-row-info">{this.props.user.bookings}</div></div>
+      <div className="user-info-row"><i className="icon fa fa-info-circle"></i> <div className="user-info-row-info">{this.props.user.info}</div></div>
+       {
+        this.props.user.role == "user" ?
+            <button className="admin-set-admin" onClick={() => this.userStatus("admin", this.props.user.id)}>Användare</button>
+            : this.props.user.role == "admin" ?
+             <button className="admin-set-user" onClick={() => this.userStatus("user", this.props.user.id)}>Administratör</button>
+
+          : null
+       }
+       {
+       this.props.user.approved && this.props.user.role != "superadmin" ?
+         <button className="admin-ban-user" onClick={() => this.userApprove(false, this.props.user.id)}>Godkänd</button>
+       : this.props.user.approved != true && this.props.user.role != "superadmin" ?
+         <button className="admin-approve-user" onClick={() => this.userApprove(true, this.props.user.id)}>Ej Godkänd</button>
+
+        : null
+       }
+
+
+      </div>
+
+
+
+    </div>
   )
  }
 }

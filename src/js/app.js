@@ -17,7 +17,6 @@ import LoggedOut from "./components/LoggedOut/LoggedOut.js";
 import Login from "./components/LoggedOut/login/Login.js";
 import RegisterUser from "./components/LoggedOut/user/RegisterUser.js";
 import RegisterUsergroup from "./components/LoggedOut/usergroup/RegisterUsergroup.js";
-import Test from "./components/LoggedOut/test.js";
 
 require("../scss/stylesheet.scss");
 

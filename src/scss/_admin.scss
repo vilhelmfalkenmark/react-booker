@@ -1,3 +1,10 @@
+.modal-container {
+  ul {
+    padding-left: 20px;
+  }
+}
+
+
 //////////////////////////////////////////
  ///////// HEADERS
  //////////////////////////////////////////
@@ -11,7 +18,6 @@
     font-family: FontAwesome;
     color: inherit;
     font-size: 17px;
-    // content: $icon;
     top: 5px;
     left: 0;
   }
@@ -56,10 +62,7 @@ width: 190px;
   margin-left: 25px;
 }
 .admin-cancel-booking {
-  @include small-button("\f00d",white,$red)
-  &:hover {
-    border: 1px solid $red;
-  }
+  @include big-button("\f00d",white,$red)
 }
 //////////////////////////////////////////
 ///////// USERS
@@ -85,36 +88,173 @@ width: 190px;
 .admin-right-block {
   margin-left: 15px;
 }
-.admin-user-info {
-  padding: 5px 0;
-  .admin-user-name {
+
+//////////////////////////////////////////
+///////// SLIDE-TOGGLE
+//////////////////////////////////////////
+.toggle-container.open {
+display: block;
+}
+.toggle-container.closed {
+display: none;
+}
+//////////////////////////////////////////
+///////// ANVÄNDARE
+//////////////////////////////////////////
+
+.user-card-container,.time-machine-card-container {
+  background-color: $lightgrey;
+}
+.adress-text-container,.time-machine-card-inner-container {
+    padding: 10px 30px;
+  }
+
+.user-card-container {
+  position: relative;
+  .face-container {
+     box-shadow: $boxShadow;
+  }
+}
+
+.icon {
+  line-height: 25px;
+  font-size: 18px;
+  margin: 15px 15px 0 0;
+  color: darken(grey,10%);
+}
+.placeholder-icon {
+  color: $cardBackground;
+}
+.adress-text-container button {
+  margin: 30px 0 0 0;
+}
+.user-info-row {
+  position: relative;
+
+  h3 {
+    margin: 0;
+  }
+  .user-info-row-info {
+    position: absolute;
+    left: 30px;
+    right: 5px;
+    top: 16px;
     display: block;
   }
 }
 
+//////////////////////////////////////////
+///////// GRID FÖR ANVÄNDARE
+//////////////////////////////////////////
+@include respond-to(mobile) {
+.user-card-container {
+  @include flex-col-gtr-advanced(100%, $gutter*2, 0px, 0px,0px);
+}
+}
+@include respond-to(tablet) {
 
+.user-card-container {
+&:nth-of-type(even) {
+  @include flex-col-gtr-advanced(50%, $gutter*2, 0px, 0px,$gutter);
+};
+&:nth-of-type(odd) {
+  @include flex-col-gtr-advanced(50%, $gutter*2, $gutter, 0px,0px);
+}
+
+}
+}
+@include respond-to(desktop) {
+
+  .user-card-container {
+    @include flex-col-gtr-advanced(33%, $gutter*2, 0px, 0px, 0px);
+  }
+  .user-card-container:nth-child(3n-1) {
+    @include flex-col-gtr-advanced(33%, $gutter*2, $gutter, 0px, $gutter);
+ }
+}
+//////////////////////////////////////////
+///////// KNAPPAR
+//////////////////////////////////////////
+$buttonWidth: 90%;
 .admin-set-admin {
-  @include small-button("\f062",white,$green)
+  width: $buttonWidth;
+  @include big-button("\f063",white,$red)
   &:hover {
-    border: 1px solid $green;
+    border: 1px solid $red;
   }
 }
 .admin-set-user {
-  @include small-button("\f063",white,$red)
+  width: $buttonWidth;
+
+  @include big-button("\f062",white,$green)
   &:hover {
-    border: 1px solid $red;
+    border: 1px solid $green;
   }
 }
 
 .admin-ban-user {
-  @include small-button("\f00d",white,$red)
+  width: $buttonWidth;
+
+  @include big-button("\f00c",white,$green)
+  &:hover {
+    border: 1px solid $green;
+  }
+}
+.admin-approve-user {
+  width: $buttonWidth;
+
+  @include big-button("\f00d",white,$red)
   &:hover {
     border: 1px solid $red;
   }
 }
-.admin-approve-user {
-  @include small-button("\f00c",white,$green)
-  &:hover {
-    border: 1px solid $green;
+
+//////////////////////////////////////////
+///////// TIDER OCH MASKINER
+//////////////////////////////////////////
+.time-machine-list {
+list-style-type: none;
+padding-left: 0 !important;
+margin: 0;
+li {
+  padding: 7.5px 0;
+}
+}
+.time-and-machines-container {
+
+  @include respond-to(desktop) {
+    .time-machine-card-container {
+      &:nth-of-type(even) {
+        @include flex-col-gtr-advanced(50%, $gutter*2, 0px, 0px,$gutter/2);
+      }
+      &:nth-of-type(odd) {
+        @include flex-col-gtr-advanced(50%, $gutter*2, $gutter/2, 0px,0px);
+      }
   }
+  }
+
+input[type="text"] {
+box-sizing: border-box;
+width: 200px;
+height: 40px;
+outline: 0;
+vertical-align: top;
+border-radius: 3px;
+border: 1px solid $darkgrey;
+padding: 5px;
+margin-left: 15px;
+}
+
+.delete-time-btn, .delete-machine-btn {
+  @include small-button("\f00d",white,$red)
+}
+.add-btn {
+  margin-top: 7.5px;
+  @include small-button("\f067",white,$green)
+}
+.update-btn {
+  margin-top: 15px;
+  display: block;
+  @include big-button("\f0ee",white,$green)
+}
 }

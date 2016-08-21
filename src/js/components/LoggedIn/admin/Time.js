@@ -19,13 +19,13 @@ constructor(props) {
  render() {
   return (
    <li className="">
-    <h4>{this.props.time}</h4>
+    {/* <h4>{this.props.time}</h4> */}
+    <button className="delete-time-btn"onClick={::this.deleteTime}></button>
     <input type="text"
       onChange = {::this.editTime}
       placeholder = {"Namn på maskin nummer "+this.props.index}
       value = {this.state.time}
       required />
-     <button onClick={::this.deleteTime}>Radera Tid</button>
    </li>
   )
  }

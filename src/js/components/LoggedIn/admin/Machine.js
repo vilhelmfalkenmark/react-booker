@@ -19,13 +19,14 @@ constructor(props) {
  render() {
   return (
    <li className="">
-    <h4>{this.props.machine}</h4>
+    {/* <h4>{this.props.machine}</h4> */}
+    <button className="delete-machine-btn" onClick={::this.deleteMachine}></button>
     <input type="text"
       onChange = {::this.editMachine}
       placeholder = {"Namn på maskin nummer "+this.props.index}
       value = {this.state.machine}
       required />
-     <button onClick={::this.deleteMachine}>Radera maskin</button>
+     {/* <button className="delete-machine-btn" onClick={::this.deleteMachine}>Radera maskin</button> */}
    </li>
   )
  }

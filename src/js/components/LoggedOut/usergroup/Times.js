@@ -7,7 +7,7 @@ export default class Time extends React.Component {
  render() {
   return (
    <div className="">
-    <h4>Tidsintervall nummer {this.props.index}</h4>
+    <h5>Tidsintervall {this.props.index}, exempelvis {(this.props.index+10)+"-"+(this.props.index+11)}</h5>
     <input type="text"
       onChange = {::this.addTime}
       placeholder = {"Tidsintervall nummer "+this.props.index}
