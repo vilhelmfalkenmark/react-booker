@@ -103,7 +103,9 @@ display: none;
 //////////////////////////////////////////
 
 .user-card-container,.time-machine-card-container {
-  background-color: $lightgrey;
+  // background-color: $darkgrey;
+  color: white;
+  background-color: #535353;
 }
 .adress-text-container,.time-machine-card-inner-container {
     padding: 10px 30px;
@@ -120,7 +122,7 @@ display: none;
   line-height: 25px;
   font-size: 18px;
   margin: 15px 15px 0 0;
-  color: darken(grey,10%);
+  color: inherit;
 }
 .placeholder-icon {
   color: $cardBackground;

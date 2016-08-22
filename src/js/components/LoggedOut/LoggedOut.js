@@ -23,13 +23,33 @@ constructor(props) {
   alertData: false,
   login: false, // VIEW
   registerUsergroup: false, // VIEW
-  registerUser: true // VIEW
+  registerUser: true, // VIEW
+  cookie: false
  }
 }
 componentWillReceiveProps() {
 this.setState({
  groups: this.props.groups,
 })
+}
+
+
+componentDidMount() {
+//////////////////////////////////////////
+///////// SET COOKIE
+//////////////////////////////////////////
+var cookies = document.cookie.split(';');
+var component = this;
+if(cookies.length > 0) {
+ cookies.map(function(cookie) {
+ if(cookie.indexOf("groupID") != -1 ) {
+  var res = cookie.split("=");
+  component.setState({
+   cookie: res[1]
+  })
+ }
+ });
+}
 }
 //////////////////////////////////////////
 ///////// VIEWS
@@ -63,6 +83,14 @@ handleView(view) {
 //////////////////////////////////////////
 registerGroup(newGroup) {
 this.props.registerUsergroup(newGroup)
+
+var d = new Date();
+d.setTime(d.getTime() + (24*60*60*1000));
+var expires = "expires="+ d.toUTCString();
+document.cookie ="groupID="+ newGroup.id + ";" + expires;
+this.setState({
+cookie: newGroup.id
+})
 }
 //////////////////////////////////////////
 ///////// SKAPA ANVÄNDARE OCH
@@ -72,6 +100,7 @@ registerUser(newUser,groupID) {
 if(groupID == "") {
  return false;
 }
+
 var component = this;
  firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password).catch(function(error) {
    // Handle Errors here.
@@ -89,6 +118,7 @@ var component = this;
    }
 
  });
+document.cookie = "groupID=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 this.props.registerUser(newUser,groupID);
 }
 //////////////////////////////////////////
@@ -148,6 +178,15 @@ alert(state,type,data) {
        <h1 className="app-header">React Bokningsapp</h1>
       </div>
     </div>
+    {
+     this.state.cookie ? <div className="cookie-container">
+     <p>Du har precis skapat en grupp med id {this.state.cookie}.</p>
+     <p>Skapa nu en användare och logga in på den gruppen.</p>
+     </div>
+    : null
+    }
+
+
 
      <div className="header-btns-container">
       <button className="log-in-btn" onClick={() => this.handleView("login")}>Logga in</button>

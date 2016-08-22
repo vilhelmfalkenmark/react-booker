@@ -99,8 +99,10 @@ setMax(e) {
 //// REGISTRERA GRUPP
 ////////////////////////////////////////////
  registerGroup(e) {
-
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
+ document.cookie = "wakkawakka=hejsansvejsan";
+
+
  let verify = false;
  let group = {
   groupName: this.state.name,

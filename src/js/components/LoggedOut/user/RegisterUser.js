@@ -8,12 +8,14 @@ export default class RegisterUser extends React.Component {
     name: "",
     password: "",
     info: "",
-    selectedGroup: ""
+    selectedGroup: false,
+    checkboxSelected: false,
+    searchID: ""
   };
  }
-selectGroup(e) {
+selectGroup(id) {
 this.setState({
- selectedGroup: e.target.value
+ selectedGroup:id
 })
 }
  handleEmail (e) {
@@ -36,22 +38,38 @@ this.setState({
    info: e.target.value
   });
  };
+//////////////////////////////////////////
+///////// SÖK EFTER FÖRENING MED ID
+//////////////////////////////////////////
+handleID(e) {
+ let id = parseInt(e.target.value)
+ this.setState({
+  searchID: id
+ });
+}
+//////////////////////////////////////////
+///////// REGISTRERA ANVÄNDARE
+//////////////////////////////////////////
  registerUser(e) {
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
-
- let newUser = new Object();
- newUser.email = this.state.email;
- newUser.name = this.state.name;
- newUser.info = this.state.info;
- newUser.password = this.state.password;
- newUser.bookings = 0;
- newUser.id = Date.now();
- newUser.key = Date.now();
- this.props.registerUser(newUser, this.state.selectedGroup)
-
+ if(this.state.checkboxSelected) {
+  let newUser = new Object();
+  newUser.email = this.state.email;
+  newUser.name = this.state.name;
+  newUser.info = this.state.info;
+  newUser.password = this.state.password;
+  newUser.bookings = 0;
+  newUser.id = Date.now();
+  newUser.key = Date.now();
+  this.props.registerUser(newUser, this.state.selectedGroup)
+ }
  }
  render() {
-   // console.log(this.props.groups);
+  let matchedGroups = this.props.groups.filter(
+   (group) => {
+    return group.id == this.state.searchID
+   }
+ );
   return (
    <div className="form-container register-container">
     <form className="" method="" action="">
@@ -65,16 +83,31 @@ this.setState({
       <label for="info">Övrig info</label>
       <input type="text" name="info" placeholder="Övrig information (exempelvis lägenhetsnummer)" onChange={::this.handleInfo} value={this.state.info}/>
       <div>
-       <label for="group">Förening</label>
-       <select name="group" onChange={::this.selectGroup} value={this.state.groupName}>
-        <option value={null} key = {null}>Välj en förening</option>
-       {
-        this.props.groups.map(function(group) {
-         return <option value={group.id} key = {group.id}>{group.groupName}</option>
-        }, this) // The this is the context passed to the map function.
-       }
-       </select>
-       <p>{this.state.selectedGroup}</p>
+      <label for="groupID">Ange Föreningens id (10-14 siffror)</label>
+      <input type="number" min="0" name="groupID"
+       value={this.state.searchID}
+       placeholder="Föreningens id"
+       onChange={::this.handleID}/>
+      {
+       this.state.searchID == "" ? null :
+       isNaN(this.state.searchID) ? null :
+       matchedGroups.length == 0 ? <p>Ingen grupp hittad</p> :
+       matchedGroups.map(function(group, index) {
+        return <div key={index}>
+         <h4>En grupp hittad:</h4>
+          <div className="checkbox-container">
+           <input type="checkbox"
+                  className="checkbox"
+                  name="group-checkbox"
+                  onChange = {() => this.selectGroup(group.id, this.checked)}
+                  onClick = {() => this.setState({checkboxSelected: !this.state.checkboxSelected})}
+                  checked = {this.props.selectedGroup ? "checked":null}
+            />
+           <label for="group-checkbox">{group.groupName}</label>
+          </div>
+         </div>
+       }, this)
+      }
       </div>
       <button type="submit" className="create-user-btn" onClick={::this.registerUser}>Skapa användare</button>
     </form>
