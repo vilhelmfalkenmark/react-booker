@@ -130,9 +130,6 @@ display: none;
 ///////// ANVÄNDARE
 //////////////////////////////////////////
 
-.modal-inner-container {
-  // background-color: $darkgrey;
-}
 
 .user-card-container,.time-machine-card-container {
   background: repeating-linear-gradient(135deg,#fff,#F2F1EF 1px,#F2F1EF 2px,#fff 4px);
@@ -150,12 +147,6 @@ display: none;
   }
 }
 
-.icon {
-  line-height: 25px;
-  font-size: 18px;
-  margin: 15px 15px 0 0;
-  color: inherit;
-}
 .placeholder-icon {
   color: $cardBackground;
 }
@@ -164,16 +155,31 @@ display: none;
 }
 .user-info-row {
   position: relative;
+  margin: 15px 0;
 
-  h3 {
+
+  h3, p {
     margin: 0;
   }
-  .user-info-row-info {
-    position: absolute;
-    left: 30px;
-    right: 5px;
-    top: 16px;
+  a {
+    color: $green;
+  }
+
+
+  &:after {
+    clear: both;
+    content: "";
     display: block;
+  }
+  .icon {
+    font-size: 18px;
+    float: left;
+    color: inherit;
+    width: 40px;
+  }
+  .user-info-row-info {
+    float: left;
+    width: calc(95% - 40px);
   }
 }
 

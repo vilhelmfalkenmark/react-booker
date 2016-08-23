@@ -28,7 +28,9 @@ export default class Container extends React.Component {
    checkAuth: false,
    updatedData: false,
    menuOpen: false,
-   credentials: true // När man försöker logga in
+   credentials: true, // När man försöker logga in
+   userBanned: false,
+   resetPasswordSent: false
   }
  }
  componentDidMount(){
@@ -95,13 +97,20 @@ componentDidUpdate() {
    var component = this;
    function authDataCallback(authData) {
     let groups = component.state.groups;
-      console.log(authData.email+" är inloggad");
+      // console.log(authData.email+" är inloggad");
        for (var i = 0; i < groups.length; i++) {
         for (var j = 0; j < groups[i].users.length; j++) {
          if(typeof(groups[i].users[j]) === "object") {
           if(groups[i].users[j].email == authData.email)
           {
-           component.authenticate(i, j, true);
+           if(groups[i].users[j].approved) {
+            component.authenticate(i, j, true);
+           } else {
+            component.setState({
+             userBanned: true
+            })
+            component.logOut();
+           }
            return false;
           }
          }
@@ -125,37 +134,50 @@ componentDidUpdate() {
 //////// LOGGA IN
 /////////////////////////////////////////////
 logIn(email, password) {
-  // console.log(email);
-  console.log("login kallad");
+  // console.log("login kallad");
   var component = this;
   component.loading(true);
-   firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-
+  // var groups = this.state.groups;
+  firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
      var errorCode = error.code;
      var errorMessage = error.message;
-     if(errorCode = false) {
-
-       let groups = this.state.groups;
-           for (var i = 0; i < groups.length; i++) {
-            for (var j = 0; j < groups[i].users.length; j++) {
-             if(typeof(groups[i].users[j]) === "object") {
-              if(groups[i].users[j].email == email)
-               component.authenticate(i, j, true);
-               component.loading(false);
-               return false;
-             }
-            }
-           }
+     if(errorCode) {
+      component.setState({
+       credentials: false,
+       loading: false
+      })
      }
-     else {
-       console.log(errorMessage);
-       component.setState({
-        credentials: false,
-        loading: false
-       })
-     }
+     // else {
+     //   // console.log(errorMessage);
+     //   component.setState({
+     //    credentials: false,
+     //    loading: false
+     //   })
+     // }
    });
 }
+//////////////////////////////////////////
+///////// ÅTERSTÄLL LÖSENORD
+//////////////////////////////////////////
+resetPassword(email) {
+ var auth = firebase.auth();
+ var emailAddress = "vilhelmfalkenmark@gmail.com";
+ var component = this;
+
+
+ auth.sendPasswordResetEmail(emailAddress).then(function() {
+   // Email sent.
+   console.log("Email sent!");
+   component.setState({
+    resetPasswordSent: true
+   })
+ }, function(error) {
+   console.log("An error happened.");
+   alert("Ett fel uppstod. Vänligen försök igen")
+ });
+}
+
+
 //////////////////////////////////////////////
 //////// LOGGA UT
 /////////////////////////////////////////////
@@ -165,7 +187,6 @@ logOut() {
   loading: true
   })
   firebase.auth().signOut().then(function() {
-    console.log('Utloggad!');
     component.setState({
         groupIndex: null,
         userIndex: null,
@@ -177,7 +198,7 @@ logOut() {
 }
 
 authenticate(index, userIndex, action) {
-  console.log("authenticate kallad");
+  // console.log("authenticate kallad");
     if (action) {
         this.setState({
             groupIndex: index,
@@ -214,8 +235,6 @@ bookMachine(bookings) {
 //////////////////////////////////////////////
 //////// ADMIN
 /////////////////////////////////////////////
-
-
 // UPPDATERA ALLMÄN INFORMATION
 updateGroup(groupName,maxBookings) {
   let groups = this.state.groups;
@@ -236,7 +255,6 @@ saveMachines(machines) {
       groups: groups,
       updatedData: false
   })
-  // console.log(this.state.groups);
 }
 // SPARA TIDER
 saveTimes(times) {
@@ -276,6 +294,10 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
            menuOpen = {this.state.menuOpen}
            toggleMenu = {::this.toggleMenu}
            credentials = {this.state.credentials}
+           userBanned = {this.state.userBanned}
+           // RESET PASSWORD
+           resetPassword = {::this.resetPassword}
+           resetPasswordSent = {this.state.resetPasswordSent}
        /> :
        <LoggedIn
         group = {this.state.groups[this.state.groupIndex]}

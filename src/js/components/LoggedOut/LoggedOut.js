@@ -21,9 +21,9 @@ constructor(props) {
   alert: false,
   alertType: "",
   alertData: false,
-  login: false, // VIEW
+  login: true, // VIEW
   registerUsergroup: false, // VIEW
-  registerUser: true, // VIEW
+  registerUser: false, // VIEW
   cookie: false
  }
 }
@@ -31,9 +31,10 @@ componentWillReceiveProps() {
 this.setState({
  groups: this.props.groups,
 })
+// if(this.props.resetPasswordSent) {
+// console.log("kommer in hör!");
+// }
 }
-
-
 componentDidMount() {
 //////////////////////////////////////////
 ///////// SET COOKIE
@@ -131,6 +132,13 @@ toggleMenu(state) {
  this.props.toggleMenu(state)
 }
 //////////////////////////////////////////
+///////// ÅTERSTÄLL LÖSENORD
+//////////////////////////////////////////
+resetPassword(email) {
+ this.props.resetPassword(email);
+}
+
+//////////////////////////////////////////
 ///////// ALERT
 //////////////////////////////////////////
 alert(state,type,data) {
@@ -142,6 +150,8 @@ alert(state,type,data) {
 }
 
  render() {
+
+
   // var component = this;
   //
   //  const childrenWithProps = React.Children.map(this.props.children,
@@ -185,9 +195,6 @@ alert(state,type,data) {
      </div>
     : null
     }
-
-
-
      <div className="header-btns-container">
       <button className="log-in-btn" onClick={() => this.handleView("login")}>Logga in</button>
       <button className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
@@ -200,7 +207,12 @@ alert(state,type,data) {
     <div className={this.props.menuOpen ? "logged-out-forms-container open":"logged-out-forms-container"}>
      {/*{childrenWithProps}*/}
     {
-     this.state.login ?  <Login logIn={::this.logIn} credentials = {this.props.credentials}/> :
+     this.state.login ?  <Login
+     logIn={::this.logIn}
+     credentials = {this.props.credentials}
+     userBanned = {this.props.userBanned}
+     resetPassword = {::this.resetPassword}
+     /> :
      this.state.registerUser ?
      <RegisterUser
      groups = {this.props.groups}

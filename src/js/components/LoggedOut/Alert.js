@@ -45,7 +45,9 @@ closeAlert() {
               this.props.data == "auth/weak-password" ? "Lösenordet måste vara minst 6 tecken" :
               this.props.data == "auth/email-already-in-use" ? "Det finns redan ett konto registrerat med den här E-post adressen" : null
              }
-             </p> : null
+             </p> :
+              this.props.type == "password-sent" ? <p>Ett mail har skickats till den angivna e-postadressen med instruktioner till hur du återställer ditt lösenord.</p> :
+              null
 
        }
 

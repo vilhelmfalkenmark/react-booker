@@ -73,8 +73,8 @@ width: calc(#{$width} - 31px)
   @include time-col(33%);
 }
 .time-col-4 {
-  @include time-col(50%);
-  &:nth-of-type(2) {
+  @include time-col(33%);
+  &:nth-of-type(3) {
     border: none;
   };
 }
@@ -93,9 +93,14 @@ width: calc(#{$width} - 31px)
   border-right: 1px solid darken($grey,10%);
 
 }
-.time-col-1, .time-col-2 {
-  width: 50%;
+.time-col-1 {
+  width: 100%;
 }
+.time-col-2 {
+  @include time-col(50%);
+}
+
+
 .time-col-3 {
   @include time-col(33%);
 }

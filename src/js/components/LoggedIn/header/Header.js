@@ -75,7 +75,8 @@ componentWillUnmount() {
     <div className="header-btns-container">
      {
       this.props.user.role == "admin" || this.props.user.role == "superadmin" ?
-      <button className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Redigera grupp</button> : null
+      <button className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Redigera grupp</button> :
+      <button className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Visa grupp</button> 
      }
       <button className="show-mybookings-btn" onClick={() => this.toggleModal("bookings")}>
         {this.props.user.bookings > 0 ? "Visa mina: "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}

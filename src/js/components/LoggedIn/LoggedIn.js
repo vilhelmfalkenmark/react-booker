@@ -222,7 +222,7 @@ for(var h = 0; h < calendar.length; h++)
               else {
                // OM ADMIN HAR SATT MAXIMALT ANTAL BOKINGAR
                if(typeof(group.maxBookings) == "number") {
-                   if(this.props.user.bookings == group.maxBookings) {
+                   if(this.props.user.bookings >= group.maxBookings ) {
                     this.setState({
                      warningOpen: true
                     })
@@ -358,6 +358,7 @@ toggleMenu(state) {
      saveMachines = {::this.saveMachines}
      saveTimes = {::this.saveTimes}
      updateGroup = {::this.updateGroup}
+     user = {this.props.user}
      />
     : null
    }

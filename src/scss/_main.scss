@@ -5,10 +5,16 @@ color: $darkgrey;
 background-color: $lightgrey;
 }
 #app-container {
-  width: 90%;
+  width: 97%;
   max-width: 1170px;
   margin: 0 auto;
   overflow-x: hidden;
+  @include respond-to(desktop) {
+    width: 90%;
+    overflow-x: visible;;
+  }
+
+
 }
 .capitalize {
   text-transform: capitalize;
@@ -36,4 +42,9 @@ outline: 0;
 &:focus{
   border: 1px solid $green;
 };
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
