@@ -22,3 +22,18 @@ background-color: $lightgrey;
 a {
   transition: all 0.2s ease;
 }
+input[type="password"],
+input[type="number"],
+input[type="text"],
+input[type="email"] {
+box-sizing: border-box;
+border: 1px solid darken($lightgrey,10%);
+transition: all 0.2s ease;
+padding-left: 10px;
+border-radius: 3px;
+outline: none;
+outline: 0;
+&:focus{
+  border: 1px solid $green;
+};
+}

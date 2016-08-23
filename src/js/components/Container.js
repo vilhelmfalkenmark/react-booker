@@ -214,6 +214,19 @@ bookMachine(bookings) {
 //////////////////////////////////////////////
 //////// ADMIN
 /////////////////////////////////////////////
+
+
+// UPPDATERA ALLMÄN INFORMATION
+updateGroup(groupName,maxBookings) {
+  let groups = this.state.groups;
+      groups[this.state.groupIndex].groupName = groupName;
+      groups[this.state.groupIndex].maxBookings = maxBookings;
+
+  this.setState({
+      groups: groups
+  })
+}
+
 // SPARA MASKINER
 saveMachines(machines) {
   let groups = this.state.groups;
@@ -225,7 +238,7 @@ saveMachines(machines) {
   })
   // console.log(this.state.groups);
 }
-// SPARA MASKINER
+// SPARA TIDER
 saveTimes(times) {
   let groups = this.state.groups;
       groups[this.state.groupIndex].times = times;
@@ -274,6 +287,8 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
         saveTimes = {::this.saveTimes}
         menuOpen = {this.state.menuOpen}
         toggleMenu = {::this.toggleMenu}
+        updateGroup = {::this.updateGroup}
+
         />
     }
    </div>

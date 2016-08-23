@@ -264,6 +264,13 @@ for(var h = 0; h < calendar.length; h++)
 //////////////////////////////////////////////
 ////  ADMIN
 ///////////////////////////////////////////////
+
+// UPPDATERA GRUPP
+updateGroup(groupName,maxBookings) {
+ this.props.updateGroup(groupName,maxBookings);
+}
+
+
 // ADMIN ELLER ANVÄNDARE
 userStatus(role,key) {
  var users = this.props.group.users;
@@ -350,6 +357,7 @@ toggleMenu(state) {
      userApprove = {::this.userApprove}
      saveMachines = {::this.saveMachines}
      saveTimes = {::this.saveTimes}
+     updateGroup = {::this.updateGroup}
      />
     : null
    }

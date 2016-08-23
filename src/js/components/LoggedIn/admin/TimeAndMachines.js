@@ -8,7 +8,9 @@ constructor(props) {
  super(props);
  this.state = {
   machines: props.machines,
-  times: props.times
+  times: props.times,
+  machineChanged: false,
+  timeChanged: false
  }
 }
 //////////////////////////////////////////
@@ -16,30 +18,55 @@ constructor(props) {
 //////////////////////////////////////////
  editMachine(index,name) {
   this.props.editMachine(index, name);
+  this.setState({
+   machineChanged: true
+  })
  }
  deleteMachine(index) {
   this.props.deleteMachine(index)
- }
- saveMachines() {
-   this.props.saveMachines()
+  this.setState({
+   machineChanged: true
+  })
  }
  addMachine() {
   this.props.addMachine()
+  this.setState({
+   machineChanged: true
+  })
  }
+ saveMachines() {
+   this.props.saveMachines()
+   this.setState({
+    machineChanged: false
+   })
+ }
+
  //////////////////////////////////////////
  ///// TID FUNKTIONER
  //////////////////////////////////////////
  editTime(index,name) {
   this.props.editTime(index, name);
+  this.setState({
+   timeChanged: true
+  })
  }
  deleteTime(index) {
   this.props.deleteTime(index)
- }
- saveTimes() {
-   this.props.saveTimes()
+  this.setState({
+   timeChanged: true
+  })
  }
  addTime() {
   this.props.addTime()
+  this.setState({
+   timeChanged: true
+  })
+ }
+ saveTimes() {
+   this.props.saveTimes()
+   this.setState({
+    timeChanged: false
+   })
  }
 
  render() {
@@ -64,15 +91,17 @@ constructor(props) {
      }
       </ul>
       <button className="add-btn" onClick={::this.addMachine}></button>
+      {
+       this.state.machineChanged ? <p className="save-reminder">Glöm inte att klicka på spara</p> : null
+      }
       <button className="update-btn" onClick={::this.saveMachines}>Uppdatera maskiner</button>
       </div>
       </div>
    </div>
    <div className="time-machine-card-container">
     <div className="time-machine-card-inner-container">
-
     <h3>Tider</h3>
-     <div>
+    <div>
     <ul className="time-machine-list">
     {
       this.props.times.map(function(time,index) {
@@ -88,6 +117,9 @@ constructor(props) {
     }
      </ul>
      <button className="add-btn" onClick={::this.addTime}></button>
+      {
+       this.state.timeChanged ? <p className="save-reminder">Glöm inte att klicka på spara</p> : null
+      }
      <button className="update-btn" onClick={::this.saveTimes}>Uppdatera tider</button>
      </div>
   </div>

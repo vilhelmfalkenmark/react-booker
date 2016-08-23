@@ -22,8 +22,8 @@ this.props.userApprove(status,id);
       {/* <div className="face-container"> </div> */}
       <div className="adress-text-container">
       <div className="user-info-row"><i className="icon fa fa-user"></i><div className="user-info-row-info"><h3>{this.props.user.name} </h3></div></div>
-       <div className="user-info-row"><i className="icon fa fa-user">
-      </i><div className="user-info-row-info">{this.props.user.role == "user" ? "Användare": this.props.user.role == "admin" ? "Administratör" : "Superadministratör" }
+       <div className="user-info-row"><i className="icon fa fa-star"></i>
+      <div className="user-info-row-info">{this.props.user.role == "user" ? "Användare": this.props.user.role == "admin" ? "Administratör" : "Superadministratör" }
      </div> </div>
       <div className="user-info-row"><i className="icon fa fa-envelope"></i><div className="user-info-row-info">{this.props.user.email}</div></div>
       <div className="user-info-row"><i className="icon fa fa-calendar-check-o"></i><div className="user-info-row-info">{this.props.user.bookings}</div></div>

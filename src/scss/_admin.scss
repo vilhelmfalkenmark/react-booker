@@ -10,7 +10,8 @@
  //////////////////////////////////////////
 .admin-header-bookings,
 .admin-header-users,
-.admin-header-time-machines {
+.admin-header-time-machines,
+.admin-header-general {
   position: relative;
   padding-left: 25px;
   &:before {
@@ -22,6 +23,9 @@
     left: 0;
   }
 }
+.admin-header-general:before {
+  content: "\f05a";
+}
 .admin-header-bookings:before {
 content: "\f073";
 }
@@ -31,9 +35,58 @@ content: "\f073";
 .admin-header-time-machines:before {
 content: "\f017";
 }
+//////////////////////////////////////////
+///////// COMMON BUTTONS
+//////////////////////////////////////////
+.admin-toggle-button {
+  width: 250px;
+  @include big-button("\f055",white,$green)
+}
+.admin-toggle-button.open {
+  width: 250px;
+  @include big-button("\f056",white,$red)
+}
 
 //////////////////////////////////////////
-///////// BOOKINGS
+///////// SECTIONS
+//////////////////////////////////////////
+.admin-modal section {
+  border-bottom: 2px dashed $darkgrey;
+  padding-bottom: 25px;
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+
+
+
+//////////////////////////////////////////
+///////// ALLMÄN INFORMATION
+//////////////////////////////////////////
+.general-info-section {
+  label {
+    display: block;
+  }
+  input[type="text"],input[type="number"] {
+    box-sizing: border-box;
+    width: 250px;
+    height: 40px;
+    margin: 10px 0 15px 0;
+
+  }
+  button[type="submit"] {
+    display: block;
+    width: 250px;
+    @include big-button("\f0ee",white,$green)
+  }
+}
+
+
+
+
+//////////////////////////////////////////
+///////// BOOKNINGAR
 //////////////////////////////////////////
 .admin-booking {
   padding: 10px 0;
@@ -54,7 +107,6 @@ content: "\f017";
 float: left;
 width: 190px;
 
-
 }
 
 .admin-cancel-booking-container {
@@ -63,30 +115,6 @@ width: 190px;
 }
 .admin-cancel-booking {
   @include big-button("\f00d",white,$red)
-}
-//////////////////////////////////////////
-///////// USERS
-//////////////////////////////////////////
-.admin-block-container {
-  &:after {
-    clear: both;
-    content: "";
-    display: block;
-  }
-}
-.admin-left-block, .admin-right-block {
-  float: left;
-}
-
-.admin-left-block {
-  width: 120px;
-  p {
-    margin: 10px 0;
-    padding: 5px 0;
-  }
-}
-.admin-right-block {
-  margin-left: 15px;
 }
 
 //////////////////////////////////////////
@@ -102,10 +130,14 @@ display: none;
 ///////// ANVÄNDARE
 //////////////////////////////////////////
 
-.user-card-container,.time-machine-card-container {
+.modal-inner-container {
   // background-color: $darkgrey;
-  color: white;
-  background-color: #535353;
+}
+
+.user-card-container,.time-machine-card-container {
+  background: repeating-linear-gradient(135deg,#fff,#F2F1EF 1px,#F2F1EF 2px,#fff 4px);
+  color: $darkgrey;
+  border-radius: 6px;
 }
 .adress-text-container,.time-machine-card-inner-container {
     padding: 10px 30px;
@@ -187,28 +219,16 @@ $buttonWidth: 90%;
 }
 .admin-set-user {
   width: $buttonWidth;
-
   @include big-button("\f062",white,$green)
-  &:hover {
-    border: 1px solid $green;
-  }
 }
 
 .admin-ban-user {
   width: $buttonWidth;
-
   @include big-button("\f00c",white,$green)
-  &:hover {
-    border: 1px solid $green;
-  }
 }
 .admin-approve-user {
   width: $buttonWidth;
-
   @include big-button("\f00d",white,$red)
-  &:hover {
-    border: 1px solid $red;
-  }
 }
 
 //////////////////////////////////////////
@@ -236,17 +256,11 @@ li {
   }
 
 input[type="text"] {
-box-sizing: border-box;
 width: 200px;
 height: 40px;
-outline: 0;
 vertical-align: top;
-border-radius: 3px;
-border: 1px solid $darkgrey;
-padding: 5px;
 margin-left: 15px;
 }
-
 .delete-time-btn, .delete-machine-btn {
   @include small-button("\f00d",white,$red)
 }

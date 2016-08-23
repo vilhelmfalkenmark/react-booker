@@ -11,6 +11,8 @@ export default class Admin extends React.Component {
   this.state = {
   machines: props.group.machines,
   times: props.group.times,
+  groupName: props.group.groupName,
+  maxBookings: props.group.maxBookings,
   bookingsOpen: false,
   usersOpen: false,
   machineTimesOpen: false
@@ -32,12 +34,34 @@ toggleModal(type) {
  this.props.toggleModal(type)
 }
 //////////////////////////////////////////
+///////// ALLMÄN INFORMATION
+//////////////////////////////////////////
+handleGroupName(e) {
+this.setState({
+ groupName: e.target.value
+})
+}
+handleMaxBookings(e) {
+let c = parseInt(e.target.value)
+this.setState({
+ maxBookings: c
+})
+}
+
+
+updateGroup(e) {
+ e.preventDefault(); // PREVENT FORM FROM RELOADING.
+ this.props.updateGroup(this.state.groupName,this.state.maxBookings);
+
+}
+
+
+//////////////////////////////////////////
 ///////// BOKNINGAR
 //////////////////////////////////////////
 cancelBooking(bookingID,userID) {
 this.props.cancelBooking(bookingID,userID);
 }
-
 //////////////////////////////////////////
 ///////// MASKINER
 //////////////////////////////////////////
@@ -135,17 +159,31 @@ render() {
   return (
    <div className= "modal-background" >
     <div className="modal-container">
-     <div className="modal-inner-container">
+     <div className="modal-inner-container admin-modal">
      <h1>Redigera grupp {this.props.group.groupName}</h1>
      <p>ID för den här gruppen är: {this.props.group.id}. Nya användare behöver ange detta ID för att kunna gå med i gruppen.</p>
      <div className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
        <i className="fa fa-close"></i>Stäng
      </div>
+     <section className="general-info-section">
+     <h2 className="admin-header-general">Allmän info</h2>
+     <form className="" method="" action="">
+       <label for="group-name">Namn på förening</label>
+       <input type="text" name="group-name" value={this.state.groupName} onChange={::this.handleGroupName}/>
+       <label for="max-bookings">Max antal bokningar per användare</label>
+       <input type="number" name="max-bookings" value={this.state.maxBookings} onChange={::this.handleMaxBookings}/>
+       <button type="submit" onClick={::this.updateGroup}>Uppdatera</button>
+     </form>
 
+     </section>
+       <section>
        <h2 className="admin-header-bookings">Bokningar</h2>
        {
         bookingsExist ?
-        <button onClick={() => this.setState({bookingsOpen: !this.state.bookingsOpen})}>Visa Bokningar</button> :
+        // <button onClick={() => this.setState({bookingsOpen: !this.state.bookingsOpen})}>Visa Bokningar</button>
+         <button className={this.state.bookingsOpen ? "admin-toggle-button open" : "admin-toggle-button" }
+         onClick={() => this.setState({bookingsOpen: !this.state.bookingsOpen})}>{this.state.bookingsOpen ? "Göm Bokningar" : "Visa Bokningar" }</button>
+         :
         <p>Det finns inga bokningar</p>
        }
 
@@ -162,8 +200,12 @@ render() {
         }
        </ul>
        </div>
+       </section>
+       <section>
        <h2 className="admin-header-users">Användare</h2>
-       <button onClick={() => this.setState({usersOpen: !this.state.usersOpen})}>Visa Användare</button>
+       {/* <button onClick={() => this.setState({usersOpen: !this.state.usersOpen})}>Visa Användare</button> */}
+       <button className={this.state.usersOpen ? "admin-toggle-button open" : "admin-toggle-button" }
+       onClick={() => this.setState({usersOpen: !this.state.usersOpen})}>{this.state.usersOpen ? "Göm Användare" : "Visa Användare" }</button>
        <div className={this.state.usersOpen ? "toggle-container open" : "toggle-container closed"}>
        <div className="flex-row">
         {
@@ -178,11 +220,14 @@ render() {
         }
        </div>
       </div>
+      </section>
+      <section>
       <h2 className="admin-header-time-machines">Maskiner och Tider</h2>
 
       {
        bookingsExist != true ?
-       <button onClick={() => this.setState({machineTimesOpen: !this.state.machineTimesOpen})}>Visa Maskiner och tider</button> : null
+       <button className={this.state.machineTimesOpen ? "admin-toggle-button open" : "admin-toggle-button" }
+        onClick={() => this.setState({machineTimesOpen: !this.state.machineTimesOpen})}>{this.state.machineTimesOpen ? "Göm Tider & Maskiner" : "Visa Tider & Maskiner" }</button> : null
       }
       {
        bookingsExist != true ?
@@ -203,6 +248,7 @@ render() {
          />
        </div> : <p>Alla tider måste vara avbokade innan tider och maskiner kan ändras.</p>
       }
+      </section>
      </div>
     </div>
    </div>
