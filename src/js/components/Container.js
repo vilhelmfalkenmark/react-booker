@@ -30,12 +30,11 @@ export default class Container extends React.Component {
    menuOpen: false,
    credentials: true, // När man försöker logga in
    userBanned: false,
-   resetPasswordSent: false
+   resetPasswordSent: false,
+   userDeleted: false
   }
  }
  componentDidMount(){
-
-
      this.ref = base.syncState('groups', {
        context: this,
        state: 'groups',
@@ -59,7 +58,7 @@ registerUser(newUser, groupID) {
                 newUser.approved = true;
             } else {
                 newUser.role = "user";
-                newUser.approved = false;
+                newUser.approved = true;
             }
             groups[i].users.push(newUser);
             this.setState({
@@ -149,13 +148,6 @@ logIn(email, password) {
        loading: false
       })
      }
-     // else {
-     //   // console.log(errorMessage);
-     //   component.setState({
-     //    credentials: false,
-     //    loading: false
-     //   })
-     // }
    });
 }
 //////////////////////////////////////////
@@ -237,6 +229,43 @@ bookMachine(bookings) {
 //////////////////////////////////////////////
 //////// ADMIN
 /////////////////////////////////////////////
+updateMe(info,name) {
+var component = this;
+let groups = this.state.groups;
+   if(info != "delete") {
+    groups[this.state.groupIndex].users[this.state.userIndex].info = info;
+    groups[this.state.groupIndex].users[this.state.userIndex].name = name;
+   }
+   else {
+    console.log("den ska raderas");
+    // GÖR FÖRSTA BÄSTA TILL SUPERADMIN OM DET SKULLE VARA SÅ
+    // ATT SUPERADMIN RADERAS SITT KONTO
+    if(groups[this.state.groupIndex].users[this.state.userIndex].role == "superadmin")
+    groups[this.state.groupIndex].users.map(function(user) {
+    if(user.role == "admin") {
+     user.role = "superadmin";
+     return false;
+    }
+    });
+    // RADERA UR FIREBASE
+    var user = firebase.auth().currentUser;
+    user.delete().then(function() {
+     component.setState({
+      userDeleted: true
+     })
+    }, function(error) {
+      // An error happened.
+    });
+    // RADERA UR DATAN
+     groups[this.state.groupIndex].users.splice(this.state.userIndex,1);
+     // LOGGA UT
+     component.logOut();
+   }
+    component.setState({
+        groups: groups
+    })
+}
+
 // UPPDATERA ALLMÄN INFORMATION
 updateGroup(groupName,maxBookings) {
   let groups = this.state.groups;
@@ -282,7 +311,7 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
 //////////////////////////////////////////
  render() {
   return (
-   <div className="">
+   <div className={this.state.menuOpen ? "locked" : null}>
       {
       this.state.loading ? <Loader type="Laddar" /> :
       this.state.groupIndex == null ?
@@ -300,6 +329,7 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
            // RESET PASSWORD
            resetPassword = {::this.resetPassword}
            resetPasswordSent = {this.state.resetPasswordSent}
+           userDeleted={this.state.userDeleted}
        /> :
        <LoggedIn
         group = {this.state.groups[this.state.groupIndex]}
@@ -312,7 +342,7 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
         menuOpen = {this.state.menuOpen}
         toggleMenu = {::this.toggleMenu}
         updateGroup = {::this.updateGroup}
-
+        updateMe = {::this.updateMe}
         />
     }
    </div>

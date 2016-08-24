@@ -92,7 +92,7 @@ constructor(props) {
       </ul>
       <button className="add-btn" onClick={::this.addMachine}></button>
       {
-       this.state.machineChanged ? <p className="save-reminder">Glöm inte att klicka på Uppdatera</p> : null
+       this.state.machineChanged ? <p className="danger-reminder">Glöm inte att klicka på Uppdatera</p> : null
       }
       <button className="update-btn" onClick={::this.saveMachines}>Uppdatera maskiner</button>
       </div>
@@ -118,7 +118,7 @@ constructor(props) {
      </ul>
      <button className="add-btn" onClick={::this.addTime}></button>
       {
-       this.state.timeChanged ? <p className="save-reminder">Glöm inte att klicka på Uppdatera</p> : null
+       this.state.timeChanged ? <p className="danger-reminder">Glöm inte att klicka på Uppdatera</p> : null
       }
      <button className="update-btn" onClick={::this.saveTimes}>Uppdatera tider</button>
      </div>

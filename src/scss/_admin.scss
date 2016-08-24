@@ -3,15 +3,14 @@
     padding-left: 20px;
   }
 }
-
-
 //////////////////////////////////////////
  ///////// HEADERS
  //////////////////////////////////////////
 .admin-header-bookings,
 .admin-header-users,
 .admin-header-time-machines,
-.admin-header-general {
+.admin-header-general,
+.admin-header-me {
   position: relative;
   padding-left: 25px;
   &:before {
@@ -22,6 +21,9 @@
     top: 5px;
     left: 0;
   }
+}
+.admin-header-me:before {
+  content: "\f007";
 }
 .admin-header-general:before {
   content: "\f05a";
@@ -47,6 +49,14 @@ content: "\f017";
   @include big-button("\f056",white,$red)
 }
 
+.success-reminder {
+  color: $green;
+  margin-top: 5px;
+}
+.danger-reminder {
+  color: $red;
+}
+
 //////////////////////////////////////////
 ///////// SECTIONS
 //////////////////////////////////////////
@@ -59,12 +69,10 @@ content: "\f017";
 }
 
 
-
-
 //////////////////////////////////////////
 ///////// ALLMÄN INFORMATION
 //////////////////////////////////////////
-.general-info-section {
+.general-info-section, .about-me-section {
   label {
     display: block;
   }
@@ -80,7 +88,15 @@ content: "\f017";
     width: 250px;
     @include big-button("\f0ee",white,$green)
   }
+  .delete-account-btn {
+    @include big-button("\f06a",white,$red)
+    display: block;
+    width: 250px;
+    margin-top: 20px;
+  }
 }
+
+
 
 
 

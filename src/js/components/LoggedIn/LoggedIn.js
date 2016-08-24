@@ -271,6 +271,10 @@ for(var h = 0; h < calendar.length; h++)
 //////////////////////////////////////////////
 ////  ADMIN
 ///////////////////////////////////////////////
+updateMe(info,name) {
+this.props.updateMe(info,name)
+}
+
 
 // UPPDATERA GRUPP
 updateGroup(groupName,maxBookings) {
@@ -337,6 +341,8 @@ toggleMenu(state) {
      toggleMenu = {::this.props.toggleMenu}
      />
     <Calendar
+    bookingsModal = {this.state.bookingsModal}
+    adminModal = {this.state.adminModal} 
     calendar = {this.state.calendar}
     bookMachine = {::this.bookMachine}
     user = {this.props.user}
@@ -345,7 +351,6 @@ toggleMenu(state) {
    {
      this.state.bookingsModal ?
      <Bookings
-         // modalOpen = {this.state.modalOpen}
           bookings = {this.props.group.bookings}
           toggleModal = {::this.toggleModal}
           user = {this.props.user}
@@ -366,6 +371,7 @@ toggleMenu(state) {
      saveTimes = {::this.saveTimes}
      updateGroup = {::this.updateGroup}
      user = {this.props.user}
+     updateMe = {::this.updateMe}
      />
     : null
    }

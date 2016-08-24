@@ -23,8 +23,8 @@ $basePadding: 20px;
  ///////// HEADER-LOGO BLOCK
  //////////////////////////////////////////
 .header-logo-inner-container {
-  padding: $basePadding;
-  .app-header { //  H1
+  padding: 20px 0 10px 20px;
+  .app-header {
     margin-top: 0;
     font-size: 24px;
   }
@@ -37,12 +37,10 @@ $basePadding: 20px;
 //////////////////////////////////////////
 .header-user-inner-container {
   padding: $basePadding;
-
   p {
     padding-bottom: 0;
     margin-bottom: 0;
   }
-
 }
 .header-user-name {
   margin-top: 0;

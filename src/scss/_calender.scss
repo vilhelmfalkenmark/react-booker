@@ -1,9 +1,21 @@
 @include respond-to(desktop) {
   .calendar-container {
-    margin-top:135px;
+    margin-top: 125px;
   }
 }
 
+
+.calendar-container.fixed {
+  position: fixed;
+  width: 97%;
+  max-width: 1170px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  @include respond-to(desktop) {
+    width: 90%;
+    overflow-x: visible;;
+  }
+}
 .day-container {
   border: 1px solid darken($grey,10%);
   border-radius: 3px;

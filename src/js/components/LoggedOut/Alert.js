@@ -11,8 +11,14 @@ closeAlert() {
      <div className="modal-inner-container">
       <button onClick={::this.closeAlert}>Stäng</button>
        {
+          //////////////////////////////////
+          /// fail-group
+          //////////////////////////////////
          this.props.type == "fail-group" ?
          <p>Gruppen kunde inte skapas eftersom du inte har fyllt i alla fälten korrekt</p> :
+          //////////////////////////////////
+          /// success-group
+          //////////////////////////////////
           this.props.type == "success-group" ?
           <div>
           <h2>Gruppen {this.props.data.groupName} har skapats.</h2>
@@ -38,6 +44,10 @@ closeAlert() {
             }
             </ul>
            </div> :
+           //////////////////////////////////
+           /// fail-user
+           //////////////////////////////////
+            this.props.type == "fail-user-missing-fields" ? <p>Vänligen fyll i samtliga fält</p> :
             this.props.type == "fail-user" ?
             <p>
              {
@@ -45,9 +55,9 @@ closeAlert() {
               this.props.data == "auth/weak-password" ? "Lösenordet måste vara minst 6 tecken" :
               this.props.data == "auth/email-already-in-use" ? "Det finns redan ett konto registrerat med den här E-post adressen" : null
              }
-             </p> :
-              this.props.type == "password-sent" ? <p>Ett mail har skickats till den angivna e-postadressen med instruktioner till hur du återställer ditt lösenord.</p> :
-              null
+            </p> : null
+              // this.props.type == "password-sent" ? <p>Ett mail har skickats till den angivna e-postadressen med instruktioner till hur du återställer ditt lösenord.</p> :
+              // null
 
        }
 

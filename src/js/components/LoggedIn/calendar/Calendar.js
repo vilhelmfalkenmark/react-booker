@@ -10,8 +10,7 @@ export default class Calendar extends React.Component {
 
 
   return (
-    <div className={this.props.menuOpen ? "calendar-container open":"calendar-container"}>
-   
+    <div className={this.props.menuOpen ? "calendar-container open": this.props.adminModal || this.props.bookingsModal ? "calendar-container fixed" : "calendar-container"}>
    {
      this.props.calendar.map(function(calendar) {
      return <Day

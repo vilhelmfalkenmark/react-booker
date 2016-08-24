@@ -64,6 +64,8 @@ handleID(e) {
   newUser.id = Date.now();
   newUser.key = Date.now();
   this.props.registerUser(newUser, this.state.selectedGroup)
+ } else {
+  this.props.alert(true,"fail-user-missing-fields")
  }
  }
  render() {
@@ -81,9 +83,9 @@ handleID(e) {
       <label for="name">Fullständigt namn</label>
       <input type="text" name="name" placeholder="Namn" onChange={::this.handleName} value={this.state.name} required/>
       <label for="password">Lösenord</label>
-      <input type="text" name="password" placeholder="Lösenord" onChange={::this.handlePassword} value={this.state.password} required/>
+      <input type="password" name="password" placeholder="Lösenord" onChange={::this.handlePassword} value={this.state.password} required/>
       <label for="info">Övrig info</label>
-      <input type="text" name="info" placeholder="Övrig information (exempelvis lägenhetsnummer)" onChange={::this.handleInfo} value={this.state.info}/>
+      <input type="text" name="info" maxLength="250" placeholder="Övrig information (exempelvis lägenhetsnummer)" onChange={::this.handleInfo} value={this.state.info}/>
       <div>
       <label for="groupID">Ange Föreningens id (10-14 siffror)</label>
       <input type="number" min="0" name="groupID"

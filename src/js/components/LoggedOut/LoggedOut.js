@@ -17,7 +17,8 @@ constructor(props) {
   login: false, // VIEW
   registerUsergroup: false, // VIEW
   registerUser: false, // VIEW
-  cookie: false
+  cookie: false,
+  registerUserError: false,
  }
 }
 componentWillReceiveProps() {
@@ -49,15 +50,6 @@ else {
   registerUser:false
  })
 }
-
-
-
-
-
-// this.handleView(location);
-// console.log(location);
-
-
 //////////////////////////////////////////
 ///////// SET COOKIE
 //////////////////////////////////////////
@@ -74,13 +66,6 @@ if(cookies.length > 0) {
  });
 }
 }
-
-componentDidUpdate() {
- var location = window.location.pathname;
- // this.handleView(location);
-}
-
-
 //////////////////////////////////////////
 ///////// VIEWS
 //////////////////////////////////////////
@@ -138,18 +123,26 @@ var component = this;
    var errorMessage = error.message;
    console.log(groupID);
    if(errorCode || errorMessage) {
-
     component.setState({
      alert: true,
      alertType: "fail-user",
-     alertData: errorCode
+     alertData: errorCode,
+     registerUserError: true
     })
     return false;
    }
-
+   else {
+    component.setState({
+     registerUserError: false
+    })
+   }
  });
 document.cookie = "groupID=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-this.props.registerUser(newUser,groupID);
+
+if(this.state.registerUserError == false) {
+ this.props.registerUser(newUser,groupID);
+}
+
 }
 //////////////////////////////////////////
 ///////// LOGGA IN
@@ -223,6 +216,7 @@ alert(state,type,data) {
      credentials = {this.props.credentials}
      userBanned = {this.props.userBanned}
      resetPassword = {::this.resetPassword}
+     userDeleted = {this.props.userDeleted}
      /> :
      this.state.registerUser ?
      <RegisterUser

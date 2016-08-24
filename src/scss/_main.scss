@@ -13,9 +13,10 @@ background-color: $lightgrey;
     width: 90%;
     overflow-x: visible;;
   }
-
-
 }
+
+
+
 .capitalize {
   text-transform: capitalize;
 }
@@ -31,7 +32,8 @@ a {
 input[type="password"],
 input[type="number"],
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+textarea {
 box-sizing: border-box;
 border: 1px solid darken($lightgrey,10%);
 transition: all 0.2s ease;
@@ -43,6 +45,14 @@ outline: 0;
   border: 1px solid $green;
 };
 }
+textarea {
+  width: 250px;
+  height: 70px;
+  margin: 10px 0 15px 0;
+  resize: none;
+}
+
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;

@@ -38,6 +38,9 @@ this.props.resetPassword(this.state.password);
   return (
    <div className="form-container">
     <h1>Logga in</h1>
+    {
+     this.props.userDeleted ? <h2 className="danger-reminder">Användaren har raderats</h2> : null
+    }
     <form className="" method="" action="">
       <label for="username">E-postadress</label>
       <input name="username"  type="email" onChange={::this.handleName} value={this.state.name} placeholder="Ange din e-postadress" required/>

@@ -2,6 +2,8 @@ import React from "react";
 import User from "./User.js";
 import Bookings from "./Bookings.js";
 import TimeAndMachines from "./TimeAndMachines.js";
+import General from "./General.js";
+import Me from "./Me.js";
 // import ReactCollapse from 'react-collapse';
 
 
@@ -11,14 +13,19 @@ export default class Admin extends React.Component {
   this.state = {
   machines: props.group.machines,
   times: props.group.times,
-  groupName: props.group.groupName,
-  maxBookings: props.group.maxBookings,
   bookingsOpen: false,
   usersOpen: false,
   machineTimesOpen: false,
   role: props.user.role
   }
 }
+//////////////////////////////////////////
+///////// ENSKILD ANVÄNDARE (ME)
+//////////////////////////////////////////
+updateMe(info,name) {
+this.props.updateMe(info,name)
+}
+
 //////////////////////////////////////////
 ///////// ANVÄNDARE
 //////////////////////////////////////////
@@ -37,23 +44,8 @@ toggleModal(type) {
 //////////////////////////////////////////
 ///////// ALLMÄN INFORMATION
 //////////////////////////////////////////
-handleGroupName(e) {
-this.setState({
- groupName: e.target.value
-})
-}
-handleMaxBookings(e) {
-let c = parseInt(e.target.value)
-this.setState({
- maxBookings: c
-})
-}
-
-
-updateGroup(e) {
- e.preventDefault(); // PREVENT FORM FROM RELOADING.
- this.props.updateGroup(this.state.groupName,this.state.maxBookings);
-
+updateGroup(groupName, maxBookings) {
+ this.props.updateGroup(groupName,maxBookings);
 }
 
 
@@ -166,18 +158,20 @@ render() {
      <div className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
        <i className="fa fa-close"></i>Stäng
      </div>
+     <Me
+      user = {this.props.user}
+      updateMe = {::this.updateMe}
+      />
+
+
+
      {
-      this.state.role != "user" ?  <section className="general-info-section">
-           <h2 className="admin-header-general">Allmän info</h2>
-           <form className="" method="" action="">
-             <label for="group-name">Namn på förening</label>
-             <input type="text" name="group-name" value={this.state.groupName} onChange={::this.handleGroupName}/>
-             <label for="max-bookings">Max antal bokningar per användare</label>
-             <input type="number" min="0" name="max-bookings" value={this.state.maxBookings} onChange={::this.handleMaxBookings}/>
-             <button type="submit" onClick={::this.updateGroup}>Uppdatera</button>
-           </form>
-          </section>
-          : null
+      this.state.role != "user" ?  <General
+      groupName = {this.props.group.groupName}
+      maxBookings = {this.props.group.maxBookings}
+      updateGroup = {::this.updateGroup}
+      />  : null
+
       }
       {
        this.state.role != "user" ?  <section>
@@ -243,14 +237,7 @@ render() {
      </div>
     </div>
    </section>
-
-
-
-
-
-
     }
-
       {
        this.state.role != "user" ?  <section>
       <h2 className="admin-header-time-machines">Maskiner och Tider</h2>
