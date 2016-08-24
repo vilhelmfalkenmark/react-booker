@@ -34,6 +34,8 @@ export default class Container extends React.Component {
   }
  }
  componentDidMount(){
+
+
      this.ref = base.syncState('groups', {
        context: this,
        state: 'groups',

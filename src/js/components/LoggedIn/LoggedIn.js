@@ -22,6 +22,13 @@ export default class LoggedIn extends React.Component {
  };
 }
 componentDidMount() {
+//////////////////////////////////////////
+///////// URL
+//////////////////////////////////////////
+ let groupURL = "/"+encodeURIComponent(this.props.group.groupName).toLowerCase();
+groupURL = groupURL.replace(/!/g,'').replace(/%20/g,'-').replace(/%c3%a5/g,'a').replace(/%c3%a4/g,'a').replace(/%c3%b6/g,'o');
+groupURL = groupURL.split('.').join("");
+window.history.pushState("object or string", "Title", groupURL);
 ///////////////////////////////////////////////////////////////
 //// RADERA TIDIGARE DAGARS BOKNINGAR OCH UPPDATERA ANVÄNDARE
 //////////////////////////////////////////////////////////////

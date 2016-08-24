@@ -1,17 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Link} from "react-router";
-
 import Firebase from "firebase"
 import Login from "./login/Login.js";
 import RegisterUser from "./user/RegisterUser.js";
 import RegisterUsergroup from "./usergroup/RegisterUsergroup.js";
 import Alert from "./Alert.js";
-
-// var children = React.Children.map(this.props.children, function(child) {
-//     return React.cloneElement(child, {
-//       something: _this.state.something});
-// });
 
 export default class LoggedOut extends React.Component {
 constructor(props) {
@@ -21,7 +14,7 @@ constructor(props) {
   alert: false,
   alertType: "",
   alertData: false,
-  login: true, // VIEW
+  login: false, // VIEW
   registerUsergroup: false, // VIEW
   registerUser: false, // VIEW
   cookie: false
@@ -31,11 +24,40 @@ componentWillReceiveProps() {
 this.setState({
  groups: this.props.groups,
 })
-// if(this.props.resetPasswordSent) {
-// console.log("kommer in hör!");
-// }
+
 }
 componentDidMount() {
+var location = window.location.pathname;
+if(location == "/skapa-anvandare") {
+  this.setState({
+  login:false,
+  registerUsergroup:false,
+  registerUser:true
+ })
+}
+else if(location == "/skapa-grupp") {
+  this.setState({
+  login:false,
+  registerUsergroup:true,
+  registerUser:false
+ })
+}
+else {
+  this.setState({
+  login:true,
+  registerUsergroup:false,
+  registerUser:false
+ })
+}
+
+
+
+
+
+// this.handleView(location);
+// console.log(location);
+
+
 //////////////////////////////////////////
 ///////// SET COOKIE
 //////////////////////////////////////////
@@ -52,6 +74,13 @@ if(cookies.length > 0) {
  });
 }
 }
+
+componentDidUpdate() {
+ var location = window.location.pathname;
+ // this.handleView(location);
+}
+
+
 //////////////////////////////////////////
 ///////// VIEWS
 //////////////////////////////////////////
@@ -63,7 +92,7 @@ handleView(view) {
    registerUser:true
   })
  }
- else if(view == "usergroup") {
+else if(view == "usergroup" ) {
    this.setState({
    login:false,
    registerUsergroup:true,
@@ -150,22 +179,6 @@ alert(state,type,data) {
 }
 
  render() {
-
-
-  // var component = this;
-  //
-  //  const childrenWithProps = React.Children.map(this.props.children,
-  //    (child) => React.cloneElement(child, {
-  //     groups: this.state.groups,
-  //     registerUser: this.registerUser,
-  //     registerGroup: this.registerGroup,
-  //     logIn: this.logIn,
-  //     sayHi: this.sayHi
-  //    })
-  //   );
-
-
-
   return (
    <div className="logged-out-container">
     {
@@ -197,15 +210,13 @@ alert(state,type,data) {
     }
      <div className="header-btns-container">
       <button className="log-in-btn" onClick={() => this.handleView("login")}>Logga in</button>
-      <button className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa förening</button>
+      <button className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa grupp</button>
       <button className="create-user-btn" onClick={() => this.handleView("user")}>Skapa användare</button>
      </div>
      </div>
      </header>
 
-
     <div className={this.props.menuOpen ? "logged-out-forms-container open":"logged-out-forms-container"}>
-     {/*{childrenWithProps}*/}
     {
      this.state.login ?  <Login
      logIn={::this.logIn}

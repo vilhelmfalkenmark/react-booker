@@ -12,6 +12,8 @@ export default class RegisterUser extends React.Component {
     checkboxSelected: false,
     searchID: ""
   };
+  window.history.pushState("object or string", "Title", "/skapa-anvandare");
+
  }
 selectGroup(id) {
 this.setState({
@@ -73,7 +75,7 @@ handleID(e) {
   return (
    <div className="form-container register-container">
     <form className="" method="" action="">
-      <h1>Registrera dig på förening</h1>
+      <h1>Skapa ny användare</h1>
       <label for="email">E-post</label>
       <input type="email" name="email" placeholder="Mailadress" onChange={::this.handleEmail} value={this.state.email} required/>
       <label for="name">Fullständigt namn</label>

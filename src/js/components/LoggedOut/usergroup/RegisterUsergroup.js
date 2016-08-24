@@ -16,6 +16,7 @@ export default class RegisterUsergroup extends React.Component {
     times: [],
     amountofTimes: ""
   };
+  window.history.pushState("object or string", "Title", "/skapa-grupp");
  }
 
 handleName(e) {
@@ -128,8 +129,8 @@ setMax(e) {
   return (
    <div className="form-container register-container">
     <form className="" method="" action="">
-      <h1>Skapa ny förening</h1>
-      <label for="groupName">Föreningens namn</label>
+      <h1>Skapa ny grupp</h1>
+      <label for="groupName">Gruppens namn</label>
       <input type="text" name="groupName" placeholder="Föreningens namn"
        onChange={::this.handleName}
        value={this.state.name} required/>
@@ -151,7 +152,7 @@ setMax(e) {
          this.state.times.map(function(time) {
           timeIndex++;
           return  <Time key = {timeIndex} index={timeIndex} addTime={::this.addTime}/>
-         }, this) : "" // The this is the context passed to the map function.
+         }, this) : null // The this is the context passed to the map function.
         }
         <label>Sätt maximalt antal bokningar per person</label>
         <div className="checkbox-container">

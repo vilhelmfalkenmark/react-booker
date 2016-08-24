@@ -1,17 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Firebase from "firebase";
-
-
 
 export default class Login extends React.Component {
  constructor() {
   super();
   this.state = {
    name: "vilhelmfalkenmark@gmail.com",
-   password: "",
+   password: "hejsan",
    banned: false
   }
+  window.history.pushState("object or string", "Title", "/logga-in");
+
  }
  handleName (e) {
   this.setState({
