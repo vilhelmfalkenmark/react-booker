@@ -1,10 +1,8 @@
 @include respond-to(desktop) {
   .calendar-container {
-    margin-top: 125px;
+    margin-top: 145px;
   }
 }
-
-
 .calendar-container.fixed {
   position: fixed;
   width: 97%;
@@ -16,6 +14,27 @@
     overflow-x: visible;;
   }
 }
+//////////////////////////////////////////
+///////// TOGGLE-WEEK
+//////////////////////////////////////////
+.next-week-btn, .previous-week-btn {
+  position: fixed;
+  top: 45%;
+  background: transparent;
+  outline: none;
+  color: $darkgrey;
+  font-size: 60px;
+  border: none;
+  cursor: pointer;
+}
+.previous-week-btn {
+  left: 20px;
+
+}
+.next-week-btn {
+  right: 20px;
+}
+
 .day-container {
   border: 1px solid darken($grey,10%);
   border-radius: 3px;

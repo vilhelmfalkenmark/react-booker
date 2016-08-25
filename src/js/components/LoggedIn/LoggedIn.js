@@ -13,12 +13,14 @@ export default class LoggedIn extends React.Component {
  super(props);
  this.state = {
  calendar: [],
- bookingsModal: false,
- adminModal: true,
+ bookingsModal: true,
+ adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false, // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
- warningOpen: false // Varningsmeddelandet som kommer om man försöker boka fler än man får
+ warningOpen: false, // Varningsmeddelandet som kommer om man försöker boka fler än man får
+ week: 2,
+ maxWeek: 4
  };
 }
 componentDidMount() {
@@ -71,7 +73,14 @@ window.history.pushState("object or string", "Title", groupURL);
 //////////////////////////////////////////
 //// SKAPA KALENDER
 //////////////////////////////////////////
-// updateCalendarview(machines) {
+toggleWeek(int) {
+ this.setState({
+  week: this.state.week+=int
+ })
+ // console.log(this.state.week);
+ this.updateCalendarview(this.props.group.machines,this.props.group.times);
+}
+
 updateCalendarview(machines,times) {
   let calendar = [];
   const daysInCal = 7;
@@ -79,11 +88,14 @@ updateCalendarview(machines,times) {
   const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
   const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
   let booked = [];
+  // console.log(times);
+  // console.log(booked);
   for (var i = 0; i < times.length; i++) {
    booked.push(false)
   }
+   // let limiter = ((this.state.week-1) * daysInCal);
 
-   for (var i = 0; i < daysInCal; i++) {
+   for (var i = ((this.state.week-1) * daysInCal); i < (this.state.week * daysInCal); i++) {
     //////////////////////////////////////////
     //// SKAPA DAGAR I KALENDER
     //////////////////////////////////////////
@@ -173,11 +185,16 @@ else if(type=="admin") {
 //// FUNKTION FÖR ATT TA BORT OCH LÄGGA TILL BOKNING
 /////////////////////////////////////////////////////
 bookMachine(key, userID) {
+// console.log(key);
+// console.log("FUNK KALLAD häR OCKSÅ!");
 let group = this.props.group;
 let newArray = [];
 let calendar = this.state.calendar;
 let bookings = [];
 let oldBookings = group.bookings;
+var user = this.props.user;
+var users = this.props.group.users;
+
 for (var i = 0; i < oldBookings.length; i++) {
 if(typeof(oldBookings[i]) == "object") {
  bookings.push(oldBookings[i]);
@@ -199,7 +216,7 @@ for(var h = 0; h < calendar.length; h++)
              //// DAGS ATT BÖRJA MANIPULERA DATAN.
              ///////////////////////////////////////////////
               // TA BORT BOKNING
-              let user = this.props.user;
+              // let user = this.props.user;
               if(calendar[h].times[s].machines[r].booked)
               {
                 calendar[h].times[s].machines[r].booked = false;
@@ -210,10 +227,9 @@ for(var h = 0; h < calendar.length; h++)
                   bookings.splice(t,1);
                  }
                 }
-
                 // OM MAN AVBOKAR VIA ADMIN PANELEN SÅ SKA BOKNINGEN INTE NÖDVÄNDIGTVIS SUBTRAHERAS FRÅN DEN PERSONEN SOM ÄR INLOGGAD
                 if(user.id != userID) {
-                  let users = this.props.group.users;
+                  // let users = this.props.group.users;
                   users.map(function(user) {
                     if (user.id == userID) {
                       user.bookings--;
@@ -223,6 +239,7 @@ for(var h = 0; h < calendar.length; h++)
                 // TA BORT EN PÅ DEN INLOGGADES BOKNING
                 else {
                   user.bookings--;
+                  // console.log(user);
                 }
               }
               // LÄGG TILL BOKNING
@@ -267,6 +284,29 @@ for(var h = 0; h < calendar.length; h++)
       }
   }
 }
+//////////////////////////////////////////////////////////////////
+///////// BOKNINGEN MAN VILL TA BORT ÄR INTE I NUVARANDE VECKOVY
+//////////////////////////////////////////////////////////////////
+var component = this;
+oldBookings.map(function(booking, index) {
+ if(booking.id == key) {
+  bookings.splice(index,1);
+  component.props.bookMachine(bookings);
+ }
+})
+if(user.id != userID) {
+  users.map(function(user) {
+    if (user.id == userID) {
+      user.bookings--;
+    }
+  })
+}
+// TA BORT EN PÅ DEN INLOGGADES BOKNING
+else {
+  user.bookings--;
+}
+this.props.bookMachine(bookings);
+return false;
 }
 //////////////////////////////////////////////
 ////  ADMIN
@@ -274,14 +314,10 @@ for(var h = 0; h < calendar.length; h++)
 updateMe(info,name) {
 this.props.updateMe(info,name)
 }
-
-
 // UPPDATERA GRUPP
 updateGroup(groupName,maxBookings) {
  this.props.updateGroup(groupName,maxBookings);
 }
-
-
 // ADMIN ELLER ANVÄNDARE
 userStatus(role,key) {
  var users = this.props.group.users;
@@ -339,14 +375,18 @@ toggleMenu(state) {
      groupName = {this.props.group.groupName}
      menuOpen = {this.props.menuOpen}
      toggleMenu = {::this.props.toggleMenu}
+     week = {this.state.week}
      />
     <Calendar
     bookingsModal = {this.state.bookingsModal}
-    adminModal = {this.state.adminModal} 
+    adminModal = {this.state.adminModal}
     calendar = {this.state.calendar}
     bookMachine = {::this.bookMachine}
     user = {this.props.user}
     menuOpen = {this.props.menuOpen}
+    week = {this.state.week}
+    maxWeek = {this.state.maxWeek}
+    toggleWeek = {::this.toggleWeek}
     />
    {
      this.state.bookingsModal ?

@@ -5,8 +5,8 @@ export default class Login extends React.Component {
  constructor() {
   super();
   this.state = {
-   name: "vilhelmfalkenmark@gmail.com",
-   password: "hejsan",
+   name: "",
+   password: "",
    banned: false
   }
   window.history.pushState("object or string", "Title", "/logga-in");

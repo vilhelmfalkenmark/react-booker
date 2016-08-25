@@ -32,6 +32,17 @@ $basePadding: 20px;
 .header-logo-container {
 @extend .col-3-desk;
 }
+
+
+.header-paragraph {
+  text-transform: capitalize;
+  &:last-of-type{
+    margin-bottom: 0;
+  }
+}
+
+
+
 //////////////////////////////////////////
 ///////// USER BLOCK
 //////////////////////////////////////////
@@ -219,6 +230,7 @@ $lineThick:  3px;
     z-index: 3;
     margin: 0;
     padding: 0;
+    // max-height: 130px
   }
 
   .header-btns-container {

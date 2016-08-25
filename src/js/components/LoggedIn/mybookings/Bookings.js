@@ -5,9 +5,7 @@ import MyBookings from "./MyBookings.js";
 export default class Bookings extends React.Component {
 constructor() {
  super();
-
 }
-
 cancelBooking(key,userID) {
 this.props.cancelBooking(key,userID);
 }
@@ -19,7 +17,7 @@ this.props.cancelBooking(key,userID);
  render() {
   //  console.log(this.props.bookings);
    let bookingsExist = true;
-   if(typeof(this.props.bookings[0]) == "string") {
+   if(typeof(this.props.bookings[0]) == "string" || this.props.user.bookings == 0) {
     //  console.log("kommer in här");
      bookingsExist = false;
    }
@@ -75,7 +73,12 @@ this.props.cancelBooking(key,userID);
         </div>
 
         {
-           bookingsExist ?   <h2>Mina Bokningar</h2> : <h2>Du har inga bokningar</h2>
+           bookingsExist ?  <div>
+           <h2>Följande bokningar är sparade för användare {this.props.user.name}</h2>
+            <p>Notera att det räcker med att du bockar i rutan i kalendervyn för att din bokning ska sparas.
+             Du behöver alltså inte klicka på spara någonstans.</p>
+           </div>
+           : <h2>Du har inga bokningar</h2>
         }
          {
            bookingsExist ?
