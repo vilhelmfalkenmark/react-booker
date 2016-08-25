@@ -44,8 +44,8 @@ toggleModal(type) {
 //////////////////////////////////////////
 ///////// ALLMÄN INFORMATION
 //////////////////////////////////////////
-updateGroup(groupName, maxBookings) {
- this.props.updateGroup(groupName,maxBookings);
+updateGroup(groupName, maxBookings,weeks) {
+ this.props.updateGroup(groupName,maxBookings,weeks);
 }
 
 
@@ -114,43 +114,42 @@ render() {
   if(typeof(sortedBookings[0]) == "string") {
    bookingsExist = false;
   }
-
+  var bookingsArray = [];
+  if(bookingsExist) {
+  // let sortedBookings = this.props.group;
   sortedBookings.sort(function (a, b) {
-    if (a.id > b.id) {
-      return 1;
-    }
-    if (a.id < b.id) {
-      return -1;
-    }
-    return 0;
+   // Sortera först efter månad och sen efter dag.
+    return  a.dateObject.month - b.dateObject.month || a.dateObject.day - b.dateObject.day;
   });
-
-  let bookingsArray = [];
-  let uniquesDates = []; // HUR MÅNGA UNIKA DATUM SOM FINNS I BOKNINGARNA
+  let uniqueDates = []; // HUR MÅNGA UNIKA DATUM SOM FINNS I BOKNINGARNA
   for (var i = 0; i < sortedBookings.length; i++) {
-   if(uniquesDates.indexOf(sortedBookings[i].dateformat) == -1)
+   if(uniqueDates.indexOf(sortedBookings[i].dateFormat) == -1)
    {
-    uniquesDates.push(sortedBookings[i].dateformat)
+    uniqueDates.push(sortedBookings[i].dateFormat)
    }
   }
-  for (var i = 0; i < uniquesDates.length; i++) {
+  for (var i = 0; i < uniqueDates.length; i++) {
   let bookingDate = new Object();
-  bookingDate.date = uniquesDates[i];
-  bookingDate.id = parseInt(uniquesDates[i]);
+  bookingDate.date = uniqueDates[i];
+  bookingDate.id = parseInt(uniqueDates[i]);
   bookingDate.bookings = new Array();
+
   for (var j = 0; j < sortedBookings.length; j++) {
-     if(sortedBookings[j].dateformat == uniquesDates[i])
+     if(sortedBookings[j].dateFormat == uniqueDates[i])
      {
       bookingDate.bookings.push(sortedBookings[j])
       if(bookingDate.hasOwnProperty("dateString") == false) {
-       bookingDate.dateString = sortedBookings[j].dayname+" "+sortedBookings[j].date+" "+sortedBookings[j].month;
+       bookingDate.dateString = sortedBookings[j].dateObject.dayName+" "+sortedBookings[j].dateObject.day+" "+sortedBookings[j].dateObject.monthName;
       }
      }
   }
   bookingsArray.push(bookingDate);
   }
+  }
+
   return (
-   <div className= "modal-background" >
+   <div className= "modal-background">
+    <div className="modal-clickarea" onClick={() => this.toggleModal("admin")}></div>
     <div className="modal-container">
      <div className="modal-inner-container admin-modal">
      <h1>{this.props.group.groupName}</h1>
@@ -162,13 +161,11 @@ render() {
       user = {this.props.user}
       updateMe = {::this.updateMe}
       />
-
-
-
      {
       this.state.role != "user" ?  <General
       groupName = {this.props.group.groupName}
       maxBookings = {this.props.group.maxBookings}
+      weeks = {this.props.group.weeks}
       updateGroup = {::this.updateGroup}
       />  : null
 

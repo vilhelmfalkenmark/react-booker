@@ -37,7 +37,21 @@
   animation: fadeInFromNone 0.1s ease-out;
   transition: opacity 0.2s ease-in-out;
 }
+//////////////////////////////////////////
+//// KLICKYTA FÖR ATT STÄNGA MODAL
+//////////////////////////////////////////
+.modal-clickarea {
+  position: fixed;
+  height: 100%;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: transparent;
+}
 .modal-container {
+  z-index: 3;
   background-color: white;
   width: 90%;
   max-width: 1000px;
@@ -46,12 +60,10 @@
   overflow: auto;
   position: relative;
   max-height: calc(80vh - 40px);
-
 }
 .modal-inner-container {
   padding: 40px;
   margin: 0 auto;
-
 }
 .close-modal-btn {
   position: fixed;

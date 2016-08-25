@@ -7,6 +7,7 @@ closeAlert() {
  render() {
   return (
    <div className= "modal-background">
+    <div className="modal-clickarea" onClick={::this.closeAlert}></div>
     <div className="modal-container">
      <div className="modal-inner-container">
       <button onClick={::this.closeAlert}>Stäng</button>
@@ -25,8 +26,9 @@ closeAlert() {
            <p>Gå nu vidare till att registera den första användaren på gruppen.
            Eftersom du skapade gruppen kommer du automatiskt bli superadministratör med möjlighet att ändra inställningar för gruppen.</p>
           <h3>Sammanfattning för gruppen</h3>
-          <h4>ID: {this.props.data.groupName}</h4>
+          <h4>ID: {this.props.data.id}</h4>
           <h4>Max antal bokningar per medlem: {this.props.data.maxBookings != "" ? this.props.data.maxBookings : "Ej satt"}</h4>
+          <h4>Antal veckor in i framtiden som en användare kan boka {this.props.data.week}</h4>
           <h4>Maskiner</h4>
            <ul>
            {

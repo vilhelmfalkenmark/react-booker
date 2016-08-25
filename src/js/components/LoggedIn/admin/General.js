@@ -5,7 +5,8 @@ constructor(props) {
  super(props);
  this.state = {
   groupName: props.groupName,
-  maxBookings: props.maxBookings
+  maxBookings: props.maxBookings,
+  weeks: props.weeks
  }
 }
 handleGroupName(e) {
@@ -19,9 +20,18 @@ this.setState({
  maxBookings: c
 })
 }
+handleWeeks(e) {
+ let w = parseInt(e.target.value)
+ this.setState({
+  weeks: w
+ })
+}
+
+
+
 updateGroup(e) {
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
- this.props.updateGroup(this.state.groupName,this.state.maxBookings);
+ this.props.updateGroup(this.state.groupName,this.state.maxBookings,this.state.weeks);
  this.setState({
   updated: true
  })
@@ -35,6 +45,8 @@ updateGroup(e) {
          <input type="text" name="group-name" value={this.state.groupName} onChange={::this.handleGroupName}/>
          <label for="max-bookings">Max antal bokningar per användare</label>
          <input type="number" min="0" name="max-bookings" value={this.state.maxBookings} onChange={::this.handleMaxBookings}/>
+          <label for="weeks">Veckor</label>
+          <input type="number" min="0" name="weeks" value={this.state.weeks} onChange={::this.handleWeeks}/>
           {
            this.state.updated ? <p className="success-reminder">Gruppens information uppdaterad </p> : null
           }

@@ -1,6 +1,6 @@
 import React from "react";
 export default class Machine extends React.Component {
- 
+
 bookMachine(id) {
 if(this.props.bookedBy == null || this.props.user.id == this.props.bookedBy.id)
  {

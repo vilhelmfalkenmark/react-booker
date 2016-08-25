@@ -13,14 +13,14 @@ export default class LoggedIn extends React.Component {
  super(props);
  this.state = {
  calendar: [],
- bookingsModal: true,
+ bookingsModal: false,
  adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false, // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
  warningOpen: false, // Varningsmeddelandet som kommer om man försöker boka fler än man får
- week: 2,
- maxWeek: 4
+ week: 1,
+ maxWeek: props.group.weeks
  };
 }
 componentDidMount() {
@@ -261,15 +261,15 @@ for(var h = 0; h < calendar.length; h++)
                   id: key,
                   key: key,
                   machine: calendar[h].times[s].machines[r].machine,
-                  dateformat: calendar[h].times[s].machines[r].dateformat,
                   dateObject: calendar[h].times[s].machines[r].dateObject,
+                  dateFormat: calendar[h].times[s].machines[r].dateformat,
                   bookedBy: this.state.user,
                   booked: true,
-                  interval: calendar[h].times[s].interval,
-                  dayname: calendar[h].dayname,
-                  date: calendar[h].date,
-                  month: calendar[h].month
+                  interval: calendar[h].times[s].interval
                 }
+                booking.dateObject.monthName = calendar[h].month;
+                booking.dateObject.dayName = calendar[h].dayname;
+
                 bookings.push(booking);
               }
               //////////////////////////////////////////
@@ -315,8 +315,8 @@ updateMe(info,name) {
 this.props.updateMe(info,name)
 }
 // UPPDATERA GRUPP
-updateGroup(groupName,maxBookings) {
- this.props.updateGroup(groupName,maxBookings);
+updateGroup(groupName, maxBookings,weeks) {
+ this.props.updateGroup(groupName,maxBookings,weeks);
 }
 // ADMIN ELLER ANVÄNDARE
 userStatus(role,key) {

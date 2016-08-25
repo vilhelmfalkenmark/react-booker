@@ -14,9 +14,6 @@ background-color: $lightgrey;
     overflow-x: visible;;
   }
 }
-
-
-
 .capitalize {
   text-transform: capitalize;
 }
@@ -29,6 +26,21 @@ background-color: $lightgrey;
 a {
   transition: all 0.2s ease;
 }
+.help-button {
+  position: fixed;
+  background-color: $green;
+  bottom: 0;
+  right: 0;
+  color: white;
+}
+.help-button-inner {
+  display: block;
+  padding: 10px 20px;
+}
+
+
+
+
 input[type="password"],
 input[type="number"],
 input[type="text"],

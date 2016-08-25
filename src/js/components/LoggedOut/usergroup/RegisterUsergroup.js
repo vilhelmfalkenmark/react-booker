@@ -14,7 +14,8 @@ export default class RegisterUsergroup extends React.Component {
     machines: [],
     amountofMachines: "",
     times: [],
-    amountofTimes: ""
+    amountofTimes: "",
+    weeks: "",
   };
   window.history.pushState("object or string", "Title", "/skapa-grupp");
  }
@@ -95,15 +96,20 @@ setMax(e) {
   maxBookings: maxValue
  })
 }
-
+//////////////////////////////////////////
+///////// SÄTT VECKOR
+//////////////////////////////////////////
+handleWeeks(e) {
+ let weeks = parseInt(e.target.value)
+ this.setState({
+  weeks: weeks
+ })
+}
 /////////////////////////////////////////////
 //// REGISTRERA GRUPP
 ////////////////////////////////////////////
  registerGroup(e) {
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
- document.cookie = "wakkawakka=hejsansvejsan";
-
-
  let verify = false;
  let group = {
   groupName: this.state.name,
@@ -112,11 +118,12 @@ setMax(e) {
   users: [""],
   bookings: [""],
   maxBookings: this.state.maxBookings,
+  weeks: this.state.weeks,
   id: Date.now(),
   key: Date.now()
  }
 
- if(group.groupName == "" || group.machines == "" || group.times == "") {
+ if(group.groupName == "" || group.machines == "" || group.times == "" || group.weeks == "") {
   this.props.alert(true,"fail-group",false)
  } else {
   this.props.registerGroup(group);
@@ -131,7 +138,7 @@ setMax(e) {
     <form className="" method="" action="">
       <h1>Skapa ny grupp</h1>
       <label for="groupName">Gruppens namn</label>
-      <input type="text" name="groupName" placeholder="Föreningens namn"
+      <input type="text" name="groupName" placeholder="Gruppens namn"
        onChange={::this.handleName}
        value={this.state.name} required/>
       <label for="machines">Antal maskiner</label>
@@ -154,6 +161,8 @@ setMax(e) {
           return  <Time key = {timeIndex} index={timeIndex} addTime={::this.addTime}/>
          }, this) : null // The this is the context passed to the map function.
         }
+        <label for="weeks">Veckor</label>
+        <input type="number" min="0" max="5" name="weeks" placeholder="Hur många veckor framåt ska man kunna boka?" onChange={::this.handleWeeks} value={this.state.weeks} required/>
         <label>Sätt maximalt antal bokningar per person</label>
         <div className="checkbox-container">
          <input type="checkbox" className="checkbox" name="setMax" onChange={::this.toggleMax} checked={this.state.setMax}/>

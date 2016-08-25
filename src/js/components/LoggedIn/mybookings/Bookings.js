@@ -18,45 +18,40 @@ this.props.cancelBooking(key,userID);
   //  console.log(this.props.bookings);
    let bookingsExist = true;
    if(typeof(this.props.bookings[0]) == "string" || this.props.user.bookings == 0) {
-    //  console.log("kommer in här");
      bookingsExist = false;
    }
   var myBookingsArray = [];
   if(bookingsExist) {
   let sortedBookings = this.props.bookings;
   sortedBookings.sort(function (a, b) {
-    if (a.id > b.id) {
-      return 1;
-    }
-    if (a.id < b.id) {
-      return -1;
-    }
-    return 0;
+   // Sortera först efter månad och sen efter dag.
+    return  a.dateObject.month - b.dateObject.month || a.dateObject.day - b.dateObject.day;
   });
   let userID = this.props.user.id;
   function onlyMyBookings(myBookings) {
     return myBookings.bookedBy.id == userID; // TODO::: MÅSTE LÖSA SÅ DEN JÄMFÖR MED THIS.PROP
   }
   sortedBookings = sortedBookings.filter(onlyMyBookings)
-
-  let uniquesDates = []; // HUR MÅNGA UNIKA DATUM SOM FINNS I BOKNINGARNA
+  // console.log(sortedBookings);
+  let uniqueDates = []; // HUR MÅNGA UNIKA DATUM SOM FINNS I BOKNINGARNA
   for (var i = 0; i < sortedBookings.length; i++) {
-   if(uniquesDates.indexOf(sortedBookings[i].dateformat) == -1)
+   if(uniqueDates.indexOf(sortedBookings[i].dateFormat) == -1)
    {
-    uniquesDates.push(sortedBookings[i].dateformat)
+    uniqueDates.push(sortedBookings[i].dateFormat)
    }
   }
-  for (var i = 0; i < uniquesDates.length; i++) {
+  for (var i = 0; i < uniqueDates.length; i++) {
   let bookingDate = new Object();
-  bookingDate.date = uniquesDates[i];
-  bookingDate.id = parseInt(uniquesDates[i]);
+  bookingDate.date = uniqueDates[i];
+  bookingDate.id = parseInt(uniqueDates[i]);
   bookingDate.bookings = new Array();
+
   for (var j = 0; j < sortedBookings.length; j++) {
-     if(sortedBookings[j].dateformat == uniquesDates[i])
+     if(sortedBookings[j].dateFormat == uniqueDates[i])
      {
       bookingDate.bookings.push(sortedBookings[j])
       if(bookingDate.hasOwnProperty("dateString") == false) {
-       bookingDate.dateString = sortedBookings[j].dayname+" "+sortedBookings[j].date+" "+sortedBookings[j].month;
+       bookingDate.dateString = sortedBookings[j].dateObject.dayName+" "+sortedBookings[j].dateObject.day+" "+sortedBookings[j].dateObject.monthName;
       }
      }
   }
@@ -65,13 +60,12 @@ this.props.cancelBooking(key,userID);
   }
   return (
        <div className= "modal-background">
+        <div className="modal-clickarea" onClick={() => this.toggleModal("bookings")}></div>
         <div className="modal-container">
-         <div className="modal-inner-container">
-
+        <div className="modal-inner-container">
         <div className="close-modal-btn" onClick={() => this.toggleModal("bookings")}>
          <i className="fa fa-close"></i>Stäng
         </div>
-
         {
            bookingsExist ?  <div>
            <h2>Följande bokningar är sparade för användare {this.props.user.name}</h2>
@@ -79,7 +73,7 @@ this.props.cancelBooking(key,userID);
              Du behöver alltså inte klicka på spara någonstans.</p>
            </div>
            : <h2>Du har inga bokningar</h2>
-        }
+          }
          {
            bookingsExist ?
            myBookingsArray.map(function(myBooking) {

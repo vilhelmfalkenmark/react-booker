@@ -19,21 +19,46 @@
 //////////////////////////////////////////
 .next-week-btn, .previous-week-btn {
   position: fixed;
-  top: 45%;
-  background: transparent;
-  outline: none;
-  color: $darkgrey;
-  font-size: 60px;
-  border: none;
+  z-index: 999;
   cursor: pointer;
+  transition: all .2s ease;
+  border: none;
+  font-size: 30px;
+  outline: none;
+  text-align: center;
+  @include respond-to(not-desktop) {
+    background-color: $green;
+    color: white;
+    top: 45%;
+    width: 40px;
+  }
+  @include respond-to(desktop) {
+    top: 45%;
+    background: transparent;
+    color: $darkgrey;
+    height: 30px;
+    font-size: 60px;
+    &:hover {
+      color: $green;
+    }
+  }
 }
 .previous-week-btn {
-  left: 20px;
-
+  left:0;
 }
 .next-week-btn {
-  right: 20px;
+  right: 0;
 }
+@include respond-to(desktop) {
+  .previous-week-btn {
+    left: 20px;
+  }
+  .next-week-btn {
+    right: 20px;
+  }
+}
+
+
 
 .day-container {
   border: 1px solid darken($grey,10%);

@@ -7,14 +7,8 @@ export default class Calendar extends React.Component {
   this.props.bookMachine(id,userID);
  }
 toggleWeek(int) {
-// console.log(int);
 this.props.toggleWeek(int);
-// if(action) {
-// this.props.toggleWeek();
-// }
 }
-
-
  render() {
   return (
     <div className={this.props.menuOpen ? "calendar-container open": this.props.adminModal || this.props.bookingsModal ? "calendar-container fixed" : "calendar-container"}>

@@ -267,10 +267,11 @@ let groups = this.state.groups;
 }
 
 // UPPDATERA ALLMÄN INFORMATION
-updateGroup(groupName,maxBookings) {
+updateGroup(groupName,maxBookings,weeks) {
   let groups = this.state.groups;
       groups[this.state.groupIndex].groupName = groupName;
       groups[this.state.groupIndex].maxBookings = maxBookings;
+      groups[this.state.groupIndex].weeks = weeks;
 
   this.setState({
       groups: groups
@@ -345,6 +346,7 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
         updateMe = {::this.updateMe}
         />
     }
+    <div className="help-button"><span className="help-button-inner"><i className="fa fa-question-circle"></i> Hjälp</span></div>
    </div>
   )
  }
