@@ -1,0 +1,125 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 28/08/2016 09:55
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-add:before { content: "\f100"; }
+.flaticon-add-1:before { content: "\f101"; }
+.flaticon-add-circular-button:before { content: "\f102"; }
+.flaticon-back:before { content: "\f103"; }
+.flaticon-bookmark:before { content: "\f104"; }
+.flaticon-businessmen:before { content: "\f105"; }
+.flaticon-calendar:before { content: "\f106"; }
+.flaticon-calendar-1:before { content: "\f107"; }
+.flaticon-calendar-2:before { content: "\f108"; }
+.flaticon-cancel:before { content: "\f109"; }
+.flaticon-checked:before { content: "\f10a"; }
+.flaticon-checked-1:before { content: "\f10b"; }
+.flaticon-collaboration:before { content: "\f10c"; }
+.flaticon-controls:before { content: "\f10d"; }
+.flaticon-error:before { content: "\f10e"; }
+.flaticon-exit:before { content: "\f10f"; }
+.flaticon-exit-1:before { content: "\f110"; }
+.flaticon-info:before { content: "\f111"; }
+.flaticon-information-button:before { content: "\f112"; }
+.flaticon-information-button-1:before { content: "\f113"; }
+.flaticon-laundry:before { content: "\f114"; }
+.flaticon-laundry-service:before { content: "\f115"; }
+.flaticon-left-arrow:before { content: "\f116"; }
+.flaticon-lock:before { content: "\f117"; }
+.flaticon-login:before { content: "\f118"; }
+.flaticon-magnifying-glass:before { content: "\f119"; }
+.flaticon-mail:before { content: "\f11a"; }
+.flaticon-multiply:before { content: "\f11b"; }
+.flaticon-next:before { content: "\f11c"; }
+.flaticon-question:before { content: "\f11d"; }
+.flaticon-rotate:before { content: "\f11e"; }
+.flaticon-search:before { content: "\f11f"; }
+.flaticon-settings:before { content: "\f120"; }
+.flaticon-star:before { content: "\f121"; }
+.flaticon-time:before { content: "\f122"; }
+.flaticon-time-1:before { content: "\f123"; }
+.flaticon-unlocked:before { content: "\f124"; }
+.flaticon-update-arrows:before { content: "\f125"; }
+.flaticon-user:before { content: "\f126"; }
+.flaticon-users:before { content: "\f127"; }
+.flaticon-users-1:before { content: "\f128"; }
+.flaticon-washing-machine:before { content: "\f129"; }
+.flaticon-washing-machine-for-laundry:before { content: "\f12a"; }
+    
+    $font-Flaticon-add: "\f100";
+    $font-Flaticon-add-1: "\f101";
+    $font-Flaticon-add-circular-button: "\f102";
+    $font-Flaticon-back: "\f103";
+    $font-Flaticon-bookmark: "\f104";
+    $font-Flaticon-businessmen: "\f105";
+    $font-Flaticon-calendar: "\f106";
+    $font-Flaticon-calendar-1: "\f107";
+    $font-Flaticon-calendar-2: "\f108";
+    $font-Flaticon-cancel: "\f109";
+    $font-Flaticon-checked: "\f10a";
+    $font-Flaticon-checked-1: "\f10b";
+    $font-Flaticon-collaboration: "\f10c";
+    $font-Flaticon-controls: "\f10d";
+    $font-Flaticon-error: "\f10e";
+    $font-Flaticon-exit: "\f10f";
+    $font-Flaticon-exit-1: "\f110";
+    $font-Flaticon-info: "\f111";
+    $font-Flaticon-information-button: "\f112";
+    $font-Flaticon-information-button-1: "\f113";
+    $font-Flaticon-laundry: "\f114";
+    $font-Flaticon-laundry-service: "\f115";
+    $font-Flaticon-left-arrow: "\f116";
+    $font-Flaticon-lock: "\f117";
+    $font-Flaticon-login: "\f118";
+    $font-Flaticon-magnifying-glass: "\f119";
+    $font-Flaticon-mail: "\f11a";
+    $font-Flaticon-multiply: "\f11b";
+    $font-Flaticon-next: "\f11c";
+    $font-Flaticon-question: "\f11d";
+    $font-Flaticon-rotate: "\f11e";
+    $font-Flaticon-search: "\f11f";
+    $font-Flaticon-settings: "\f120";
+    $font-Flaticon-star: "\f121";
+    $font-Flaticon-time: "\f122";
+    $font-Flaticon-time-1: "\f123";
+    $font-Flaticon-unlocked: "\f124";
+    $font-Flaticon-update-arrows: "\f125";
+    $font-Flaticon-user: "\f126";
+    $font-Flaticon-users: "\f127";
+    $font-Flaticon-users-1: "\f128";
+    $font-Flaticon-washing-machine: "\f129";
+    $font-Flaticon-washing-machine-for-laundry: "\f12a";

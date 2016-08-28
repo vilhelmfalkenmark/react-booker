@@ -52,6 +52,13 @@ registerUser(newUser, groupID) {
     for (var i = 0; i < groups.length; i++) {
         if (groups[i].id == groupID) {
 
+            for (var j = 0; j < groups[i].users.length; j++) {
+             if(groups[i].users[j].email == newUser.email)
+             {
+              console.log("användaren finns redan");
+              return false;
+             }
+            }
             if (typeof(groups[i].users[0]) == "string" && groups[i].users.length == 1) {
                 groups[i].users.shift(); // Ta bort det tomma värdet eftersom Arrayen nu kommer populeras
                 newUser.role = "superadmin";

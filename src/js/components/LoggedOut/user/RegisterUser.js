@@ -55,6 +55,10 @@ handleID(e) {
  registerUser(e) {
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
  if(this.state.checkboxSelected) {
+  if(this.state.email == "" || this.state.name== "" || this.state.password == "") {
+   this.props.alert(true,"fail-user-missing-fields")
+   return false;
+  }
   let newUser = new Object();
   newUser.email = this.state.email;
   newUser.name = this.state.name;

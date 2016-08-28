@@ -20,7 +20,7 @@ constructor(props) {
   return (
    <li className="">
     {/* <h4>{this.props.machine}</h4> */}
-    <button className="delete-machine-btn" onClick={::this.deleteMachine}></button>
+    <button className="delete-machine-btn" onClick={::this.deleteMachine}><i className="flaticon-cancel"></i></button>
     <input type="text"
       onChange = {::this.editMachine}
       placeholder = {"Namn på maskin nummer "+this.props.index}

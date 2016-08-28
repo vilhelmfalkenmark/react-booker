@@ -112,32 +112,23 @@ cookie: newGroup.id
 ///////// LÄGG TILL I ANVÄNDARGRUPP
 //////////////////////////////////////////
 registerUser(newUser,groupID) {
-// if(groupID == "") {
-//  return false;
-// }
 var component = this;
  firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password).catch(function(error) {
-   // Handle Errors here.
    var errorCode = error.code;
    var errorMessage = error.message;
    if(errorCode || errorMessage) {
-
     console.log(errorCode);
     console.log(errorMessage);
-    console.log("kommer in här errorCode || errorMessage");
     component.setState({
      alert: true,
      alertType: "fail-user",
      alertData: errorCode,
      registerUserError: true
     })
-   return false;
-   }
-   else {
-    console.log("kommer in här!");
-    component.props.registerUser(newUser,groupID);
    }
  });
+ component.props.registerUser(newUser,groupID);
+
 document.cookie = "groupID=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 }
 //////////////////////////////////////////

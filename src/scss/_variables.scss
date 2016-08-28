@@ -1,11 +1,12 @@
 // $red: #D64541;
 $red: #E74C3C;
 $green: #26A65B;
+// $green: #26A65B;
 $purple: #663399;
 
 $darkgrey: rgb(86,86,86);
-$grey: rgb(241,241,241);
 $lightgrey: rgb(245, 245, 245);
+$grey: darken($lightgrey,10%);
 
 
 $offWhite: #fcfcf4;

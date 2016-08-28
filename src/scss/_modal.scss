@@ -60,53 +60,35 @@
   overflow: auto;
   position: relative;
   max-height: calc(80vh - 40px);
+  .modal-inner-container {
+    padding: 20px;
+    margin: 0 auto;
+    @include respond-to(desktop) {
+    padding: 30px;
+    }
+  }
 }
-.modal-inner-container {
-  padding: 40px;
-  margin: 0 auto;
-}
+
 .close-modal-btn {
-  position: fixed;
-  @extend .flex-center;
-  left: 0;
-  top: 0;
-  z-index: 1000;
-  height: 50px;
-  width: 180px;
-  background-color: $red;
-  color: white;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  &:hover {
-    background-color: darken($red,5%);
-  }
-  i {
-    position: absolute;
-    font-size: 20px;
-    left: 45px;
-    top: 15px;
-  }
+@include round-button(white,$red);
+
 }
+
+
+
 .mybookings-date-container {
-  margin: 15px 0;
-}
-.single-booking-container {
-  position: relative;
-  margin: 25px 0;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed $darkgrey;
-  > span {
-    text-transform: capitalize;
-    position: absolute;
-    left: 0;
-    top: 10px;
-  }
-  button {
-    position: absolute;
-    left: 180px;
-    @include big-button("\f00d",white,$red)
+  max-width: 500px;
+  border-bottom: 1px solid $grey;
+  .admin-booking-info-container {
+    top: 20px;
   }
 }
+
+
+
+
+
+
 .hide-modal {
   visibility: hidden;
   opacity: 0;

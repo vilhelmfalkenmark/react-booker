@@ -1,8 +1,10 @@
 import React from "react";
-import User from "./User.js";
+import Users from "./Users.js";
 import Bookings from "./Bookings.js";
-import TimeAndMachines from "./TimeAndMachines.js";
-import General from "./General.js";
+import Machines from "./Machines.js";
+import Times from "./Times.js";
+// import TimeAndMachines from "./TimeAndMachines.js";
+import Group from "./Group.js";
 import Me from "./Me.js";
 // import ReactCollapse from 'react-collapse';
 
@@ -16,9 +18,22 @@ export default class Admin extends React.Component {
   bookingsOpen: false,
   usersOpen: false,
   machineTimesOpen: false,
-  role: props.user.role
+  role: props.user.role,
+  slideLeft: false,
+  view: ""
   }
 }
+//////////////////////////////////////////
+///////// SLIDE-LEFT & RIGHT
+//////////////////////////////////////////
+slideLeft(slide,view) {
+this.setState({
+slideLeft: slide,
+view: view
+})
+}
+
+
 //////////////////////////////////////////
 ///////// ENSKILD ANVÄNDARE (ME)
 //////////////////////////////////////////
@@ -106,164 +121,122 @@ saveTimes() {
 }
 
 render() {
-////////////////////////////////////////////////
-/////// SORTERA BOKNINGAR
-///////////////////////////////////////////////
-  let sortedBookings = this.props.group.bookings;
-  var bookingsExist = true;
-  if(typeof(sortedBookings[0]) == "string") {
-   bookingsExist = false;
-  }
-  var bookingsArray = [];
-  if(bookingsExist) {
-  // let sortedBookings = this.props.group;
-  sortedBookings.sort(function (a, b) {
-   // Sortera först efter månad och sen efter dag.
-    return  a.dateObject.month - b.dateObject.month || a.dateObject.day - b.dateObject.day;
-  });
-  let uniqueDates = []; // HUR MÅNGA UNIKA DATUM SOM FINNS I BOKNINGARNA
-  for (var i = 0; i < sortedBookings.length; i++) {
-   if(uniqueDates.indexOf(sortedBookings[i].dateFormat) == -1)
-   {
-    uniqueDates.push(sortedBookings[i].dateFormat)
-   }
-  }
-  for (var i = 0; i < uniqueDates.length; i++) {
-  let bookingDate = new Object();
-  bookingDate.date = uniqueDates[i];
-  bookingDate.id = parseInt(uniqueDates[i]);
-  bookingDate.bookings = new Array();
-
-  for (var j = 0; j < sortedBookings.length; j++) {
-     if(sortedBookings[j].dateFormat == uniqueDates[i])
-     {
-      bookingDate.bookings.push(sortedBookings[j])
-      if(bookingDate.hasOwnProperty("dateString") == false) {
-       bookingDate.dateString = sortedBookings[j].dateObject.dayName+" "+sortedBookings[j].dateObject.day+" "+sortedBookings[j].dateObject.monthName;
-      }
-     }
-  }
-  bookingsArray.push(bookingDate);
-  }
-  }
-
   return (
    <div className= "modal-background">
     <div className="modal-clickarea" onClick={() => this.toggleModal("admin")}></div>
-    <div className="modal-container">
+    <div className="admin-modal-container">
      <div className="modal-inner-container admin-modal">
-     <h1>{this.props.group.groupName}</h1>
-     <p>ID för den här gruppen är: {this.props.group.id}. Nya användare behöver ange detta ID för att kunna gå med i gruppen.</p>
-     <div className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
-       <i className="fa fa-close"></i>Stäng
-     </div>
-     <Me
-      user = {this.props.user}
-      updateMe = {::this.updateMe}
-      />
-     {
-      this.state.role != "user" ?  <General
-      groupName = {this.props.group.groupName}
-      maxBookings = {this.props.group.maxBookings}
-      weeks = {this.props.group.weeks}
-      updateGroup = {::this.updateGroup}
-      />  : null
 
-      }
-      {
-       this.state.role != "user" ?  <section>
-       <h2 className="admin-header-bookings">Bokningar</h2>
-       {
-        bookingsExist ?
-         <button className={this.state.bookingsOpen ? "admin-toggle-button open" : "admin-toggle-button" }
-         onClick={() => this.setState({bookingsOpen: !this.state.bookingsOpen})}>{this.state.bookingsOpen ? "Göm Bokningar" : "Visa Bokningar" }</button>
-         :
-        <p>Det finns inga bokningar</p>
-       }
-       <div className={this.state.bookingsOpen ? "toggle-container open" : "toggle-container closed"}>
-       <ul>
-        { bookingsExist ?
-          bookingsArray.map(function(bookings) {
-          return <Bookings
-          key = {bookings.id}
-          bookings = {bookings}
-          cancelBooking = {::this.cancelBooking}
-          />;
-        }.bind(this)) : null
-        }
-       </ul>
-       </div>
-       </section>
-       : null
-      }
+     <div className={this.state.slideLeft ? "admin-section-container slide-left" : "admin-section-container"}>
+      <section className="admin-left-section">
+       <button className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
+         <i className="flaticon-cancel"></i>
+       </button>
+       <h1>{this.props.group.groupName}</h1>
 
-      {
-       this.state.role != "user" ?  <section>
-       <h2 className="admin-header-users">Användare</h2>
-       <button className={this.state.usersOpen ? "admin-toggle-button open" : "admin-toggle-button" }
-       onClick={() => this.setState({usersOpen: !this.state.usersOpen})}>{this.state.usersOpen ? "Göm Användare" : "Visa Användare" }</button>
-       <div className={this.state.usersOpen ? "toggle-container open" : "toggle-container closed"}>
-       <div className="flex-row">
+       <p>ID för den här gruppen är: {this.props.group.id}. Nya användare behöver ange detta ID för att kunna gå med i gruppen.</p>
+        <div className="admin-section-row" onClick={() => this.slideLeft(true, "me")}>
+          <div className="admin-section-row-icon"><i className="flaticon-user"></i></div>
+          <div className="admin-section-row-header"><h4>{this.props.user.name}</h4></div>
+          <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
+        </div>
+
+
+        <div className="admin-section-row" onClick={() => this.slideLeft(true,"group")}>
+          <div className="admin-section-row-icon"><i className="flaticon-controls"></i></div>
+          <div className="admin-section-row-header"><h4>{this.props.group.groupName}</h4></div>
+          <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
+        </div>
+
+
+        <div className="admin-section-row" onClick={() => this.slideLeft(true, "users")}>
+          <div className="admin-section-row-icon"><i className="flaticon-users"></i></div>
+          <div className="admin-section-row-header"><h4>Användare</h4></div>
+          <div className="admin-section-row-btn"> <button onClick={() => this.slideLeft(true, "users")}><i className="flaticon-next"></i></button></div>
+        </div>
+
+        <div className="admin-section-row" onClick={() => this.slideLeft(true, "bookings")}>
+          <div className="admin-section-row-icon"><i className="flaticon-calendar-1"></i></div>
+          <div className="admin-section-row-header"><h4>Bokningar</h4></div>
+          <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
+        </div>
         {
-          this.props.group.users.map(function(user) {
-          return <User
-          user = {user}
-          key = {user.key}
-          userStatus = {::this.userStatus}
-          userApprove = {::this.userApprove}
-          />;
-          }.bind(this))
-        }
+         typeof(this.props.group.bookings[0]) == "string" ?
+         <div>
+         <div className="admin-section-row" onClick={() => this.slideLeft(true, "machines")}>
+           <div className="admin-section-row-icon"><i className="flaticon-washing-machine"></i></div>
+           <div className="admin-section-row-header"><h4>Maskiner</h4></div>
+           <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
+         </div>
+
+         <div className="admin-section-row" onClick={() => this.slideLeft(true, "times")}>
+           <div className="admin-section-row-icon"><i className="flaticon-time-1"></i></div>
+           <div className="admin-section-row-header"><h4>Tider</h4></div>
+           <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
+         </div>
+        </div> :
+        <div>
+        <div className="admin-section-row">
+          <div className="admin-section-row-icon"><i className="flaticon-washing-machine"></i></div>
+          <div className="admin-section-row-header"><h4>Maskiner <span className="remove-bookings-info">Vänligen ta bort alla bokningar för att ändra maskiner</span></h4></div>
+          <div className="admin-section-row-btn"> </div>
+        </div>
+
+        <div className="admin-section-row">
+          <div className="admin-section-row-icon"><i className="flaticon-time-1"></i></div>
+          <div className="admin-section-row-header"><h4>Tider <span className="remove-bookings-info">Vänligen ta bort alla bokningar för att ändra tider</span></h4></div>
+          <div className="admin-section-row-btn"> </div>
+        </div>
        </div>
-      </div>
-     </section> : <section>
-     <h2 className="admin-header-users">Användare</h2>
-     <div className="toggle-container open">
-     <div className="flex-row">
-      {
-        this.props.group.users.map(function(user) {
-        return <User
-        user = {user}
-        key = {user.key}
-        userStatus = {::this.userStatus}
-        userApprove = {::this.userApprove}
-        role = {this.state.role}
-        />;
-        }.bind(this))
-      }
-     </div>
-    </div>
-   </section>
-    }
-      {
-       this.state.role != "user" ?  <section>
-      <h2 className="admin-header-time-machines">Maskiner och Tider</h2>
-      {
-       bookingsExist != true ?
-       <button className={this.state.machineTimesOpen ? "admin-toggle-button open" : "admin-toggle-button" }
-        onClick={() => this.setState({machineTimesOpen: !this.state.machineTimesOpen})}>{this.state.machineTimesOpen ? "Göm Tider & Maskiner" : "Visa Tider & Maskiner" }</button> : null
-      }
-      {
-       bookingsExist != true ?
-       <div className={this.state.machineTimesOpen ? "toggle-container open" : "toggle-container closed"}>
-         <TimeAndMachines
-          // MASKINER
+        }
+
+      </section>
+
+      <section className="admin-right-section">
+       <button className="admin-back-btn" onClick={() => this.slideLeft(false,"")}><i className="flaticon-back"></i>Tillbaka</button>
+       {
+        this.state.view == "me" ? // ME
+        <Me
+         user = {this.props.user}
+         updateMe = {::this.updateMe}
+         /> : this.state.view == "group" ? // GROUP
+         <Group
+         groupName = {this.props.group.groupName}
+         maxBookings = {this.props.group.maxBookings}
+         weeks = {this.props.group.weeks}
+         updateGroup = {::this.updateGroup}
+         /> : this.state.view == "users" ? // USERS
+         <Users
+         users = {this.props.group.users}
+         userStatus = {::this.userStatus}
+         userApprove = {::this.userApprove}
+         groupName = {this.props.group.groupName}
+          />
+         :
+         this.state.view == "bookings" ? // BOOKINGS
+         <Bookings
+          bookings = {this.props.group.bookings}
+          cancelBooking = {::this.cancelBooking}
+          /> :
+         this.state.view == "machines" ? // MACHINES
+         <Machines
           machines = {this.state.machines}
           editMachine = {::this.editMachine}
           deleteMachine = {::this.deleteMachine}
           addMachine = {::this.addMachine}
           saveMachines = {::this.saveMachines}
-          // TIDER
+         /> :
+         this.state.view == "times" ? // TIMES
+         <Times
           times = {this.state.times}
           editTime = {::this.editTime}
           deleteTime = {::this.deleteTime}
           addTime = {::this.addTime}
           saveTimes = {::this.saveTimes}
-         />
-       </div> : <p>Alla tider måste vara avbokade innan tider och maskiner kan ändras.</p>
-      }
-     </section> : null
-        }
+         /> : null
+       }
+      </section>
+    </div>
      </div>
     </div>
    </div>

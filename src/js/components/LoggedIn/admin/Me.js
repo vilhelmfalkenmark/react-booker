@@ -38,12 +38,12 @@ if(this.state.sure) {
 }
  render() {
   return (
-   <section className="about-me-section">
-       <h2 className="admin-header-me">{this.props.user.name}</h2>
+   <div className="about-me-section">
+       <h2 className="admin-header-me"><i className="flaticon-user"></i>{this.props.user.name}</h2>
        <ul>
-        <li>ID: {this.props.user.id}</li>
-        <li>E-postadress: {this.props.user.email}</li>
-        <li>Bokningar: {this.props.user.bookings}</li>
+        <li><i className="flaticon-bookmark"></i>ID: {this.props.user.id}</li>
+        <li><i className="flaticon-mail"></i>E-postadress: {this.props.user.email}</li>
+        <li><i className="flaticon-calendar-1"></i>Bokningar: {this.props.user.bookings}</li>
        </ul>
        <form className="" method="" action="">
          <label for="name">Namn</label>
@@ -53,14 +53,14 @@ if(this.state.sure) {
           {
            this.state.updated ? <p className="success-reminder">Min information är uppdaterad </p> : null
           }
-         <button type="submit" onClick={::this.updateMe}>Uppdatera mitt konto</button>
+         <button type="submit" onClick={::this.updateMe}><i className="flaticon-rotate"></i>Uppdatera mitt konto</button>
           {
            this.state.sure ? <p className="danger-reminder">Är du helt säker? Det här kommandot kan inte ångras!</p> : null
           }
-         <button className="delete-account-btn" onClick={::this.deleteAccount}>{ this.state.sure ? "Ja, radera mitt konto" : "Radera mitt konto" }</button>
+         <button className="delete-account-btn" onClick={::this.deleteAccount}><i className="flaticon-cancel"></i>{ this.state.sure ? "Ja, radera mitt konto" : "Radera mitt konto" }</button>
 
        </form>
-      </section>
+      </div>
   )
  }
 }

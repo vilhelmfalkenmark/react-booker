@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import Booking from "./Booking.js";
 export default class Bookings extends React.Component {
  constructor() {
  super();
@@ -9,25 +9,64 @@ cancelBooking(key,userID) {
 this.props.cancelBooking(key,userID);
 }
  render() {
+  ////////////////////////////////////////////////
+  /////// SORTERA BOKNINGAR
+  ///////////////////////////////////////////////
+    let sortedBookings = this.props.bookings;
+    var bookingsExist = true;
+    if(typeof(sortedBookings[0]) == "string") {
+     bookingsExist = false;
+    }
+    var bookingsArray = [];
+    if(bookingsExist) {
+    // let sortedBookings = this.props.group;
 
+    console.log(sortedBookings[0].interval);
+
+    sortedBookings.sort(function (a, b) {
+     // Sortera först efter månad och sen efter dag.
+      return  a.dateObject.month - b.dateObject.month || a.dateObject.day - b.dateObject.day || a.dateObject.interval - b.dateObject.interval;
+    });
+    let uniqueDates = []; // HUR MÅNGA UNIKA DATUM SOM FINNS I BOKNINGARNA
+    for (var i = 0; i < sortedBookings.length; i++) {
+     if(uniqueDates.indexOf(sortedBookings[i].dateFormat) == -1)
+     {
+      uniqueDates.push(sortedBookings[i].dateFormat)
+     }
+    }
+    for (var i = 0; i < uniqueDates.length; i++) {
+    let bookingDate = new Object();
+    bookingDate.date = uniqueDates[i];
+    bookingDate.id = parseInt(uniqueDates[i]);
+    bookingDate.bookings = new Array();
+
+    for (var j = 0; j < sortedBookings.length; j++) {
+       if(sortedBookings[j].dateFormat == uniqueDates[i])
+       {
+        bookingDate.bookings.push(sortedBookings[j])
+        if(bookingDate.hasOwnProperty("dateString") == false) {
+         bookingDate.dateString = sortedBookings[j].dateObject.dayName+" "+sortedBookings[j].dateObject.day+" "+sortedBookings[j].dateObject.monthName;
+        }
+       }
+    }
+    bookingsArray.push(bookingDate);
+    }
+    }
   return (
 
-    <li className="admin-booking-date-container">
-     <h3 className="capitalize">Datum: {this.props.bookings.dateString}</h3>
+    <div className="admin-booking-container">
+     <h2><i className="flaticon-calendar-1"></i>Bokningar</h2>
      {
-      this.props.bookings.bookings.map(function(booking) {
-       return <div className="admin-booking" key={booking.id}>
-        <div className="admin-booking-info-container">
-         <span className="admin-booking-info">{booking.machine} {booking.interval} </span>
-         <span className="admin-booking-bookedby">Bokat av: {booking.bookedBy.name}</span>
-        </div>
-        <div className="admin-cancel-booking-container">
-        <button className="admin-cancel-booking" onClick={() => this.cancelBooking(booking.id, booking.bookedBy.id)}>Avboka</button>
-        </div>
-       </div>
-      }.bind(this))
+      bookingsExist ?
+      bookingsArray.map(function(booking) {
+      return <Booking // BOOKINGS
+      key = {booking.id}
+      booking = {booking}
+      cancelBooking = {::this.cancelBooking}/>;}.bind(this))
+      : <h3>Det finns inga bokningar</h3> 
      }
-    </li>
+
+    </div>
   )
  }
 }

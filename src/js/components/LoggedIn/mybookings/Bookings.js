@@ -25,7 +25,7 @@ this.props.cancelBooking(key,userID);
   let sortedBookings = this.props.bookings;
   sortedBookings.sort(function (a, b) {
    // Sortera först efter månad och sen efter dag.
-    return  a.dateObject.month - b.dateObject.month || a.dateObject.day - b.dateObject.day;
+    return  a.dateObject.month - b.dateObject.month || a.dateObject.day - b.dateObject.day || a.dateObject.interval - b.dateObject.interval;
   });
   let userID = this.props.user.id;
   function onlyMyBookings(myBookings) {
@@ -63,9 +63,9 @@ this.props.cancelBooking(key,userID);
         <div className="modal-clickarea" onClick={() => this.toggleModal("bookings")}></div>
         <div className="modal-container">
         <div className="modal-inner-container">
-        <div className="close-modal-btn" onClick={() => this.toggleModal("bookings")}>
-         <i className="fa fa-close"></i>Stäng
-        </div>
+        <button className="close-modal-btn" onClick={() => this.toggleModal("bookings")}>
+         <i className="flaticon-cancel"></i>
+        </button>
         {
            bookingsExist ?  <div>
            <h2>Följande bokningar är sparade för användare {this.props.user.name}</h2>

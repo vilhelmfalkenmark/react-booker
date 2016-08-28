@@ -26,6 +26,9 @@ background-color: $lightgrey;
 a {
   transition: all 0.2s ease;
 }
+button {
+  cursor: pointer;
+}
 .help-button {
   position: fixed;
   background-color: $green;

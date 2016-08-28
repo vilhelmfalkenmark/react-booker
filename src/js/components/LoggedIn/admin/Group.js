@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class General extends React.Component {
+export default class Group extends React.Component {
 constructor(props) {
  super(props);
  this.state = {
@@ -39,7 +39,7 @@ updateGroup(e) {
  render() {
   return (
    <section className="general-info-section">
-       <h2 className="admin-header-general">Allmän info</h2>
+       <h2 className="admin-header-general"><i className="flaticon-controls"></i>Allmän info</h2>
        <form className="" method="" action="">
          <label for="group-name">Namn på förening</label>
          <input type="text" name="group-name" value={this.state.groupName} onChange={::this.handleGroupName}/>
@@ -50,7 +50,7 @@ updateGroup(e) {
           {
            this.state.updated ? <p className="success-reminder">Gruppens information uppdaterad </p> : null
           }
-         <button type="submit" onClick={::this.updateGroup}>Uppdatera grupp</button>
+         <button type="submit" onClick={::this.updateGroup}><i className="flaticon-rotate"></i>Uppdatera grupp</button>
 
 
        </form>

@@ -1,7 +1,5 @@
 import React from "react";
-// import ReactCSSTransitionGroup from'react-addons-css-transition-group';
 
-// import ReactDOM from "react-dom";
 import Calendar from "./calendar/Calendar.js";
 import Bookings from "./mybookings/Bookings.js";
 import Header from "./header/Header.js";
@@ -13,7 +11,7 @@ export default class LoggedIn extends React.Component {
  super(props);
  this.state = {
  calendar: [],
- bookingsModal: false,
+ bookingsModal: true,
  adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
@@ -257,6 +255,10 @@ for(var h = 0; h < calendar.length; h++)
                 calendar[h].times[s].machines[r].booked = true;
                 calendar[h].times[s].machines[r].bookedBy = user;
                 calendar[h].times[s].bookedMachines++;
+
+                let topInterval = calendar[h].times[s].interval.split("-");
+                topInterval = topInterval.join("");
+                let intInterval = parseInt(topInterval);
                 let booking = {
                   id: key,
                   key: key,
@@ -269,6 +271,7 @@ for(var h = 0; h < calendar.length; h++)
                 }
                 booking.dateObject.monthName = calendar[h].month;
                 booking.dateObject.dayName = calendar[h].dayname;
+                booking.dateObject.interval = intInterval;
 
                 bookings.push(booking);
               }
@@ -391,10 +394,10 @@ toggleMenu(state) {
    {
      this.state.bookingsModal ?
      <Bookings
-          bookings = {this.props.group.bookings}
-          toggleModal = {::this.toggleModal}
-          user = {this.props.user}
-          cancelBooking = {::this.bookMachine}
+      bookings = {this.props.group.bookings}
+      toggleModal = {::this.toggleModal}
+      user = {this.props.user}
+      cancelBooking = {::this.bookMachine}
       />
      : null
    }

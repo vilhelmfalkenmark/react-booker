@@ -20,7 +20,7 @@ constructor(props) {
   return (
    <li className="">
     {/* <h4>{this.props.time}</h4> */}
-    <button className="delete-time-btn"onClick={::this.deleteTime}></button>
+    <button className="delete-time-btn"onClick={::this.deleteTime}><i className="flaticon-cancel"></i></button>
     <input type="text"
       onChange = {::this.editTime}
       placeholder = {"Namn på maskin nummer "+this.props.index}

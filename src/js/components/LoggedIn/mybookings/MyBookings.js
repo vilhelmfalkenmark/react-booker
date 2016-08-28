@@ -16,7 +16,7 @@ this.props.cancelBooking(key,userID);
    // console.log(this.props.bookings);
   return (
    <div className="mybookings-date-container">
-   <h4 className="mybookings-date-header">{this.props.dateString}</h4>
+   <h3 className="mybookings-date-header">{this.props.dateString}</h3>
    {
      this.props.bookings.map(function(singlebooking) {
      return <SingleBooking
