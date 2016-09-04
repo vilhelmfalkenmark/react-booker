@@ -1,6 +1,7 @@
 .form-container {
   max-width: 420px;
   width: 90%;
+  padding-bottom: 40px;
   input[type="text"],input[type="number"],input[type="email"],input[type="password"] {
     box-sizing: border-box;
     height: 40px;
@@ -14,23 +15,24 @@
     display: block;
   }
   button {
-    @include big-button("\f00d",white,$green)
+    @include button (white,$green)
     width: 100%;
+    text-align: center;
   }
-  .log-in-btn {
-    @include big-button("\f090",white,$green)
-  }
-  .reset-password-btn {
-    @include big-button("\f09c",white,$green)
-  }
-  .create-group-btn {
-    @include big-button("\f0c0",white,$green)
-    margin: 0;
-  }
- .create-user-btn {
-   @include big-button("\f234",white,$green)
-   margin: 0;
- }
+ //  .log-in-btn {
+ //    @include big-button("\f090",white,$green)
+ //  }
+ //  .reset-password-btn {
+ //    @include big-button("\f09c",white,$green)
+ //  }
+ //  .create-group-btn {
+ //    @include big-button("\f0c0",white,$green)
+ //    margin: 0;
+ //  }
+ // .create-user-btn {
+ //   @include big-button("\f234",white,$green)
+ //   margin: 0;
+ // }
 }
 select {
   outline: 0;

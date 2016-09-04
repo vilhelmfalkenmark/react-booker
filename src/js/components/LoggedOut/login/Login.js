@@ -46,11 +46,12 @@ this.props.resetPassword(this.state.password);
       <input name="username"  type="email" onChange={::this.handleName} value={this.state.name} placeholder="Ange din e-postadress" required/>
       <label for="password">Lösenord</label>
       <input name="password" type="password" onChange={::this.handlePassword} value={this.state.password} placeholder="Ditt lösenord" required/>
-      <button type="submit" className="log-in-btn" onClick={::this.logIn} >Logga in</button>
+
+     <button type="submit" className="log-in-btn" onClick={::this.logIn}><i className="flaticon-exit"></i>Logga in</button>
       {
        this.props.credentials != true ? <div>
        <p>Felaktigt användarnamn eller lösenord. Fyll i din e-postadress och klicka på knappen nedan om du vill återställa ditt lösenord.</p>
-       <button className="reset-password-btn" onClick={::this.resetPassword}>Återställ lösenord</button>
+       <button className="reset-password-btn" onClick={::this.resetPassword}><i className="flaticon-lock"></i>Återställ lösenord</button>
 
       </div> : null
       }

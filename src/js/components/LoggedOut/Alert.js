@@ -10,7 +10,7 @@ closeAlert() {
     <div className="modal-clickarea" onClick={::this.closeAlert}></div>
     <div className="modal-container">
      <div className="modal-inner-container">
-      <button onClick={::this.closeAlert}>Stäng</button>
+      <button className="close-modal-btn" onClick={::this.closeAlert}><i class="flaticon-cancel"></i></button>
        {
           //////////////////////////////////
           /// fail-group

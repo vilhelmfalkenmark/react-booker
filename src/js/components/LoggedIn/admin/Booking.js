@@ -12,7 +12,7 @@ this.props.cancelBooking(key,userID);
       this.props.booking.bookings.map(function(booking) {
        return <div className="admin-booking" key={booking.id}>
         <div className="admin-cancel-booking-container">
-         <button className="admin-cancel-booking" onClick={() => this.cancelBooking(booking.id, booking.bookedBy.id)}><i className="flaticon-cancel"></i></button>
+         <button className="admin-cancel-booking" onClick={() => this.cancelBooking(booking.id, booking.bookedBy.id)}></button>
         </div>
 
         <div className="admin-booking-info-container">

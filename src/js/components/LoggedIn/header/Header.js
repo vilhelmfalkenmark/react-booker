@@ -118,15 +118,15 @@ componentWillUnmount() {
     <div className="header-btns-container">
      {
       this.props.user.role == "admin" || this.props.user.role == "superadmin" ?
-      <div className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Redigera grupp <i className="flaticon-controls"></i></div> :
-      <div className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Visa grupp <i className="flaticon-controls"></i></div>
+      <button className="edit-group-btn" onClick={() => this.toggleModal("admin")}><i className="flaticon-controls"></i>Redigera grupp </button> :
+      <button className="edit-group-btn" onClick={() => this.toggleModal("admin")}><i className="flaticon-controls"></i>Visa grupp</button>
      }
-      <div className="show-mybookings-btn" onClick={() => this.toggleModal("bookings")}>
-        {this.props.user.bookings > 0 ? "Visa mina "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}
+      <button className="show-mybookings-btn" onClick={() => this.toggleModal("bookings")}>
         <i className="flaticon-calendar-1"></i>
-      </div>
+        {this.props.user.bookings > 0 ? "Visa mina "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}
+      </button>
 
-      <div className="logout-btn" onClick={::this.logOut}>Logga ut<i className="flaticon-exit"></i></div>
+      <button className="logout-btn" onClick={::this.logOut}><i className="flaticon-exit"></i>Logga ut</button>
     </div>
     </div>
 

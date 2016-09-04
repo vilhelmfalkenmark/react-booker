@@ -11,7 +11,7 @@ this.props.cancelBooking(key,userID);
   return (
    <div className="admin-booking">
     <div className="admin-cancel-booking-container">
-     <button className="admin-cancel-booking" onClick={() => this.cancelBooking(this.props.id, this.props.user.id)}><i className="flaticon-cancel"></i></button>
+     <button className="admin-cancel-booking" onClick={() => this.cancelBooking(this.props.id, this.props.user.id)}></button>
     </div>
 
     <div className="admin-booking-info-container">

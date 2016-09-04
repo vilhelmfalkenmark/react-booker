@@ -177,7 +177,7 @@ handleWeeks(e) {
            <input type="number" min="0" max="1000" name="maxBookings" placeholder="0" value={this.state.maxBookings} onChange={::this.setMax} required/>
           </div> : null
          }
-      <button type="submit" className="create-group-btn" onClick={::this.registerGroup}>Skapa ny användargrupp</button>
+      <button type="submit" className="create-group-btn" onClick={::this.registerGroup}><i className="flaticon-controls"></i>Skapa Grupp</button>
     </form>
    </div>
   )

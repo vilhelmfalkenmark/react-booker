@@ -275,7 +275,7 @@ h2 i {
 
 
 .admin-cancel-booking {
-  @include round-button(white,$red)
+  @include cancel-button()
 }
 
 //////////////////////////////////////////

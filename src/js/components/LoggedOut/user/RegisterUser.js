@@ -7,10 +7,13 @@ export default class RegisterUser extends React.Component {
     email: "",
     name: "",
     password: "",
+    repeatPassword: "",
+    passwordMatch: false,
     info: "",
     selectedGroup: false,
     checkboxSelected: false,
-    searchID: ""
+    searchID: "",
+    formComplete: true
   };
   window.history.pushState("object or string", "Title", "/skapa-anvandare");
 
@@ -35,11 +38,35 @@ this.setState({
    password: e.target.value
   });
  };
+ repeatPassword (e) {
+  this.setState({
+   repeatPassword: e.target.value
+  });
+
+  // console.log(this.state.repeatPassword);
+
+  // if(this.state.repeatPassword != "" && this.state.password != "") {
+  //  if(this.state.password == e.target.value) {
+  //   this.setState({
+  //    passwordMatch: true
+  //   })
+  //  } else {
+  //   this.setState({
+  //    passwordMatch: false
+  //   })
+  //  }
+  // }
+ };
+
  handleInfo (e) {
   this.setState({
    info: e.target.value
   });
  };
+
+
+
+
 //////////////////////////////////////////
 ///////// SÖK EFTER FÖRENING MED ID
 //////////////////////////////////////////
@@ -88,6 +115,13 @@ handleID(e) {
       <input type="text" name="name" placeholder="Namn" onChange={::this.handleName} value={this.state.name} required/>
       <label for="password">Lösenord</label>
       <input type="password" name="password" placeholder="Lösenord" onChange={::this.handlePassword} value={this.state.password} required/>
+      <label for="repeatpassword">Upprepa Lösenord</label>
+      <input type="password" name="repeatpassword" placeholder="Upprepa Lösenord" onChange={::this.repeatPassword} value={this.state.repeatPassword} required/>
+      <p>
+      {
+       this.state.passwordMatch ? "Lösenorden stämmer" : "Lösenorden stämmer inte"
+      }
+      </p>
       <label for="info">Övrig info</label>
       <input type="text" name="info" maxLength="250" placeholder="Övrig information (exempelvis lägenhetsnummer)" onChange={::this.handleInfo} value={this.state.info}/>
       <div>
@@ -117,7 +151,9 @@ handleID(e) {
        }, this)
       }
       </div>
-      <button type="submit" className="create-user-btn" onClick={::this.registerUser}>Skapa användare</button>
+      {
+       this.state.formComplete ?  <button type="submit" className="create-user-btn" onClick={::this.registerUser}><i className="flaticon-user"></i>Skapa användare</button> : null
+      }
     </form>
    </div>
   )
