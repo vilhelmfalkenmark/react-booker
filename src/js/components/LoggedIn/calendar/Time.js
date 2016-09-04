@@ -17,7 +17,7 @@ export default class Time extends React.Component {
      <h4 className={this.props.bookedMachines == 0 ? "free-time"
       :this.props.bookedMachines < this.props.machines.length ? "partially-booked-time"
       :"booked-time"
-     }><i className="fa fa-clock-o"></i> {this.props.interval} - <span>{this.props.bookedMachines == 0 ? "Ledig tid"
+     }><i className="flaticon-time-1"></i> {this.props.interval} - <span>{this.props.bookedMachines == 0 ? "Ledig tid"
       :this.props.bookedMachines < this.props.machines.length ? "Delvis ledigt"
       :"Fullbokat"
      }</span>

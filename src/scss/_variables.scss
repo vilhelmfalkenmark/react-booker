@@ -8,6 +8,8 @@ $darkgrey: rgb(86,86,86);
 $lightgrey: rgb(245, 245, 245);
 $grey: darken($lightgrey,10%);
 
+$darkblue: #22313F;
+
 
 $offWhite: #fcfcf4;
 $earthBeige:  #e3dfda;
@@ -17,7 +19,6 @@ $boxShadow: -11px 13px 20px -14px rgba(0,0,0,0.75);
 
 $lightblue: rgb(12,166,210);
 $mediumblue: rgb(0,131,170);
-$darkblue: rgb(3,90,115);
 $darkestblue: rgb(3,77,97);
 
 $cardBackground: $offWhite;
@@ -29,19 +30,23 @@ $mobile-large-break: 767px;
 $tablet-break: 1024px;
 
 $gutter: 7.5px;
+//
+// $ms-gtr-min-h: 200px;
+// $ms-gtr: 3px;
+//
+// $ml-gtr-min-h: 300px;
+// $ml-gtr: 6px;
+//
+// $tab-gtr-min-h: 230px;
+// $tab-gtr: 4px;
+//
+// $desk-gtr-min-h: 260px;
+// $desk-gtr: 6px;
 
-$ms-gtr-min-h: 200px;
-$ms-gtr: 3px;
-
-$ml-gtr-min-h: 300px;
-$ml-gtr: 6px;
-
-$tab-gtr-min-h: 230px;
-$tab-gtr: 4px;
-
-$desk-gtr-min-h: 260px;
-$desk-gtr: 6px;
-
+//////////////////////////////////////////
+ ///////// SLIDE X
+ //////////////////////////////////////////
+$slideX: 300px;
 
 /*###########################################
  ############################################

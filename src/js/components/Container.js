@@ -27,7 +27,7 @@ export default class Container extends React.Component {
    groupIndex: null,
    checkAuth: false,
    updatedData: false,
-   menuOpen: false,
+   menuOpen: true,
    credentials: true, // När man försöker logga in
    userBanned: false,
    resetPasswordSent: false,

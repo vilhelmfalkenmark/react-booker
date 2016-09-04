@@ -8,7 +8,6 @@ constructor() {
   date: "",
   time: "",
   intervalID: 0,
-  // TOGGLE VECKA FUNKTIONALITET
   weekNumber: 0,
   firstWeekDay: "",
   lastWeekDay: "",
@@ -26,6 +25,11 @@ toggleMenu(state) {
  this.props.toggleMenu(state)
 }
 
+toggleWeek(int) {
+this.props.toggleWeek(int);
+}
+
+
 updateClock(id) {
 let allDate = new Date();
 let months = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"];
@@ -35,7 +39,6 @@ let currentMonth = allDate.getMonth();
 let currentYear = allDate.getFullYear();
 let currentHour = allDate.getHours();
 let currentMinute = allDate.getMinutes();
-// let currentSecond = allDate.getSeconds();
 let weekNumber = allDate.getMonth();
 currentMinute = (currentMinute < 10 ? "0" : "") + currentMinute;
  this.setState({
@@ -59,13 +62,24 @@ componentDidMount() {
       var today = new Date();
       var weekNumber = (new Date()).getWeek();
       var isMonday = false;
+      var isSunday = false;
+      var lastWeekDay;
+
       if(today.getDay() == 1) {
        isMonday = true;
       }
+      else if ( today.getDay() == 0) {
+       isSunday = true;
+       lastWeekDay = 6 // lördag
+      }
+      else {
+       lastWeekDay = today.getDay() - 1;
+      }
+
       this.setState({
        weekNumber: weekNumber,
        firstWeekDay: this.state.weekDays[today.getDay()],
-       lastWeekDay: this.state.weekDays[today.getDay()-1],
+       lastWeekDay: this.state.weekDays[lastWeekDay],
        isMonday: isMonday
       })
 }
@@ -75,46 +89,76 @@ componentWillUnmount() {
  render() {
   return (
    <header className="header-container">
-    <div className={this.props.menuOpen ? "hamburger-container open":"hamburger-container"} onClick={() => this.toggleMenu(this.props.menuOpen)}>
-      <div className="hamburger-inner-container">
-        <div className="hamburger"></div>
-     </div>
-    </div>
 
     <div className={this.props.menuOpen ? "header-inner-container open":"header-inner-container"}>
-    <div className="header-logo-container">
-     <div className="header-logo-inner-container">
-      <h1 className="app-header">React Bokningsapp</h1>
-      <p className="header-paragraph">Dagens datum: {this.state.date} Vecka {this.state.weekNumber}</p>
-      <p className="header-paragraph">Klockan: {this.state.time}</p>
+   <div className="header-user-container">
+    <div className="header-user-icon-container">
+      <i className="flaticon-user"></i>
+    </div>
 
-     </div>
+    <div className="header-user-inner-container">
+     <h4 className="header-header">Inloggad som {this.props.user.name}</h4>
+     <p className="header-paragraph">Tillhör grupp {this.props.groupName}</p>
+
+    </div>
    </div>
 
-   <div className="header-user-container">
-    <div className="header-user-inner-container">
-     <h4 className="header-user-name">Användare: {this.props.user.name}</h4>
-     <p>Tillhör förening: {this.props.groupName}</p>
-      <p className="header-paragraph">Kalendervy: {this.state.firstWeekDay} Vecka {this.state.weekNumber + (this.props.week - 1)} - {this.state.lastWeekDay} Vecka {this.state.isMonday ? this.state.weekNumber + (this.props.week - 1) : this.state.weekNumber + this.props.week }
 
-       </p>
+   <div className="header-date-container">
+    <div className="header-date-icon-container">
+      <i className="flaticon-calendar"></i>
     </div>
+     <div className="header-date-inner-container">
+      <h4 className="header-header">{this.state.date} Vecka {this.state.weekNumber}</h4>
+      <p className="header-paragraph">Klockan: {this.state.time}</p>
+      </div>
    </div>
 
 
     <div className="header-btns-container">
      {
       this.props.user.role == "admin" || this.props.user.role == "superadmin" ?
-      <button className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Redigera grupp</button> :
-      <button className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Visa grupp</button>
+      <div className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Redigera grupp <i className="flaticon-controls"></i></div> :
+      <div className="edit-group-btn" onClick={() => this.toggleModal("admin")}>Visa grupp <i className="flaticon-controls"></i></div>
      }
-      <button className="show-mybookings-btn" onClick={() => this.toggleModal("bookings")}>
-        {this.props.user.bookings > 0 ? "Visa mina: "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}
-      </button>
+      <div className="show-mybookings-btn" onClick={() => this.toggleModal("bookings")}>
+        {this.props.user.bookings > 0 ? "Visa mina "+this.props.user.bookings+" bokningar" : "Du har inga bokningar"}
+        <i className="flaticon-calendar-1"></i>
+      </div>
 
-      <button className="logout-btn" onClick={::this.logOut}>Logga ut</button>
+      <div className="logout-btn" onClick={::this.logOut}>Logga ut<i className="flaticon-exit"></i></div>
     </div>
     </div>
+
+    <div className={this.props.menuOpen ? "header-calendar-container open":"header-calendar-container"}>
+    <div className="header-calendar-inner-container">
+
+     {
+      this.props.week > 1 ? <button className="previous-week-btn" onClick={() => ::this.toggleWeek(-1)}><i className="flaticon-back"></i></button> : null
+     }
+     {
+      this.props.week < this.props.maxWeek ?  <button className="next-week-btn" onClick={() => ::this.toggleWeek(1)}><i className="flaticon-next"></i></button> : null
+     }
+     <h3 className="capitalize">
+      {this.state.firstWeekDay}
+      Vecka{this.state.weekNumber + (this.props.week - 1)}-{this.state.lastWeekDay}
+      Vecka{this.state.isMonday ? this.state.weekNumber + (this.props.week - 1) : this.state.weekNumber + this.props.week }
+     </h3>
+    </div>
+    </div>
+
+
+
+
+
+     <div className={this.props.menuOpen ? "hamburger-container open":"hamburger-container"} onClick={() => this.toggleMenu(this.props.menuOpen)}>
+       <div className="hamburger-inner-container">
+         <div className="hamburger"></div>
+      </div>
+     </div>
+
+
+
     </header>
   )
  }

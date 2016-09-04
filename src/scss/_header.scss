@@ -1,247 +1,339 @@
 $basePadding: 20px;
-
-.header-container {
-  // background-color: $green;
-  // color: white;
-  // z-index: 3;
-  // position: fixed;
-  // margin: 0;
-  // padding: 0;
-}
-
 .header-inner-container {
-  @extend .row;
-  background-color: $green;
-  color: white;
-  z-index: 3;
-  position: fixed;
-  margin: 0;
-  padding: 0;
+    @extend .row;
+    // background-color: $green;
+    // background-color: $darkblue;
+    background-color: $green;
+    color: $darkgrey;
+    color: white;
+    z-index: 3;
+    position: fixed;
+    margin: 0;
+    padding: 0;
 }
-
 //////////////////////////////////////////
- ///////// HEADER-LOGO BLOCK
- //////////////////////////////////////////
+///////// HEADER-LOGO BLOCK (UTLOGGAD)
+//////////////////////////////////////////
 .header-logo-inner-container {
-  padding: 20px 0 10px 20px;
-  .app-header {
+    padding: 20px 0 10px 20px;
+    .app-header {
+        margin-top: 0;
+        font-size: 24px;
+    }
+}
+//////////////////////////////////////////
+/////////
+//////////////////////////////////////////
+.header-header {
     margin-top: 0;
-    font-size: 24px;
-  }
+    text-transform: capitalize;
+    margin-bottom: 10px;
 }
-.header-logo-container {
-@extend .col-3-desk;
-}
-
-
 .header-paragraph {
-  text-transform: capitalize;
-  &:last-of-type{
-    margin-bottom: 0;
-  }
+    text-transform: capitalize;
+    margin: 0;
 }
-
-
-
 //////////////////////////////////////////
 ///////// USER BLOCK
 //////////////////////////////////////////
+.header-user-icon-container,
 .header-user-inner-container {
-  padding: $basePadding;
-  p {
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-}
-.header-user-name {
-  margin-top: 0;
-}
-.header-user-container {
-  @extend .col-3-desk;
-}
-
-
-//////////////////////////////////////////
-///////// BUTTON BLOCK
-//////////////////////////////////////////
-
-// LOGGED IN OUT BUTTONS
-// .header-container {
-
- .log-in-btn {
-   @include big-button("\f090",white,$green)
- }
- .create-group-btn {
-   @include big-button("\f0c0",white,$green)
-   margin: 0 10px;
-
- }
-.create-user-btn {
-  @include big-button("\f234",white,$green)
-}
-// LOGGED IN BUTTONS
- .edit-group-btn {
- @include big-button("\f044",white,$green)
- margin: 0;
- }
-.show-mybookings-btn {
-@include big-button("\f274",white,$green)
-margin: 0 10px;
-}
-.logout-btn {
-@include big-button("\f08b",white,$green)
-}
-// }
-
-@include respond-to(desktop) {
-  .header-logo-container,.header-user-container {
     float: left;
-  }
-  .header-btns-container {
-    float: right;
-  }
 }
-
+.header-user-icon-container {
+    font-size: 20px;
+}
+.header-user-inner-container {
+    padding-left: 15px;
+}
 //////////////////////////////////////////
-///////// RESPONSIVE NOT-DESKTOP
+///////// DATE BLOCK
 //////////////////////////////////////////
-
-$slideX: 300px;
-
+.header-date-icon-container,
+.header-date-inner-container {
+    float: left;
+}
+.header-date-icon-container {
+    font-size: 20px;
+}
+.header-date-inner-container {
+    padding-left: 15px;
+}
+//////////////////////////////////////////
+/////////
+//////////////////////////////////////////
+@include respond-to(not-desktop) {
+    .header-user-container {
+        margin-top: 30px;
+    }
+    .header-date-container,
+    .header-user-container {
+        padding: 15px;
+        &:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    }
+}
+@include respond-to(desktop) {
+    .header-date-container,
+    .header-user-container {
+        float: left;
+        padding: 15px 30px;
+    }
+    .header-btns-container {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        top: 0;
+    }
+}
+//////////////////////////////////////////
+ ///////// HEADER - BUTTONS
+ //////////////////////////////////////////
+.edit-group-btn,
+.logout-btn,
+.show-mybookings-btn,
+.log-in-btn,
+.create-group-btn,
+.create-user-btn
+ {
+    float: left;
+    margin: 0;
+    height: 100%;
+    @extend .flex-center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover {
+        color: $darkblue;
+        background-color: white;
+    }
+    &:active {
+        background-color: $lightgrey;
+    }
+    @include respond-to(not-desktop) {
+        height: 50px;
+        border-bottom: 1px solid white;
+        width: $slideX;
+    }
+    @include respond-to(desktop) {
+        padding: 0 25px;
+    }
+        i {
+            margin-left: 10px;
+        }
+}
 
 @include respond-to(not-desktop) {
-.calendar-container, .logged-out-forms-container {
-  margin-top: 20px;
-  // transform: translate3d(0,0px,0px);
-  transition: transform .5s cubic-bezier(1,-0.02,0.695,0.79);
-  position: relative;
-  &.open {
-    transform: translate3d($slideX,0px,0px);
-    .previous-week-btn, .next-week-btn {
-      display: none;
+.edit-group-btn {
+  margin-top: 50px;
+  border-top: 1px solid white;
+}
+}
+
+@include respond-to(desktop) {
+    .edit-group-btn, .log-in-btn {
+        border-left: 1px solid white;
     }
-  }
-}
-.header-inner-container {
-transform: translate3d(-300px ,0px,0px);
-height: 100%;
-width: $slideX;
-left: 0;
-top: 0;
-bottom: 0;
-transition: transform .5s cubic-bezier(1,-0.02,0.695,0.79);
-&.open {
-  transform: translate3d(0,0px,0px);
-}
-}
-
-.header-btns-container {
-  display: block;
-
-  button {
-    margin: $basePadding 0 0 $basePadding;
-    width: 225px;
-    display: block;
-  }
-}
-
-
-//////////////////////////////////////////
-///////// HAMBURGER
-//////////////////////////////////////////
-$gray: darken(gray,25%);
-$lineThick:  3px;
-
-.hamburger-container {
-  z-index: 999;
-  width: 40px;
-  height: 40px;
-  top: $basePadding;
-  right: $basePadding;
-  position: fixed;
-  background-color: $green;
-  cursor: pointer;
-  perspective: 40px;
-}
-.hamburger-inner-container {
-  transform: translate3d(0,0,0);
-  width: 100%;
-  height: 100%;
-  transition: transform .5s ease-out;
-  transform: translate3d(0,0,0);
-}
-.hamburger {
-  position: absolute;
-  height: $lineThick;
-  top: 19px;
-  width: 80%;
-  right: 10%;
-  background-color: white;
-  transition: all 0.3s ease-in;
-  &:before {
-    background-color: white;
-    position: absolute;
-    content:"";
-    height: $lineThick;
-    width: 100%;
-    right: 0;
-    top: -11px;
-    transition: transform .6s cubic-bezier(0.6,0,.4,1);
-   }
-  &:after {
-    background-color: white;
-    position: absolute;
-    content:"";
-    height: $lineThick;
-    width: 100%;
-    right: 0;
-    top: 11px;
-    transition: transform .6s cubic-bezier(0.6,0,.4,1);
-  }
-}
-.open {
-  .hamburger-inner-container {
-    transform: rotateY(0) rotateX(180deg);
+    .show-mybookings-btn, .create-group-btn {
+        border-left: 1px solid white;
+        border-right: 1px solid white;
     }
-  .hamburger {
-    background-color: $green;
-  }
-  .hamburger:before {
-    opacity: 1;
-    transform: translateY(10px) translateX(0px) rotate(-45deg);
-  }
-  .hamburger:after {
-    opacity: 1;
-    transform: translateY(-12px) translateX(0px) rotate(45deg);
-  }
-}
 
 }
-
-
-
+//////////////////////////////////////////
+///////// HEADER-KALENDERVY CONTAINER
+//////////////////////////////////////////
+.header-calendar-container {
+    position: fixed;
+    top: 0;
+    text-align: center;
+    background-color: $lightgrey;
+    z-index: 99;
+    span {
+        margin: 0 2px;
+    }
+    @include respond-to(not-desktop) {
+        width: 100%;
+        transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
+        h3 {
+            font-size: 16px;
+        }
+        &.open {
+            transform: translate3d($slideX,0px,0px);
+            opacity: 0;
+        }
+        .header-calendar-inner-container {
+            position: relative;
+            width: 80%;
+            min-width: 250px;
+            max-width: 400px;
+        }
+    }
+    @include respond-to(desktop) {
+        top: 78px;
+        width: 91%;
+        max-width: 1175px;
+    }
+}
+//////////////////////////////////////////
+///////// TOGGLE-WEEK KNAPPAR
+//////////////////////////////////////////
+.next-week-btn,
+.previous-week-btn {
+    position: absolute;
+    z-index: 999;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    outline: none;
+    text-align: center;
+    height: auto;
+    color: $darkgrey;
+    background: transparent;
+    padding: 0;
+    &:hover {
+        color: $green;
+    }
+}
+@include respond-to(not-desktop) {
+    .next-week-btn,
+    .previous-week-btn {
+        top: 0;
+        font-size: 24px;
+    }
+    .previous-week-btn {
+        left: 0;
+    }
+    .next-week-btn {
+        right: 0;
+    }
+}
+@include respond-to(desktop) {
+    .previous-week-btn {
+        left: 5px;
+        top: 15px;
+        font-size: 30px;
+    }
+    .next-week-btn {
+        top: 15px;
+        right: 5px;
+        font-size: 30px;
+    }
+}
+//////////////////////////////////////////
+///////// RESPONSIVE NOT-DESKTOP SLIDE
+//////////////////////////////////////////
+@include respond-to(not-desktop) {
+    .calendar-container,
+    .logged-out-forms-container {
+        transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
+        position: relative;
+        &.open {
+            transform: translate3d($slideX,0px,0px);
+        }
+    }
+    .header-inner-container {
+        transform: translate3d(-300px ,0px,0px);
+        height: 100%;
+        width: $slideX;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
+        &.open {
+            transform: translate3d(0,0px,0px);
+        }
+    }
+    .header-btns-container {
+        display: block;
+        button {
+            margin: $basePadding 0 0 $basePadding;
+            width: 225px;
+            display: block;
+        }
+    }
+    //////////////////////////////////////////
+    ///////// HAMBURGER
+    //////////////////////////////////////////
+    $gray: darken(gray,25%);
+    $lineThick: 3px;
+    .hamburger-container {
+        z-index: 999;
+        width: 40px;
+        height: 40px;
+        top: 10px;
+        right: 10px;
+        position: fixed;
+        background-color: $green;
+        cursor: pointer;
+        perspective: 40px;
+    }
+    .hamburger-inner-container {
+        transform: translate3d(0,0,0);
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s ease-out;
+        transform: translate3d(0,0,0);
+    }
+    .hamburger {
+        position: absolute;
+        height: $lineThick;
+        top: 19px;
+        width: 80%;
+        right: 10%;
+        background-color: white;
+        transition: all 0.3s ease-in;
+        &:before {
+            background-color: white;
+            position: absolute;
+            content: "";
+            height: $lineThick;
+            width: 100%;
+            right: 0;
+            top: -11px;
+            transition: transform 0.6s cubic-bezier(0.6,0,.4,1);
+        }
+        &:after {
+            background-color: white;
+            position: absolute;
+            content: "";
+            height: $lineThick;
+            width: 100%;
+            right: 0;
+            top: 11px;
+            transition: transform 0.6s cubic-bezier(0.6,0,.4,1);
+        }
+    }
+    .open {
+        .hamburger-inner-container {
+            transform: rotateY(0) rotateX(180deg);
+        }
+        .hamburger {
+            background-color: $green;
+        }
+        .hamburger:before {
+            opacity: 1;
+            transform: translateY(10px) translateX(0px) rotate(-45deg);
+        }
+        .hamburger:after {
+            opacity: 1;
+            transform: translateY(-12px) translateX(0px) rotate(45deg);
+        }
+    }
+}
 //////////////////////////////////////////
 ///////// RESPONSIVE DESKTOP
 //////////////////////////////////////////
 @include respond-to(desktop) {
-
-  .header-inner-container  {
-    width: 100%;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 3;
-    margin: 0;
-    padding: 0;
-    // max-height: 130px
-  }
-
-  .header-btns-container {
-  position: absolute;
-  right: $basePadding;
-  top: $basePadding;
-  }
-
-
-
+    .header-inner-container {
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 3;
+        margin: 0;
+        padding: 0;
+    }
 }

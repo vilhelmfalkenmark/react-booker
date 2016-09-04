@@ -11,7 +11,7 @@ export default class LoggedIn extends React.Component {
  super(props);
  this.state = {
  calendar: [],
- bookingsModal: true,
+ bookingsModal: false,
  adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
@@ -379,6 +379,9 @@ toggleMenu(state) {
      menuOpen = {this.props.menuOpen}
      toggleMenu = {::this.props.toggleMenu}
      week = {this.state.week}
+     toggleWeek = {::this.toggleWeek}
+     week = {this.state.week}
+     maxWeek = {this.state.maxWeek}
      />
     <Calendar
     bookingsModal = {this.state.bookingsModal}
@@ -387,9 +390,7 @@ toggleMenu(state) {
     bookMachine = {::this.bookMachine}
     user = {this.props.user}
     menuOpen = {this.props.menuOpen}
-    week = {this.state.week}
-    maxWeek = {this.state.maxWeek}
-    toggleWeek = {::this.toggleWeek}
+
     />
    {
      this.state.bookingsModal ?

@@ -188,9 +188,9 @@ alert(state,type,data) {
     : null
     }
      <div className="header-btns-container">
-      <button className="log-in-btn" onClick={() => this.handleView("login")}>Logga in</button>
-      <button className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa grupp</button>
-      <button className="create-user-btn" onClick={() => this.handleView("user")}>Skapa användare</button>
+      <div className="log-in-btn" onClick={() => this.handleView("login")}>Logga in <i className="flaticon-exit"></i></div>
+      <div className="create-group-btn" onClick={() => this.handleView("usergroup")}>Skapa grupp <i className="flaticon-controls"></i> </div>
+      <div className="create-user-btn" onClick={() => this.handleView("user")}>Skapa användare <i className="flaticon-user"></i></div>
      </div>
      </div>
      </header>
