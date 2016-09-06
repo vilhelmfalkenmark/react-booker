@@ -48,32 +48,27 @@ export default class Container extends React.Component {
 ///////// REGISTERA GRUPP & ANVÄNDARE
 //////////////////////////////////////////
 registerUser(newUser, groupID) {
-    let groups = this.state.groups;
-    for (var i = 0; i < groups.length; i++) {
-        if (groups[i].id == groupID) {
-
-            for (var j = 0; j < groups[i].users.length; j++) {
-             if(groups[i].users[j].email == newUser.email)
-             {
-              console.log("användaren finns redan");
-              return false;
-             }
-            }
-            if (typeof(groups[i].users[0]) == "string" && groups[i].users.length == 1) {
-                groups[i].users.shift(); // Ta bort det tomma värdet eftersom Arrayen nu kommer populeras
-                newUser.role = "superadmin";
-                newUser.approved = true;
-            } else {
-                newUser.role = "user";
-                newUser.approved = true;
-            }
-            groups[i].users.push(newUser);
-            this.setState({
-                groups: groups
-            });
-            return false;
-        }
-    }
+  var component = this;
+  component.loading(true);
+  let groups = this.state.groups;
+  for (var i = 0; i < groups.length; i++) {
+      if (groups[i].id == groupID) {
+          if (typeof(groups[i].users[0]) == "string" && groups[i].users.length == 1) {
+              groups[i].users.shift(); // Ta bort det tomma värdet eftersom Arrayen nu kommer populeras
+              newUser.role = "superadmin";
+              newUser.approved = true;
+          } else {
+              newUser.role = "user";
+              newUser.approved = true;
+          }
+          groups[i].users.push(newUser);
+          this.setState({
+              groups: groups
+          });
+          component.loading(false);
+          return false;
+      }
+  }
 }
 registerUsergroup(newGroup) {
         let groups = this.state.groups;
@@ -105,7 +100,7 @@ componentDidUpdate() {
    var component = this;
    function authDataCallback(authData) {
     let groups = component.state.groups;
-      // console.log(authData.email+" är inloggad");
+      console.log(authData.email+" är inloggad");
        for (var i = 0; i < groups.length; i++) {
         for (var j = 0; j < groups[i].users.length; j++) {
          if(typeof(groups[i].users[j]) === "object") {

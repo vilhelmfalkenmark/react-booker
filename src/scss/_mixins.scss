@@ -25,11 +25,11 @@ position: relative;
 }
 &:before {
   position: absolute;
-  font-family: FontAwesome;
+  font-family: Flaticon;
   color: inherit;
-  font-size: 17px;
+  font-size: 13px;
   content: $icon;
-  top: 12px;
+  top: 15px;
   left: 12px;
 }
 }
@@ -59,7 +59,7 @@ position: relative;
 }
 &:before {
   position: absolute;
-  font-family: FontAwesome;
+  font-family: Flaticon;
   color: inherit;
   font-size: 17px;
   content: $icon;
@@ -82,6 +82,42 @@ color: $color;
 cursor: pointer;
 transition: all 0.2s ease;
 position: relative;
+
+
+
+&:hover {
+  background-color: $color;
+  color: $background;
+  border: 1px solid $background;
+}
+&:active {
+  background-color: darken($color,10%);
+  color: $background;
+}
+}
+//////////////////////////////////////////
+///////// RUND IKON KNAPP
+//////////////////////////////////////////
+@mixin round-icon-button($color, $background, $icon) {
+background-color: $background;
+outline: 0;
+height: 40px;
+width: 40px;
+border: 1px solid $color;
+border-radius: 50%;
+font-size: 16px;
+color: $color;
+cursor: pointer;
+transition: all 0.2s ease;
+&:before {
+  position: absolute;
+  font-family: Flaticon;
+  color: inherit;
+  font-size: 17px;
+  content: $icon;
+  top: 10px;
+  left: 11px;
+}
 &:hover {
   background-color: $color;
   color: $background;
@@ -138,21 +174,41 @@ left: 12px;
   transition: all 0.2s ease;
   position: relative;
   &:before {
-     transition: inherit;
+      content: "";
+      transition: inherit;
       position: absolute;
-      font-family: Flaticon;
-      color: inherit;
-      font-size: 17px;
-      content: "\f10b";
-      top: 11px;
-      left: 11px;
+      height: 12px;
+      width: 2px;
+      transform: rotate(-45deg);
+      background-color: white;
+      top: 17px;
+      left: 14px;
+  }
+  &:after {
+    content: "";
+    transition: inherit;
+    position: absolute;
+    height: 18px;
+    width: 2px;
+    transform: rotate(35deg);
+    background-color: white;
+    top: 11px;
+    left: 22px;
   }
   &:hover {
     background-color: $red;
     &:before {
-      transition: all 0.2s ease;
-        content: "\f109";
+        height: 20px;
+        transform: rotate(-45deg);
+        top: 10px;
+        left: 18px;
     }
+    &:after {
+      height: 20px;
+      transform: rotate(45deg);
+      top: 10px;
+      left: 18px;
+  }
   }
   &:active {
     background-color: darken($red,10%);

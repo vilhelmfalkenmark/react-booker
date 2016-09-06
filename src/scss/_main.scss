@@ -26,6 +26,12 @@ background-color: $lightgrey;
 a {
   transition: all 0.2s ease;
 }
+.success {
+  color: $green;
+}
+.warning {
+  color: $red;
+}
 button {
   cursor: pointer;
 }

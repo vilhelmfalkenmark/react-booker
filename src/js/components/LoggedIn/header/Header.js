@@ -67,6 +67,8 @@ componentDidMount() {
 
       if(today.getDay() == 1) {
        isMonday = true;
+       lastWeekDay = 0 // lördag
+
       }
       else if ( today.getDay() == 0) {
        isSunday = true;

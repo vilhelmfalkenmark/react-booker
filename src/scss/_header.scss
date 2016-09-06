@@ -215,9 +215,6 @@ $basePadding: 20px;
     color: inherit;
     background: transparent;
     padding: 0;
-    &:hover {
-        color: $green;
-    }
 }
 @include respond-to(not-desktop) {
     .next-week-btn,
@@ -233,16 +230,29 @@ $basePadding: 20px;
     }
 }
 @include respond-to(desktop) {
+
+  .previous-week-btn, .next-week-btn {
+    font-size: 30px;
+    top: 15px;
+    &:hover {
+        color: $green;
+    }
+  }
     .previous-week-btn {
         left: 5px;
-        top: 15px;
-        font-size: 30px;
+        &:hover {
+          left: 2px;
+        }
     }
     .next-week-btn {
-        top: 15px;
         right: 5px;
-        font-size: 30px;
+        &:hover {
+          right: 2px;
+        }
     }
+
+
+
 }
 //////////////////////////////////////////
 ///////// RESPONSIVE NOT-DESKTOP SLIDE

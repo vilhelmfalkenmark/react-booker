@@ -11,6 +11,7 @@ export default class RegisterUsergroup extends React.Component {
     id: "",
     maxBookings: "",
     setMax: false,
+    selectedOption: "no",
     machines: [],
     amountofMachines: "",
     times: [],
@@ -164,11 +165,30 @@ handleWeeks(e) {
         <label for="weeks">Veckor</label>
         <input type="number" min="0" max="5" name="weeks" placeholder="Hur många veckor framåt ska man kunna boka?" onChange={::this.handleWeeks} value={this.state.weeks} required/>
         <label>Sätt maximalt antal bokningar per person</label>
-        <div className="checkbox-container">
-         <input type="checkbox" className="checkbox" name="setMax" onChange={::this.toggleMax} checked={this.state.setMax}/>
-          {
-           this.state.setMax ?  <label for="setMax">JA</label> : <label for="setMax">NEJ</label>
-          }
+        <div className="radiobutton-container">
+         <div className="radiobutton-row">
+         <input
+          type="radio"
+          id="r2"
+          className="radiobutton no-setmax"
+          name="setMax"
+          value="no"
+          onChange={()=> this.setState({setMax: false, selectedOption: "no"})}
+          checked={this.state.selectedOption === 'no'} />
+         <label for="r2">Nej</label>
+         </div>
+          <div className="radiobutton-row">
+          <input
+           type="radio"
+           id="r1"
+           className="radiobutton yes-setmax"
+           name="setMax"
+           value="yes"
+           onChange={()=> this.setState({setMax: true, selectedOption: "yes"})}
+           checked={this.state.selectedOption === 'yes'} />
+          <label for="r1">Ja</label>
+          </div>
+
         </div>
          {
           this.state.setMax ?

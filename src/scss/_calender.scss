@@ -1,12 +1,9 @@
-
 .calendar-container, .logged-out-forms-container {
   margin-top: 10px;
   @include respond-to(desktop) {
       margin-top: 145px;
   }
 }
-
-
 .calendar-container.fixed {
   position: fixed;
   width: 97%;
@@ -18,8 +15,6 @@
     overflow-x: visible;;
   }
 }
-
-
 
 .day-container {
   border: 1px solid darken($grey,10%);
@@ -57,32 +52,54 @@ width: calc(#{$width} - 31px)
     border: none;
   };
 }
-
+.toggle-machines {
+  display: none;
+}
 //////////////////////////////////////////
-/////////  TABLET
+/////////  MOBILE
 //////////////////////////////////////////
 @include respond-to(mobile) {
+  .machine-container-open {
+    display: block;
+  }
+  .machine-container-closed {
+    display: none;
+  }
   .date-header {
+    text-align: center;
     padding-left: 10px;
     margin-bottom: 10px;
-
-  }
-  [class*="time-col-"] {
-    border-right: 1px solid darken($grey,10%);
-    padding: 0 15px;
-    width: calc(50% - 31px);
-    &:nth-of-type(even) {
-      border: none;
-    };
-    .fa-clock-o {
-      display: none;
     }
+
+  [class*="time-col-"] {
+    position: relative;
+    float: none;
+    padding: 0 15px;
+    border: none;
+    width: 85%;
+    margin: 0 auto;
+    border-bottom: 1px solid darken($grey,10%);
+  }
+  .toggle-machines {
+    display: block;
+    position: absolute;
+    top: -8px;
+    right: 8px;
+  }
+  .show-machines-btn {
+    @include round-icon-button(white,$green,"\f100");
+  }
+  .hide-machines-btn {
+    @include round-icon-button(white,$red,"\f109");
   }
 }
 //////////////////////////////////////////
 /////////  TABLET
 //////////////////////////////////////////
 @include respond-to(tablet) {
+
+
+
 [class*="time-col-"] {
   border-right: 1px solid darken($grey,10%);
 

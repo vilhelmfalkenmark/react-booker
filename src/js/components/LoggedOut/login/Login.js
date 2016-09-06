@@ -10,7 +10,6 @@ export default class Login extends React.Component {
    banned: false
   }
   window.history.pushState("object or string", "Title", "/logga-in");
-
  }
  handleName (e) {
   this.setState({

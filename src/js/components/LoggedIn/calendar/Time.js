@@ -4,14 +4,14 @@ export default class Time extends React.Component {
 
  constructor() {
   super();
+  this.state = {
+   open: false
+  }
  }
   bookMachine(id,userID) {
    this.props.bookMachine(id,userID);
   }
  render() {
-
-
-
   return (
    <div className={"time-col-"+this.props.columns}>
      <h4 className={this.props.bookedMachines == 0 ? "free-time"
@@ -21,7 +21,11 @@ export default class Time extends React.Component {
       :this.props.bookedMachines < this.props.machines.length ? "Delvis ledigt"
       :"Fullbokat"
      }</span>
+
      </h4>
+     <button className={this.state.open ? "toggle-machines hide-machines-btn" : "toggle-machines show-machines-btn"}
+      onClick={()=> this.setState({open: !this.state.open})}></button>
+     <div className={this.state.open ? "machine-container-open" : "machine-container-closed"}>
     {
       this.props.machines.map(function(machine) {
       return <Machine
@@ -36,6 +40,7 @@ export default class Time extends React.Component {
       />;
       }.bind(this))
     }
+    </div>
    </div>
   )
  }

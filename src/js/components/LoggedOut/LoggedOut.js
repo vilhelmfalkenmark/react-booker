@@ -18,7 +18,7 @@ constructor(props) {
   registerUsergroup: false, // VIEW
   registerUser: false, // VIEW
   cookie: false,
-  registerUserError: false,
+  registerUserError: false
  }
 }
 componentWillReceiveProps() {
@@ -113,22 +113,18 @@ cookie: newGroup.id
 //////////////////////////////////////////
 registerUser(newUser,groupID) {
 var component = this;
- firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password).catch(function(error) {
-   var errorCode = error.code;
-   var errorMessage = error.message;
-   if(errorCode || errorMessage) {
-    console.log(errorCode);
-    console.log(errorMessage);
-    component.setState({
-     alert: true,
-     alertType: "fail-user",
-     alertData: errorCode,
-     registerUserError: true
-    })
-   }
- });
- component.props.registerUser(newUser,groupID);
-
+firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password).then(function(user) {
+component.props.registerUser(newUser,groupID)
+}, function(error) {
+ var errorCode = error.code;
+ var errorMessage = error.message;
+  component.setState({
+   alert: true,
+   alertType: "fail-user",
+   alertData: errorCode,
+   registerUserError: true
+  })
+});
 document.cookie = "groupID=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 }
 //////////////////////////////////////////
@@ -157,6 +153,10 @@ alert(state,type,data) {
  })
 }
 
+logOut() {
+ this.props.logOut();
+}
+
  render() {
   return (
    <div className="logged-out-container">
@@ -173,11 +173,11 @@ alert(state,type,data) {
          <div className="hamburger"></div>
       </div>
      </div>
-
      <div className={this.props.menuOpen ? "header-inner-container open":"header-inner-container"}>
      <div className="header-logo-container">
       <div className="header-logo-inner-container">
        <h1 className="app-header">React Bokningsapp</h1>
+       {/* <button onClick={::this.logOut}>Logga ut</button> */}
       </div>
     </div>
     {
