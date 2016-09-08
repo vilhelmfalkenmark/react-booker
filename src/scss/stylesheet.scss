@@ -1,16 +1,23 @@
-@import "variables";
-@import "mixins";
-@import "breakpoints";
-@import "grid-flex";
-@import "grid-float";
-@import "main";
+//  REUSABLE //
+@import "reusables/variables";
+@import "reusables/mixins";
+//  GRID //
+@import "grid/breakpoints";
+@import "grid/grid-flex";
+@import "grid/grid-float";
+//  MODAL //
+@import "modal/modal";
+@import "modal/mybookings";
+@import "modal/success-group";
+@import "modal/admin";
+//  CALENDAR //
+@import "calendar/calender";
+@import "calendar/machine";
+@import "calendar/time";
+//  MODULES //
+@import "modules/loader-wall";
+@import "modules/warning";
+//  UNCATEGORIZED //
 @import "logged-out-forms";
 @import "header";
-@import "modal";
-@import "calender";
-@import "machine";
-@import "time";
-@import "loader-wall";
-@import "logged-out";
-@import "warning";
-@import "admin";
+@import "main";

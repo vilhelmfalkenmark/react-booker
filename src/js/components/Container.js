@@ -49,7 +49,6 @@ export default class Container extends React.Component {
 //////////////////////////////////////////
 registerUser(newUser, groupID) {
   var component = this;
-  component.loading(true);
   let groups = this.state.groups;
   for (var i = 0; i < groups.length; i++) {
       if (groups[i].id == groupID) {
@@ -65,7 +64,6 @@ registerUser(newUser, groupID) {
           this.setState({
               groups: groups
           });
-          component.loading(false);
           return false;
       }
   }
@@ -77,9 +75,7 @@ registerUsergroup(newGroup) {
             groups: groups
         })
 }
-
 handleUser(users) {
- console.log("handleUser kallad");
      let groups = this.state.groups;
      groups[this.state.groupIndex].users = users;
      this.setState({
@@ -100,7 +96,7 @@ componentDidUpdate() {
    var component = this;
    function authDataCallback(authData) {
     let groups = component.state.groups;
-      console.log(authData.email+" är inloggad");
+      // console.log(authData.email+" är inloggad");
        for (var i = 0; i < groups.length; i++) {
         for (var j = 0; j < groups[i].users.length; j++) {
          if(typeof(groups[i].users[j]) === "object") {
@@ -137,7 +133,6 @@ componentDidUpdate() {
 //////// LOGGA IN
 /////////////////////////////////////////////
 logIn(email, password) {
-  // console.log("login kallad");
   var component = this;
   component.loading(true);
   // var groups = this.state.groups;
@@ -194,7 +189,6 @@ logOut() {
 }
 
 authenticate(index, userIndex, action) {
-  // console.log("authenticate kallad");
     if (action) {
         this.setState({
             groupIndex: index,
@@ -205,7 +199,8 @@ authenticate(index, userIndex, action) {
     } else {
         this.setState({
             userIndex: null,
-            user: null
+            user: null,
+            loading: false
         })
     }
 }

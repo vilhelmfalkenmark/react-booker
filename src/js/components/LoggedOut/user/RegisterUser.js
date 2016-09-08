@@ -11,7 +11,7 @@ export default class RegisterUser extends React.Component {
     info: "",
     selectedGroup: false,
     checkboxSelected: false,
-    searchID: ""
+    searchID: props.linkedID || ""
   };
   window.history.pushState("object or string", "Title", "/skapa-anvandare");
 
@@ -113,7 +113,7 @@ handleID(e) {
  ) {
   var submitButton = <button type="submit" className="create-user-btn" onClick={::this.registerUser}><i className="flaticon-user"></i>Skapa användare</button>
  } else {
-  submitButton = null
+  submitButton =  <button className="disabled-btn"><i className="flaticon-user"></i>Skapa användare</button>
  }
 
  var passwordMessage;

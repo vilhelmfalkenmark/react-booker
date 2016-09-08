@@ -48,8 +48,8 @@ this.props.resetPassword(this.state.password);
 
      <button type="submit" className="log-in-btn" onClick={::this.logIn}><i className="flaticon-exit"></i>Logga in</button>
       {
-       this.props.credentials != true ? <div>
-       <p>Felaktigt användarnamn eller lösenord. Fyll i din e-postadress och klicka på knappen nedan om du vill återställa ditt lösenord.</p>
+       this.props.credentials != true ? <div className="reset-password-container">
+       <p className="warning">Felaktigt användarnamn eller lösenord. Fyll i din e-postadress och klicka på knappen nedan om du vill återställa ditt lösenord.</p>
        <button className="reset-password-btn" onClick={::this.resetPassword}><i className="flaticon-lock"></i>Återställ lösenord</button>
 
       </div> : null

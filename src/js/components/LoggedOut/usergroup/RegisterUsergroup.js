@@ -10,8 +10,8 @@ export default class RegisterUsergroup extends React.Component {
     name: "",
     id: "",
     maxBookings: "",
-    setMax: false,
-    selectedOption: "no",
+    setMax: true,
+    selectedOption: "yes",
     machines: [],
     amountofMachines: "",
     times: [],
@@ -134,6 +134,25 @@ handleWeeks(e) {
  render() {
   let machineIndex = 0;
   let timeIndex = 0;
+  var submitButton;
+
+ if(this.state.name != "" &&
+ this.state.weeks &&
+ this.state.times.length > 0 &&
+ this.state.machines.length > 0)
+{
+submitButton =
+<button type="submit"
+ className="create-group-btn"
+ onClick={::this.registerGroup}>
+ <i className="flaticon-controls"></i>
+ Skapa Grupp</button>;
+} else {
+ submitButton = <button className="disabled-btn"><i className="flaticon-controls"></i>Skapa Grupp</button>
+}
+
+
+
   return (
    <div className="form-container register-container">
     <form className="" method="" action="">
@@ -148,18 +167,17 @@ handleWeeks(e) {
        value={this.state.amountofMachines} required/>
        {
         this.state.machines.length > 0 ?
-        this.state.machines.map(function(machine) {
-         machineIndex++;
-         return  <Machine key = {machineIndex} index={machineIndex} addMachine={::this.addMachine}/>
+        this.state.machines.map(function(machine, index) {
+         // machineIndex++;
+         return  <Machine key = {index} index={index} addMachine={::this.addMachine}/>
         }, this) : null // The this is the context passed to the map function.
        }
        <label for="times">Antal tider</label>
        <input type="number" min="0" name="times" placeholder="Antal tider" onChange={::this.handleTimes} value={this.state.amountofTimes} required/>
         {
          this.state.times.length > 0 ?
-         this.state.times.map(function(time) {
-          timeIndex++;
-          return  <Time key = {timeIndex} index={timeIndex} addTime={::this.addTime}/>
+         this.state.times.map(function(time, index) {
+          return  <Time key = {index} index={index} addTime={::this.addTime}/>
          }, this) : null // The this is the context passed to the map function.
         }
         <label for="weeks">Veckor</label>
@@ -197,7 +215,9 @@ handleWeeks(e) {
            <input type="number" min="0" max="1000" name="maxBookings" placeholder="0" value={this.state.maxBookings} onChange={::this.setMax} required/>
           </div> : null
          }
-      <button type="submit" className="create-group-btn" onClick={::this.registerGroup}><i className="flaticon-controls"></i>Skapa Grupp</button>
+         {
+          submitButton
+         }
     </form>
    </div>
   )

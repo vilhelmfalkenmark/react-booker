@@ -1,6 +1,6 @@
 .modal-container {
   ul {
-    padding-left: 20px;
+    // padding-left: 20px;
   }
 }
 .admin-modal-container {
@@ -12,12 +12,7 @@
   margin: 60px auto 0 auto;
   overflow: auto;
   position: relative;
-
-
-
 }
-
-
 //////////////////////////////////////////
  ///////// HEADERS
  //////////////////////////////////////////
@@ -68,15 +63,10 @@ $padding: 20px;
 .admin-left-section, .admin-right-section {
 transition: transform .4s cubic-bezier(1, 0, 0.695, 0.79);
 position: absolute;
-
-// width: 100%;
 h1 {
   text-align: center;
 }
 }
-
-
-
 
 /////////////  VÄNSTER SEKTION /////////////
 .admin-left-section {
@@ -85,8 +75,6 @@ h1 {
   left: $padding;
   right: $padding;
 }
-
-
 .admin-section-row {
   height: 70px;
   border-top: 1px solid darken($lightgrey,5%);
@@ -99,8 +87,6 @@ h1 {
     background-color: $green;
     color: white;
   }
-
-
 }
 $top: 20px;
 .admin-section-row-icon {
@@ -139,13 +125,9 @@ top: $top;
   right: $padding;
 width: calc(100% - 35px);
 transform: translate3d(110%,0px,0px);
-
 h2 i {
   margin-right: 15px;
-
 }
-
-
 }
 .admin-back-btn {
   background: transparent;

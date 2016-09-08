@@ -1,3 +1,7 @@
+.logged-out-forms-container {
+  margin-top: 90px;
+  @extend .flex-center;
+}
 .form-container {
   max-width: 420px;
   width: 90%;
@@ -14,8 +18,13 @@
     margin: 5px 0;
     display: block;
   }
-  button {
+  .create-group-btn,.create-user-btn, .log-in-btn, .reset-password-btn {
     @include button (white,$green)
+    width: 100%;
+    text-align: center;
+  }
+  .disabled-btn {
+    @include button (white,$grey)
     width: 100%;
     text-align: center;
   }
@@ -31,7 +40,6 @@ select {
   margin: 10px 0;
   -webkit-appearance: none;
   overflow: hidden;
-  // background: url("../images/arrow-white.svg") no-repeat right #353535;
   border: none;
 }
 .register-container {
@@ -96,4 +104,7 @@ select {
     margin-top: 0;
     margin-left: 15px;
   }
+}
+.reset-password-container {
+  padding-top: 50px;
 }

@@ -26,6 +26,9 @@ background-color: $lightgrey;
 a {
   transition: all 0.2s ease;
 }
+.text-center {
+  text-align: center;
+}
 .success {
   color: $green;
 }
@@ -46,10 +49,6 @@ button {
   display: block;
   padding: 10px 20px;
 }
-
-
-
-
 input[type="password"],
 input[type="number"],
 input[type="text"],

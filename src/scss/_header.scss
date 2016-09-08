@@ -31,6 +31,16 @@ $basePadding: 20px;
         font-size: 24px;
     }
 }
+ .cookie-container {
+   padding: 20px 0 10px 20px;
+   h3 {
+     margin: 0 0 5px 0;
+     background-color: white;
+     color: $red;
+     padding: 5px;
+   }
+ }
+
 //////////////////////////////////////////
 ///////// TYPOGRAFI
 //////////////////////////////////////////
@@ -47,7 +57,10 @@ $basePadding: 20px;
 ///////// USER BLOCK
 //////////////////////////////////////////
 .header-user-icon-container,
-.header-user-inner-container {
+.header-user-inner-container,
+.header-logo-inner-container,
+.cookie-container
+ {
     float: left;
 }
 .header-user-icon-container {
@@ -134,7 +147,7 @@ $basePadding: 20px;
     }
     @include respond-to(not-desktop) {
         float: none;
-        display: block;
+        display: block !important;
         border-bottom: 1px solid white;
         width: $slideX;
         text-align: left;
@@ -260,7 +273,8 @@ $basePadding: 20px;
 @include respond-to(not-desktop) {
     .calendar-container,
     .logged-out-forms-container {
-        transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
+        // transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
+        transition: transform 0.5s cubic-bezier(1, 0, 0.695,0.79);
         position: relative;
         &.open {
             transform: translate3d($slideX,0px,0px);

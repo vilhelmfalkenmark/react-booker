@@ -1,0 +1,19 @@
+
+.my-bookings-inner-container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 400px;
+}
+
+.mybookings-date-container {
+
+  border-bottom: 1px solid $grey;
+  .admin-booking-info-container {
+    top: 20px;
+  }
+}
+
+.mybookings-date-header {
+  font-size: 20px;
+  text-transform: capitalize;
+}

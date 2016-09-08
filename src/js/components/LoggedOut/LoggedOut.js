@@ -18,7 +18,8 @@ constructor(props) {
   registerUsergroup: false, // VIEW
   registerUser: false, // VIEW
   cookie: false,
-  registerUserError: false
+  registerUserError: false,
+  linkedID: ""
  }
 }
 componentWillReceiveProps() {
@@ -152,11 +153,19 @@ alert(state,type,data) {
   alertData: data
  })
 }
-
+userLink(groupID) {
+this.setState({
+ linkedID: groupID,
+ registerUser: true,
+ registerUsergroup: false,
+ alert: false,
+ alertType: "",
+ alertData: false
+})
+}
 logOut() {
  this.props.logOut();
 }
-
  render() {
   return (
    <div className="logged-out-container">
@@ -165,6 +174,7 @@ logOut() {
      type = {this.state.alertType}
      data = {this.state.alertData}
      alert = {::this.alert}
+     userLink = {::this.userLink}
      /> : null
     }
     <header className="header-container">
@@ -182,8 +192,7 @@ logOut() {
     </div>
     {
      this.state.cookie ? <div className="cookie-container">
-     <p>Du har precis skapat en grupp med id {this.state.cookie}.</p>
-     <p>Skapa nu en användare och logga in på den gruppen.</p>
+     <h3 className="padding-warning">Du har precis skapat en grupp med id {this.state.cookie}.</h3>
      </div>
     : null
     }
@@ -206,6 +215,7 @@ logOut() {
      /> :
      this.state.registerUser ?
      <RegisterUser
+     linkedID = {this.state.linkedID} // The linkedID from creategroup VIEW
      groups = {this.props.groups}
      registerUser = {::this.registerUser}
      alert = {::this.alert}/> :
