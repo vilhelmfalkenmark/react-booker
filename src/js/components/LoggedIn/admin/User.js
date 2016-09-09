@@ -1,11 +1,5 @@
 import React from "react";
 export default class User extends React.Component {
- constructor() {
- super();
- // this.state = {
- //
- // };
-}
 userStatus(role,id) {
 this.props.userStatus(role,id);
 }
@@ -45,7 +39,6 @@ this.props.userApprove(status,id);
         : null
        }
       </div> :
-      // SLUT STATUS PÅ NUVARANDE INLOGGAD PERSON
       null
  }
       </div>

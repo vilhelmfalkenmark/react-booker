@@ -12,7 +12,7 @@ export default class LoggedIn extends React.Component {
  this.state = {
  calendar: [],
  bookingsModal: false,
- adminModal: false,
+ adminModal: true,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false, // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
@@ -317,6 +317,7 @@ return false;
 updateMe(info,name) {
 this.props.updateMe(info,name)
 }
+
 // UPPDATERA GRUPP
 updateGroup(groupName, maxBookings,weeks) {
  this.props.updateGroup(groupName,maxBookings,weeks);

@@ -5,6 +5,7 @@ import Login from "./login/Login.js";
 import RegisterUser from "./user/RegisterUser.js";
 import RegisterUsergroup from "./usergroup/RegisterUsergroup.js";
 import Alert from "./Alert.js";
+import CookieInfo from "./CookieInfo.js";
 
 export default class LoggedOut extends React.Component {
 constructor(props) {
@@ -18,6 +19,7 @@ constructor(props) {
   registerUsergroup: false, // VIEW
   registerUser: false, // VIEW
   cookie: false,
+  cookieInfo: false, // Den här sidan använder cookies
   registerUserError: false,
   linkedID: ""
  }
@@ -52,7 +54,7 @@ else {
  })
 }
 //////////////////////////////////////////
-///////// SET COOKIE
+///////// SÄTT KAKOR
 //////////////////////////////////////////
 var cookies = document.cookie.split(';');
 var component = this;
@@ -66,6 +68,20 @@ if(cookies.length > 0) {
  }
  });
 }
+if(cookies[0] == "") {
+ this.setState({
+  cookieInfo: true
+ })
+}
+}
+setCookie() {
+ var d = new Date();
+ d.setTime(d.getTime() + (365*24*60*60*1000));
+ var expires = "expires="+ d.toUTCString();
+ document.cookie ="approvedCookies=true;" + expires;
+ this.setState({
+  cookieInfo: false
+ })
 }
 //////////////////////////////////////////
 ///////// VIEWS
@@ -101,7 +117,7 @@ registerGroup(newGroup) {
 this.props.registerUsergroup(newGroup)
 
 var d = new Date();
-d.setTime(d.getTime() + (24*60*60*1000));
+d.setTime(d.getTime() + (72*60*60*1000));
 var expires = "expires="+ d.toUTCString();
 document.cookie ="groupID="+ newGroup.id + ";" + expires;
 this.setState({
@@ -115,7 +131,9 @@ cookie: newGroup.id
 registerUser(newUser,groupID) {
 var component = this;
 firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password).then(function(user) {
+component.props.loading(true);
 component.props.registerUser(newUser,groupID)
+
 }, function(error) {
  var errorCode = error.code;
  var errorMessage = error.message;
@@ -228,6 +246,17 @@ logOut() {
      null
     }
     </div>
+    {
+     this.state.cookieInfo ?
+     <CookieInfo
+      setCookie = {::this.setCookie}
+      />
+    : null
+    }
+
+
+
+
    </div>
   )
  }

@@ -66,7 +66,6 @@ handleID(e) {
 //////////////////////////////////////////
  registerUser(e) {
  e.preventDefault(); // PREVENT FORM FROM RELOADING.
-
  let newUser = new Object();
  newUser.email = this.state.email;
  newUser.name = this.state.name;
@@ -76,24 +75,6 @@ handleID(e) {
  newUser.id = Date.now();
  newUser.key = Date.now();
  this.props.registerUser(newUser, this.state.selectedGroup)
-
- // if(this.state.checkboxSelected) {
- //  if(this.state.email == "" || this.state.name== "" || this.state.password == "") {
- //   this.props.alert(true,"fail-user-missing-fields")
- //   return false;
- //  }
- //  let newUser = new Object();
- //  newUser.email = this.state.email;
- //  newUser.name = this.state.name;
- //  newUser.info = this.state.info;
- //  newUser.password = this.state.password;
- //  newUser.bookings = 0;
- //  newUser.id = Date.now();
- //  newUser.key = Date.now();
- //  this.props.registerUser(newUser, this.state.selectedGroup)
- // } else {
- //  this.props.alert(true,"fail-user-missing-fields")
- // }
  }
 //////////////////////////////////////////
 ///////// RENDER

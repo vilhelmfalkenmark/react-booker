@@ -163,7 +163,6 @@ resetPassword(email) {
     resetPasswordSent: true
    })
  }, function(error) {
-   console.log("An error happened.");
    alert("Ett fel uppstod. Vänligen försök igen")
  });
 }
@@ -234,7 +233,6 @@ let groups = this.state.groups;
     groups[this.state.groupIndex].users[this.state.userIndex].name = name;
    }
    else {
-    console.log("den ska raderas");
     // GÖR FÖRSTA BÄSTA TILL SUPERADMIN OM DET SKULLE VARA SÅ
     // ATT SUPERADMIN RADERAS SITT KONTO
     if(groups[this.state.groupIndex].users[this.state.userIndex].role == "superadmin")
@@ -262,7 +260,6 @@ let groups = this.state.groups;
         groups: groups
     })
 }
-
 // UPPDATERA ALLMÄN INFORMATION
 updateGroup(groupName,maxBookings,weeks) {
   let groups = this.state.groups;
@@ -274,7 +271,6 @@ updateGroup(groupName,maxBookings,weeks) {
       groups: groups
   })
 }
-
 // SPARA MASKINER
 saveMachines(machines) {
   let groups = this.state.groups;
@@ -321,6 +317,7 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
            logOut = {::this.logOut}
            logIn = {::this.logIn}
            menuOpen = {this.state.menuOpen}
+           loading = {::this.loading}
            toggleMenu = {::this.toggleMenu}
            credentials = {this.state.credentials}
            userBanned = {this.state.userBanned}

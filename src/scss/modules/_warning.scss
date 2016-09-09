@@ -1,4 +1,4 @@
-.warning-container {
+.warning-container, .cookie-info-container {
   position: fixed;
   z-index: 5;
   height: 230px;
@@ -12,30 +12,17 @@
     height: 200px;
   };
 }
-.warning-inner-container {
+.warning-inner-container, .cookie-info-inner-container {
   min-width: 290px;
   width: 50%;
   max-width: 500px;
 }
-.warning-link {
+.warning-link, .cookie-link {
   color: white;
   &:hover {
     color: $darkgrey;
   }
 }
-
-.close-warning {
+.close-warning, .close-cookie {
   @include big-button("\f109",white,$red);
 }
-
-
-// .example-appear {
-//   // opacity: 0.00;
-//   bottom: -200px;
-//   transition: all .1s ease-in;
-// }
-//
-// .example-appear.example-appear-active {
-//   // opacity: 1;
-//   bottom: 0;
-// }

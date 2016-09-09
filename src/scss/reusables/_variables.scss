@@ -1,7 +1,5 @@
-// $red: #D64541;
 $red: #E74C3C;
 $green: #26A65B;
-// $green: #26A65B;
 $purple: #663399;
 
 $darkgrey: rgb(86,86,86);
@@ -10,16 +8,10 @@ $grey: darken($lightgrey,10%);
 
 $darkblue: #22313F;
 
-
 $offWhite: #fcfcf4;
 $earthBeige:  #e3dfda;
 $overlay: rgba(0,0,0,0.6);
 $boxShadow: -11px 13px 20px -14px rgba(0,0,0,0.75);
-
-
-$lightblue: rgb(12,166,210);
-$mediumblue: rgb(0,131,170);
-$darkestblue: rgb(3,77,97);
 
 $cardBackground: $offWhite;
 $addressContainerBackground: lighten($earthBeige,3%);
@@ -30,29 +22,13 @@ $mobile-large-break: 767px;
 $tablet-break: 1024px;
 
 $gutter: 7.5px;
-//
-// $ms-gtr-min-h: 200px;
-// $ms-gtr: 3px;
-//
-// $ml-gtr-min-h: 300px;
-// $ml-gtr: 6px;
-//
-// $tab-gtr-min-h: 230px;
-// $tab-gtr: 4px;
-//
-// $desk-gtr-min-h: 260px;
-// $desk-gtr: 6px;
-
 //////////////////////////////////////////
- ///////// SLIDE X
- //////////////////////////////////////////
+///////// SLIDE X
+//////////////////////////////////////////
 $slideX: 300px;
-
-/*###########################################
- ############################################
-                  FONTS
- ############################################
- ############################################*/
+//////////////////////////////////////////
+///////// FONTS
+//////////////////////////////////////////
  // @font-face {
  //   font-family: robotoLight;
  //   src: url(./fonts/RobotoCondensed-Light.ttf);
