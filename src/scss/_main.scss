@@ -1,7 +1,12 @@
+@font-face {
+    font-family: Roboto;
+    src: url("../fonts/RobotoCondensed-Regular.ttf");
+}
 body {
-font-family: 'Roboto Condensed', sans-serif;
+font-family: Roboto, sans-serif;
 margin: 0;
 color: $darkgrey;
+// color: red;
 background-color: $lightgrey;
 }
 #app-container {
@@ -42,7 +47,7 @@ button {
   position: fixed;
   background-color: $green;
   bottom: 0;
-  right: 0;
+  right: 0; 
   color: white;
 }
 .help-button-inner {
