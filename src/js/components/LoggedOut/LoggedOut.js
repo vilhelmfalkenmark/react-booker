@@ -204,8 +204,6 @@ logOut() {
      <div className={this.props.menuOpen ? "header-inner-container open":"header-inner-container"}>
      <div className="header-logo-container">
       <div className="header-logo-inner-container">
-       <h1 className="app-header">React Bokningsapp</h1>
-       {/* <button onClick={::this.logOut}>Logga ut</button> */}
       </div>
     </div>
     {
@@ -253,10 +251,10 @@ logOut() {
       />
     : null
     }
+    <div className="about-project-container">
+     <p>Skapat av <a href="http://vilhelmfalkenmark.se" target="_blank">Vilhelm Falkenmark</a> med hjälp av <a href="https://facebook.github.io/react/" target="_blank">React.JS</a> & <a href="https://firebase.google.com/" target="_blank">Firebase.</a>.</p>
 
-
-
-
+     </div>
    </div>
   )
  }

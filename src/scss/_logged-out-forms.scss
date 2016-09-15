@@ -1,11 +1,15 @@
 .logged-out-forms-container {
-  margin-top: 90px;
-  @extend .flex-center;
+  margin: 90px auto 0 auto;
 }
 .form-container {
   max-width: 420px;
   width: 90%;
-  padding-bottom: 40px;
+  margin: 0 auto;
+  form {
+    display: block;
+    box-sizing: border-box;
+    padding: 40px;
+  }
   input[type="text"],input[type="number"],input[type="email"],input[type="password"] {
     box-sizing: border-box;
     height: 40px;
@@ -18,7 +22,7 @@
     margin: 5px 0;
     display: block;
   }
-  .create-group-btn,.create-user-btn, .log-in-btn, .reset-password-btn {
+  .form-create-group-btn,.form-create-user-btn, .form-log-in-btn, .form-reset-password-btn {
     @include button (white,$green)
     width: 100%;
     text-align: center;
@@ -107,4 +111,26 @@ select {
 }
 .reset-password-container {
   padding-top: 50px;
+}
+//////////////////////////////////////////
+///////// OM PROJEKTET
+//////////////////////////////////////////
+.about-project-container {
+  position: fixed;
+  bottom: 5px;
+  left:0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+
+  p {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+
+
+  a {
+    color: $green;
+  }
 }

@@ -3,11 +3,8 @@ import Users from "./Users.js";
 import Bookings from "./Bookings.js";
 import Machines from "./Machines.js";
 import Times from "./Times.js";
-// import TimeAndMachines from "./TimeAndMachines.js";
 import Group from "./Group.js";
 import Me from "./Me.js";
-// import ReactCollapse from 'react-collapse';
-
 
 export default class Admin extends React.Component {
  constructor(props) {
@@ -18,7 +15,6 @@ export default class Admin extends React.Component {
   bookingsOpen: false,
   usersOpen: false,
   machineTimesOpen: false,
-  role: props.user.role,
   slideLeft: false,
   view: ""
   }
@@ -33,14 +29,12 @@ view: view
 })
 }
 
-
 //////////////////////////////////////////
 ///////// ENSKILD ANVÄNDARE (ME)
 //////////////////////////////////////////
 updateMe(info,name) {
 this.props.updateMe(info,name)
 }
-
 //////////////////////////////////////////
 ///////// ANVÄNDARE
 //////////////////////////////////////////
@@ -50,7 +44,6 @@ this.props.userStatus(role,id);
 userApprove(status,id) {
 this.props.userApprove(status,id);
 }
-
 //////////////////////////////////////////
 ///////// MODAL
 //////////////////////////////////////////
@@ -63,8 +56,6 @@ toggleModal(type) {
 updateGroup(groupName, maxBookings,weeks) {
  this.props.updateGroup(groupName,maxBookings,weeks);
 }
-
-
 //////////////////////////////////////////
 ///////// BOKNINGAR
 //////////////////////////////////////////
@@ -101,7 +92,7 @@ saveMachines() {
 editTime(index,newName) {
  let timeArray = this.state.times;
  timeArray.splice(index,1,newName);
- console.log(this.state.times);
+ // console.log(this.state.times);
 }
 addTime() {
 let timeArray = this.state.times;
@@ -141,27 +132,29 @@ render() {
           <div className="admin-section-row-header"><h4>{this.props.user.name}</h4></div>
           <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
         </div>
-
-
+        {
+         this.props.user.role !="user" ?
         <div className="admin-section-row" onClick={() => this.slideLeft(true,"group")}>
           <div className="admin-section-row-icon"><i className="flaticon-controls"></i></div>
           <div className="admin-section-row-header"><h4>{this.props.group.groupName}</h4></div>
           <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
-        </div>
-
-
+        </div> : null
+        }
         <div className="admin-section-row" onClick={() => this.slideLeft(true, "users")}>
           <div className="admin-section-row-icon"><i className="flaticon-users"></i></div>
           <div className="admin-section-row-header"><h4>Användare</h4></div>
           <div className="admin-section-row-btn"> <button onClick={() => this.slideLeft(true, "users")}><i className="flaticon-next"></i></button></div>
         </div>
-
-        <div className="admin-section-row" onClick={() => this.slideLeft(true, "bookings")}>
+        {
+          this.props.user.role !="user" ?
+         <div className="admin-section-row" onClick={() => this.slideLeft(true, "bookings")}>
           <div className="admin-section-row-icon"><i className="flaticon-calendar-1"></i></div>
           <div className="admin-section-row-header"><h4>Bokningar</h4></div>
           <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
-        </div>
+         </div> : null
+         }
         {
+         this.props.user.role != "user" ?
          typeof(this.props.group.bookings[0]) == "string" ?
          <div>
          <div className="admin-section-row" onClick={() => this.slideLeft(true, "machines")}>
@@ -188,11 +181,9 @@ render() {
           <div className="admin-section-row-header"><h4>Tider <span className="remove-bookings-info">Vänligen ta bort alla bokningar för att ändra tider</span></h4></div>
           <div className="admin-section-row-btn"> </div>
         </div>
-       </div>
+       </div> : null
         }
-
       </section>
-
       <section className="admin-right-section">
        <button className="admin-back-btn" onClick={() => this.slideLeft(false,"")}><i className="flaticon-back"></i>Tillbaka</button>
        {
@@ -212,6 +203,7 @@ render() {
          userStatus = {::this.userStatus}
          userApprove = {::this.userApprove}
          groupName = {this.props.group.groupName}
+         role = {this.props.user.role}
           />
          :
          this.state.view == "bookings" ? // BOOKINGS

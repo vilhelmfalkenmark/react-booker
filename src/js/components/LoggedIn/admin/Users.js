@@ -21,6 +21,7 @@ this.props.userApprove(status,id);
       key = {user.key}
       userStatus = {::this.userStatus}
       userApprove = {::this.userApprove}
+      role = {this.props.role} // Status på den inloggade personen
       />;
       }.bind(this))
     }

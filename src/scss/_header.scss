@@ -26,7 +26,12 @@ $basePadding: 20px;
 ///////// HEADER-LOGO BLOCK (UTLOGGAD)
 //////////////////////////////////////////
 .header-logo-inner-container {
-    padding: 20px 0 10px 20px;
+  margin-left: 30px;
+  height: 75px;
+  width: 60px;
+  background: url("../images/logo.svg") no-repeat center center;
+  background-size: 100%;
+    // padding: 20px 0 10px 20px;
     .app-header {
         margin-top: 0;
         font-size: 24px;

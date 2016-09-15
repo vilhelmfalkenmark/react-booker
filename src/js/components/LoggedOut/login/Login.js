@@ -36,21 +36,21 @@ this.props.resetPassword(this.state.password);
  render() {
   return (
    <div className="form-container">
-    <h1>Logga in</h1>
     {
      this.props.userDeleted ? <h2 className="danger-reminder">Användaren har raderats</h2> : null
     }
     <form className="" method="" action="">
+     <h1>Logga in</h1>
       <label for="username">E-postadress</label>
       <input name="username"  type="email" onChange={::this.handleName} value={this.state.name} placeholder="Ange din e-postadress" required/>
       <label for="password">Lösenord</label>
       <input name="password" type="password" onChange={::this.handlePassword} value={this.state.password} placeholder="Ditt lösenord" required/>
 
-     <button type="submit" className="log-in-btn" onClick={::this.logIn}><i className="flaticon-exit"></i>Logga in</button>
+     <button type="submit" className="form-log-in-btn" onClick={::this.logIn}><i className="flaticon-exit"></i>Logga in</button>
       {
        this.props.credentials != true ? <div className="reset-password-container">
        <p className="warning">Felaktigt användarnamn eller lösenord. Fyll i din e-postadress och klicka på knappen nedan om du vill återställa ditt lösenord.</p>
-       <button className="reset-password-btn" onClick={::this.resetPassword}><i className="flaticon-lock"></i>Återställ lösenord</button>
+       <button className="form-reset-password-btn" onClick={::this.resetPassword}><i className="flaticon-lock"></i>Återställ lösenord</button>
 
       </div> : null
       }

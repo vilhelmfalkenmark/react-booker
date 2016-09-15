@@ -92,7 +92,7 @@ handleID(e) {
     this.state.name != "" &&
     this.state.email != ""
  ) {
-  var submitButton = <button type="submit" className="create-user-btn" onClick={::this.registerUser}><i className="flaticon-user"></i>Skapa användare</button>
+  var submitButton = <button type="submit" className="form-create-user-btn" onClick={::this.registerUser}><i className="flaticon-user"></i>Skapa användare</button>
  } else {
   submitButton =  <button className="disabled-btn"><i className="flaticon-user"></i>Skapa användare</button>
  }

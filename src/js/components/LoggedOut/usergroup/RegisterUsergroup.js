@@ -143,7 +143,7 @@ handleWeeks(e) {
 {
 submitButton =
 <button type="submit"
- className="create-group-btn"
+ className="form-create-group-btn"
  onClick={::this.registerGroup}>
  <i className="flaticon-controls"></i>
  Skapa Grupp</button>;
