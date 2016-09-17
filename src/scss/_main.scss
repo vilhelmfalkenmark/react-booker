@@ -1,12 +1,17 @@
-@font-face {
-    font-family: Roboto;
-    src: url("../fonts/RobotoCondensed-Regular.ttf");
+html {
+  height: 100%;
+  box-sizing: border-box;
 }
 body {
 font-family: Roboto, sans-serif;
 margin: 0;
 color: $darkgrey;
 background-color: $lightgrey;
+position: relative;
+min-height: calc(100%);
+@include respond-to(desktop) {
+  min-height: calc(100%);
+}
 }
 #app-container {
   width: 97%;
@@ -15,9 +20,19 @@ background-color: $lightgrey;
   overflow-x: hidden;
   @include respond-to(desktop) {
     width: 90%;
-    overflow-x: visible;;
+    overflow-x: visible;
   }
 }
+footer {
+  padding-top: 30px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+
+
 .capitalize {
   text-transform: capitalize;
 }
@@ -42,17 +57,7 @@ a {
 button {
   cursor: pointer;
 }
-.help-button {
-  position: fixed;
-  background-color: $green;
-  bottom: 0;
-  right: 0;
-  color: white;
-}
-.help-button-inner {
-  display: block;
-  padding: 10px 20px;
-}
+
 input[type="password"],
 input[type="number"],
 input[type="text"],

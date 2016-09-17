@@ -1,12 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import LoggedIn from "./LoggedIn/LoggedIn.js";
 import Loader from "./Loader.js";
 import LoggedOut from "./LoggedOut/LoggedOut.js";
+import Help from "./Help.js";
 import Rebase from 're-base';
 import Firebase from "firebase"
 var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com");
-
 var config = {
   apiKey: "AIzaSyAo-ZnaPl7PrGDCvwQROxzZr5ffTNeQwbY",
   authDomain: "react-laundry-booker.firebaseapp.com",
@@ -14,7 +13,6 @@ var config = {
   storageBucket: "react-laundry-booker.appspot.com",
 };
 firebase.initializeApp(config);
-
 export default class Container extends React.Component {
  constructor() {
   super();
@@ -31,7 +29,8 @@ export default class Container extends React.Component {
    credentials: true, // När man försöker logga in
    userBanned: false,
    resetPasswordSent: false,
-   userDeleted: false
+   userDeleted: false,
+   help: true
   }
  }
  componentDidMount(){
@@ -299,7 +298,14 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
   menuOpen: !state
  })
 }
-
+//////////////////////////////////////////////
+////////  HJÄLP-MODAL
+/////////////////////////////////////////////
+toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
+ this.setState({
+  help: state
+ })
+}
 //////////////////////////////////////////
 ///////// RENDER
 //////////////////////////////////////////
@@ -340,7 +346,17 @@ toggleMenu(state) { // MENUTOGGLE I MOBILLÄGE
         updateMe = {::this.updateMe}
         />
     }
-    <div className="help-button"><span className="help-button-inner"><i className="fa fa-question-circle"></i> Hjälp</span></div>
+    {
+     this.state.help ? <Help
+     toggleHelp = {::this.toggleHelp}
+     /> : null
+    }
+    <footer>
+     <button className="help-btn" onClick={()=>this.toggleHelp(true)}><i className="flaticon-question"></i> Hjälp</button>
+      <div className="about-project-container">
+       <p>Skapat av <a href="http://vilhelmfalkenmark.se" target="_blank">Vilhelm Falkenmark</a> med hjälp av <a href="https://facebook.github.io/react/" target="_blank">React.JS</a> & <a href="https://firebase.google.com/" target="_blank">Firebase.</a>.</p>
+       </div>
+    </footer>
    </div>
   )
  }

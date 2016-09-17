@@ -9,7 +9,7 @@
 @import "modal/modal";
 @import "modal/mybookings";
 @import "modal/success-group";
-@import "modal/admin"; 
+@import "modal/admin";
 //  CALENDAR //
 @import "calendar/calender";
 @import "calendar/machine";
@@ -18,7 +18,8 @@
 @import "modules/loader-wall";
 @import "modules/warning";
 @import "modules/cookie";
-//  UNCATEGORIZED //
-@import "logged-out-forms";
-@import "header";
+//  SECTIONS //
+@import "sections/logged-out";
+@import "sections/header";
+@import "sections/footer";
 @import "main";

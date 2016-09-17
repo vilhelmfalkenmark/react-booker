@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import Firebase from "firebase"
 import Login from "./login/Login.js";
 import RegisterUser from "./user/RegisterUser.js";
@@ -28,7 +27,6 @@ componentWillReceiveProps() {
 this.setState({
  groups: this.props.groups,
 })
-
 }
 componentDidMount() {
 var location = window.location.pathname;
@@ -220,7 +218,7 @@ logOut() {
      </div>
      </header>
 
-    <div className={this.props.menuOpen ? "logged-out-forms-container open":"logged-out-forms-container"}>
+    <main className={this.props.menuOpen ? "logged-out-forms-container open":"logged-out-forms-container"}>
     {
      this.state.login ?  <Login
      logIn={::this.logIn}
@@ -243,7 +241,7 @@ logOut() {
      /> :
      null
     }
-    </div>
+    </main>
     {
      this.state.cookieInfo ?
      <CookieInfo
@@ -251,10 +249,6 @@ logOut() {
       />
     : null
     }
-    <div className="about-project-container">
-     <p>Skapat av <a href="http://vilhelmfalkenmark.se" target="_blank">Vilhelm Falkenmark</a> med hjälp av <a href="https://facebook.github.io/react/" target="_blank">React.JS</a> & <a href="https://firebase.google.com/" target="_blank">Firebase.</a>.</p>
-
-     </div>
    </div>
   )
  }

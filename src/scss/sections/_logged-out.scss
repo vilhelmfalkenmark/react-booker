@@ -1,6 +1,14 @@
 .logged-out-forms-container {
-  margin: 90px auto 0 auto;
+  margin: 0 auto;
+  padding-top: 60px;
+  @include respond-to(desktop)
+  {
+    padding-top: 100px;
+  }
 }
+
+
+
 .form-container {
   max-width: 420px;
   width: 90%;
@@ -8,7 +16,7 @@
   form {
     display: block;
     box-sizing: border-box;
-    padding: 40px;
+    // padding: 40px;
   }
   input[type="text"],input[type="number"],input[type="email"],input[type="password"] {
     box-sizing: border-box;
@@ -107,30 +115,5 @@ select {
     vertical-align: top;
     margin-top: 0;
     margin-left: 15px;
-  }
-}
-.reset-password-container {
-  padding-top: 50px;
-}
-//////////////////////////////////////////
-///////// OM PROJEKTET
-//////////////////////////////////////////
-.about-project-container {
-  position: fixed;
-  bottom: 5px;
-  left:0;
-  right: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-
-  p {
-    max-width: 50%;
-    margin: 0 auto;
-  }
-
-
-  a {
-    color: $green;
   }
 }
