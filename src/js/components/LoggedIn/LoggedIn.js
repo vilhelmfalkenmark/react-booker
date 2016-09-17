@@ -1,10 +1,10 @@
 import React from "react";
-
 import Calendar from "./calendar/Calendar.js";
 import Bookings from "./mybookings/Bookings.js";
 import Header from "./header/Header.js";
 import Admin from "./admin/Admin.js";
 import Warning from "./warning/Warning.js";
+import Footer from "../Footer.js";
 
 export default class LoggedIn extends React.Component {
  constructor(props) {
@@ -368,10 +368,15 @@ closeWarning() {
 toggleMenu(state) {
  this.props.toggleMenu(state)
 }
-
+//////////////////////////////////////////
+///////// TOGGLE HELP
+//////////////////////////////////////////
+toggleHelp(state) {
+ this.props.toggleHelp(state)
+}
  render() {
   return (
-   <div className="container">
+   <div className="logged-in-container">
     <Header
      user = {this.props.user}
      toggleModal = {::this.toggleModal}
@@ -383,10 +388,13 @@ toggleMenu(state) {
      toggleWeek = {::this.toggleWeek}
      week = {this.state.week}
      maxWeek = {this.state.maxWeek}
+     toggleHelp = {::this.toggleHelp}
      />
+    <main>
     <Calendar
     bookingsModal = {this.state.bookingsModal}
     adminModal = {this.state.adminModal}
+    helpModal = {this.props.help}
     calendar = {this.state.calendar}
     bookMachine = {::this.bookMachine}
     user = {this.props.user}
@@ -432,6 +440,10 @@ toggleMenu(state) {
     // </ReactCSSTransitionGroup>
     : null
    }
+   </main>
+   <Footer
+    toggleHelp = {::this.toggleHelp}
+    />
    </div>
   )
  }

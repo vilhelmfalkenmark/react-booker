@@ -24,7 +24,7 @@ export default class Time extends React.Component {
 
      </h4>
      <button className={this.state.open ? "toggle-machines hide-machines-btn" : "toggle-machines show-machines-btn"}
-      onClick={()=> this.setState({open: !this.state.open})}></button>
+      onClick={()=> this.setState({open: !this.state.open})}><i className="flaticon-add"></i></button>
      <div className={this.state.open ? "machine-container-open" : "machine-container-closed"}>
     {
       this.props.machines.map(function(machine) {

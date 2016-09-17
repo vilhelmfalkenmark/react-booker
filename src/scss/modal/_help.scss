@@ -1,0 +1,17 @@
+.help-modal {
+  li {
+    margin: 5px 0;
+  }
+  a {
+    color: $green;
+    &:hover {
+      color: darken($green,10%);
+    }
+  }
+  p, li, a {
+    font-family: RobotoLight;
+  }
+  section {
+    border-bottom: 1px solid $darkgrey;
+  }
+}

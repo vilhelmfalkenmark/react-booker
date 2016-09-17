@@ -13,11 +13,11 @@ this.props.userApprove(status,id);
       <div className="adress-text-container">
       <div className="user-info-row"><i className="icon flaticon-user"></i><div className="user-info-row-info"><h3>{this.props.user.name} </h3></div></div>
        <div className="user-info-row"><i className="icon flaticon-bookmark"></i>
-      <div className="user-info-row-info">{this.props.user.role == "user" ? "Användare": this.props.user.role == "admin" ? "Administratör" : "Superadministratör" }
-     </div> </div>
+      <div className="user-info-row-info"><p>{this.props.user.role == "user" ? "Användare": this.props.user.role == "admin" ? "Administratör" : "Superadministratör" }
+     </p></div> </div>
 
-    <div className="user-info-row"><i className="icon flaticon-mail"></i><div className="user-info-row-info"><a href={"mailto:"+this.props.user.email}>{this.props.user.email}</a></div></div>
-      <div className="user-info-row"><i className="icon flaticon-calendar-1"></i><div className="user-info-row-info">{this.props.user.bookings}</div></div>
+    <div className="user-info-row"><i className="icon flaticon-mail"></i><div className="user-info-row-info"><p><a href={"mailto:"+this.props.user.email}>{this.props.user.email}</a></p></div></div>
+      <div className="user-info-row"><i className="icon flaticon-calendar-1"></i><div className="user-info-row-info"><p>{this.props.user.bookings}</p></div></div>
       <div className="user-info-row"><i className="icon flaticon-information-button"></i> <div className="user-info-row-info"><p>{this.props.user.info}</p></div></div>
       {
        // STATUS PÅ NUVARANDE INLOGGAD PERSON

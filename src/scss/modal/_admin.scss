@@ -16,16 +16,33 @@
 //////////////////////////////////////////
  ///////// HEADERS
  //////////////////////////////////////////
-.admin-header-bookings,
-.admin-header-users,
-.admin-header-time-machines,
-.admin-header-general,
-.admin-header-me {
-  text-align: center;
-i {
-  margin-right: 15px;
+
+@include respond-to(mobile) {
+  .admin-header-bookings,
+  .admin-header-users,
+  .admin-header-time-machines,
+  .admin-header-general,
+  .admin-header-me {
+    text-align: left;
+  i {
+    margin-right: 15px;
+  }
+  }
 }
+@include respond-to(not-mobile) {
+  .admin-header-bookings,
+  .admin-header-users,
+  .admin-header-time-machines,
+  .admin-header-general,
+  .admin-header-me {
+    text-align: center;
+  i {
+    margin-right: 15px;
+  }
+  }
 }
+
+
 
 //////////////////////////////////////////
 ///////// COMMON BUTTONS
@@ -157,9 +174,6 @@ h2 i {
   max-width: 400px;
   padding: 20px;
   margin: 0 auto;
-  h2 {
-    text-align: center;
-  }
 }
 
 
@@ -207,23 +221,16 @@ h2 i {
   }
 }
 
-
-
 //////////////////////////////////////////
 ///////// BOKNINGAR
 //////////////////////////////////////////
-
 .admin-booking-container {
   @extend .right-section-section;
-
   h3 {
     margin-top: 50px;
     text-align: center;
   }
-
 }
-
-
 .admin-booking-date-container {
   padding-top: 0;
   border-bottom: 1px solid $grey;
@@ -247,6 +254,9 @@ h2 i {
 }
 .admin-booking-bookedby {
   font-style: italic;
+  font-family: RobotoLight;
+  display: block;
+  margin-top: 5px;
 }
 .admin-booking-info-container {
   left: 50px;
@@ -274,11 +284,11 @@ display: none;
 //////////////////////////////////////////
 
 
-.user-card-container,.time-machine-card-container {
+.user-card-container {
   color: $darkgrey;
-  background-color: $lightgrey;
+  background-color: #fafafa;
 }
-.adress-text-container,.time-machine-card-inner-container {
+.adress-text-container {
     padding: 10px 30px;
   }
 
@@ -298,7 +308,6 @@ display: none;
 .user-info-row {
   position: relative;
   margin: 15px 0;
-
 
   h3, p {
     margin: 0;
@@ -334,7 +343,6 @@ display: none;
 }
 }
 @include respond-to(tablet) {
-
 .user-card-container {
 &:nth-of-type(even) {
   @include flex-col-gtr-advanced(50%, $gutter*2, 0px, 0px,3px);
@@ -342,11 +350,9 @@ display: none;
 &:nth-of-type(odd) {
   @include flex-col-gtr-advanced(50%, $gutter*2, 3px, 0px,0px);
 }
-
 }
 }
 @include respond-to(desktop) {
-
   .user-card-container {
     @include flex-col-gtr-advanced(33%, $gutter, 0px, 0px, 0px);
   }
@@ -360,14 +366,13 @@ display: none;
 $buttonWidth: 90%;
 .admin-set-admin {
   width: $buttonWidth;
-  @include button(white,$red)
+  @include button(white,orange)
 
 }
 .admin-set-user {
   width: $buttonWidth;
   @include button(white,$green)
 }
-
 .admin-ban-user {
   width: $buttonWidth;
   @include button(white,$green)
@@ -376,13 +381,9 @@ $buttonWidth: 90%;
   width: $buttonWidth;
   @include button(white,$red)
 }
-
-
-
 //////////////////////////////////////////
 ///////// TIDER OCH MASKINER
 //////////////////////////////////////////
-
 .remove-bookings-info {
   font-size: 16px;
   color: $red;

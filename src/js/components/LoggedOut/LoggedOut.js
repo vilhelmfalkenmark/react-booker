@@ -4,6 +4,7 @@ import Login from "./login/Login.js";
 import RegisterUser from "./user/RegisterUser.js";
 import RegisterUsergroup from "./usergroup/RegisterUsergroup.js";
 import Alert from "./Alert.js";
+import Footer from "../Footer.js";
 import CookieInfo from "./CookieInfo.js";
 
 export default class LoggedOut extends React.Component {
@@ -182,6 +183,11 @@ this.setState({
 logOut() {
  this.props.logOut();
 }
+toggleHelp(state) {
+this.props.toggleHelp(state);
+}
+
+
  render() {
   return (
    <div className="logged-out-container">
@@ -249,6 +255,10 @@ logOut() {
       />
     : null
     }
+    <Footer
+     toggleHelp = {::this.toggleHelp}
+
+     />
    </div>
   )
  }

@@ -69,11 +69,14 @@ this.props.cancelBooking(key,userID);
         <div className="my-bookings-inner-container">
         {
            bookingsExist ?  <div>
-           <h2>Följande bokningar är sparade för användare {this.props.user.name}</h2>
+           <h2><i className="flaticon-calendar-1"></i>Följande bokningar är sparade för användare {this.props.user.name}</h2>
             <p>Notera att det räcker med att du bockar i rutan i kalendervyn för att din bokning ska sparas.
              Du behöver alltså inte klicka på spara någonstans.</p>
            </div>
-           : <h2>Du har inga bokningar</h2>
+           : <div>
+           <h2 className="text-center"><i className="flaticon-calendar-1"></i>Bokningar</h2>
+           <p className="text-center">Du har inga bokningar</p>
+           </div>
           }
          {
            bookingsExist ?

@@ -85,24 +85,27 @@ width: calc(#{$width} - 31px)
     position: absolute;
     top: -8px;
     right: 8px;
-  }
-  .show-machines-btn {
-    @include round-icon-button(white,$green,"\f100");
-  }
-  .hide-machines-btn {
-    @include round-icon-button(white,$red,"\f109");
+    &.show-machines-btn {
+      @include round-button(white,$green);
+      i {
+        transform: rotate(0deg);
+      }
+    }
+    &.hide-machines-btn {
+      @include round-button(white,$red);
+      i {
+        font-size: 20px;
+        transform: rotate(45deg);
+      }
+    }
   }
 }
 //////////////////////////////////////////
 /////////  TABLET
 //////////////////////////////////////////
 @include respond-to(tablet) {
-
-
-
 [class*="time-col-"] {
   border-right: 1px solid darken($grey,10%);
-
 }
 .time-col-1, .time-col-2 {
   width: 50%;

@@ -34,7 +34,10 @@ $slideX: 300px;
     font-family: Roboto;
     src: url("../fonts/RobotoCondensed-Regular.ttf");
 }
-
+@font-face {
+    font-family: RobotoLight;
+    src: url("../fonts/RobotoCondensed-Light.ttf");
+}
  // @font-face {
  //   font-family: robotoLight;
  //   src: url(./fonts/RobotoCondensed-Light.ttf);

@@ -30,7 +30,7 @@ export default class Container extends React.Component {
    userBanned: false,
    resetPasswordSent: false,
    userDeleted: false,
-   help: true
+   help: false
   }
  }
  componentDidMount(){
@@ -327,6 +327,7 @@ toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
            toggleMenu = {::this.toggleMenu}
            credentials = {this.state.credentials}
            userBanned = {this.state.userBanned}
+           toggleHelp = {::this.toggleHelp}
            // RESET PASSWORD
            resetPassword = {::this.resetPassword}
            resetPasswordSent = {this.state.resetPasswordSent}
@@ -342,6 +343,9 @@ toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
         saveTimes = {::this.saveTimes}
         menuOpen = {this.state.menuOpen}
         toggleMenu = {::this.toggleMenu}
+        toggleHelp = {::this.toggleHelp}
+        help = {this.state.help}
+
         updateGroup = {::this.updateGroup}
         updateMe = {::this.updateMe}
         />
@@ -351,12 +355,6 @@ toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
      toggleHelp = {::this.toggleHelp}
      /> : null
     }
-    <footer>
-     <button className="help-btn" onClick={()=>this.toggleHelp(true)}><i className="flaticon-question"></i> Hjälp</button>
-      <div className="about-project-container">
-       <p>Skapat av <a href="http://vilhelmfalkenmark.se" target="_blank">Vilhelm Falkenmark</a> med hjälp av <a href="https://facebook.github.io/react/" target="_blank">React.JS</a> & <a href="https://firebase.google.com/" target="_blank">Firebase.</a>.</p>
-       </div>
-    </footer>
    </div>
   )
  }

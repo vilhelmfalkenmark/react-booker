@@ -126,7 +126,8 @@ $basePadding: 20px;
 .show-mybookings-btn,
 .log-in-btn,
 .create-group-btn,
-.create-user-btn
+.create-user-btn,
+.header-help-btn
  {
    border: none;
    box-sizing: border-box;
@@ -165,17 +166,21 @@ $basePadding: 20px;
     @include respond-to(desktop) {
         padding: 0 25px;
     }
-
 }
-
 @include respond-to(not-desktop) {
 .edit-group-btn {
   margin-top: 50px;
   border-top: 1px solid white;
 }
+.log-in-btn {
+  border-top: 1px solid white;
+  margin-top: 140px;
 }
-
+}
 @include respond-to(desktop) {
+  .header-help-btn {
+    display: none !important;
+  }
     .edit-group-btn, .log-in-btn {
         border-left: 1px solid white;
     }
@@ -183,7 +188,6 @@ $basePadding: 20px;
         border-left: 1px solid white;
         border-right: 1px solid white;
     }
-
 }
 //////////////////////////////////////////
 ///////// HEADER-KALENDERVY CONTAINER

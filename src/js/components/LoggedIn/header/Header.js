@@ -28,8 +28,9 @@ toggleMenu(state) {
 toggleWeek(int) {
 this.props.toggleWeek(int);
 }
-
-
+toggleHelp() {
+this.props.toggleHelp(true);
+}
 updateClock(id) {
 let allDate = new Date();
 let months = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"];
@@ -60,7 +61,7 @@ componentDidMount() {
           return Math.floor((((this - firstJan) / 86400000) + firstJan.getDay() + 1) / 7);
       }
       var today = new Date();
-      var weekNumber = (new Date()).getWeek();
+      var weekNumber = (new Date()).getWeek()-1;
       var isMonday = false;
       var isSunday = false;
       var lastWeekDay;
@@ -129,6 +130,7 @@ componentWillUnmount() {
       </button>
 
       <button className="logout-btn" onClick={::this.logOut}><i className="flaticon-exit"></i>Logga ut</button>
+      <button className="header-help-btn" onClick={::this.toggleHelp}><i className="flaticon-question"></i>Hjälp</button>
     </div>
     </div>
 

@@ -14,7 +14,6 @@ this.props.cancelBooking(key,userID);
         <div className="admin-cancel-booking-container">
          <button className="admin-cancel-booking" onClick={() => this.cancelBooking(booking.id, booking.bookedBy.id)}></button>
         </div>
-
         <div className="admin-booking-info-container">
          <span className="admin-booking-info">{booking.machine} {booking.interval} </span>
          <span className="admin-booking-bookedby">Bokat av: {booking.bookedBy.name}</span>

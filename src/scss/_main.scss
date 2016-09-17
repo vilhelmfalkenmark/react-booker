@@ -23,15 +23,11 @@ min-height: calc(100%);
     overflow-x: visible;
   }
 }
-footer {
-  padding-top: 30px;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+
+
+p, li, a {
+  font-family: RobotoLight;
 }
-
-
 
 .capitalize {
   text-transform: capitalize;
@@ -52,6 +48,11 @@ a {
   color: $green;
 }
 .warning {
+  color: $red;
+}
+.important {
+  font-style: italic;
+  // text-decoration: underline;
   color: $red;
 }
 button {

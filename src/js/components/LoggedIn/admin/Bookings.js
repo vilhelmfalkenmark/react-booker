@@ -55,7 +55,7 @@ this.props.cancelBooking(key,userID);
   return (
 
     <div className="admin-booking-container">
-     <h2><i className="flaticon-calendar-1"></i>Bokningar</h2>
+     <h2 className="admin-header-bookings"><i className="flaticon-calendar-1"></i>Bokningar</h2>
      {
       bookingsExist ?
       bookingsArray.map(function(booking) {
@@ -63,7 +63,7 @@ this.props.cancelBooking(key,userID);
       key = {booking.id}
       booking = {booking}
       cancelBooking = {::this.cancelBooking}/>;}.bind(this))
-      : <h3>Det finns inga bokningar</h3> 
+      : <p className="text-center">Det finns inga bokningar</p>
      }
 
     </div>
