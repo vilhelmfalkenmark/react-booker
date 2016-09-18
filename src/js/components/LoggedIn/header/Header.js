@@ -102,11 +102,8 @@ componentWillUnmount() {
     <div className="header-user-inner-container">
      <h4 className="header-header">Inloggad som {this.props.user.name}</h4>
      <p className="header-paragraph">Tillhör grupp {this.props.groupName}</p>
-
     </div>
    </div>
-
-
    <div className="header-date-container">
     <div className="header-date-icon-container">
       <i className="flaticon-calendar"></i>
@@ -150,19 +147,11 @@ componentWillUnmount() {
      </h3>
     </div>
     </div>
-
-
-
-
-
      <div className={this.props.menuOpen ? "hamburger-container open":"hamburger-container"} onClick={() => this.toggleMenu(this.props.menuOpen)}>
        <div className="hamburger-inner-container">
          <div className="hamburger"></div>
       </div>
      </div>
-
-
-
     </header>
   )
  }

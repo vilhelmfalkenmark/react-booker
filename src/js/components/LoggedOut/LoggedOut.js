@@ -207,8 +207,9 @@ this.props.toggleHelp(state);
      </div>
      <div className={this.props.menuOpen ? "header-inner-container open":"header-inner-container"}>
      <div className="header-logo-container">
-      <div className="header-logo-inner-container">
-      </div>
+      <h1><i className="flaticon-washing-machine-for-laundry"></i>Tvättstugebokaren</h1>
+      {/* <div className="header-logo-inner-container"></div> */}
+
     </div>
     {
      this.state.cookie ? <div className="cookie-container">
@@ -220,11 +221,12 @@ this.props.toggleHelp(state);
       <button className="log-in-btn" onClick={() => this.handleView("login")}><i className="flaticon-exit"></i>Logga in </button>
       <button className="create-group-btn" onClick={() => this.handleView("usergroup")}><i className="flaticon-controls"></i> Skapa grupp </button>
       <button className="create-user-btn" onClick={() => this.handleView("user")}><i className="flaticon-user"></i>Skapa användare </button>
+      <button className="header-help-btn" onClick={::this.toggleHelp}><i className="flaticon-question"></i>Hjälp</button>
      </div>
      </div>
      </header>
 
-    <main className={this.props.menuOpen ? "logged-out-forms-container open":"logged-out-forms-container"}>
+    <main className={this.props.menuOpen ? "logged-out-forms-container open fixed":"logged-out-forms-container"}>
     {
      this.state.login ?  <Login
      logIn={::this.logIn}
@@ -257,7 +259,6 @@ this.props.toggleHelp(state);
     }
     <Footer
      toggleHelp = {::this.toggleHelp}
-
      />
    </div>
   )

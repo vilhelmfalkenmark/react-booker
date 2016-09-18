@@ -5,6 +5,9 @@ import LoggedOut from "./LoggedOut/LoggedOut.js";
 import Help from "./Help.js";
 import Rebase from 're-base';
 import Firebase from "firebase"
+
+if(location.host.indexOf("localhost") != -1){
+// DEV
 var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com");
 var config = {
   apiKey: "AIzaSyAo-ZnaPl7PrGDCvwQROxzZr5ffTNeQwbY",
@@ -12,6 +15,18 @@ var config = {
   databaseURL: "https://react-laundry-booker.firebaseio.com",
   storageBucket: "react-laundry-booker.appspot.com",
 };
+} else {
+ // PROD
+ var base = Rebase.createClass("https://tvattstuge-bokaren.firebaseio.com");
+ var config = {
+   apiKey: "AIzaSyAgIocH5tanjTlTjJBXv8s2VBE61sn3Bzk",
+   authDomain: "tvattstuge-bokaren.firebaseapp.com",
+   databaseURL: "https://tvattstuge-bokaren.firebaseio.com",
+   storageBucket: "tvattstuge-bokaren.appspot.com",
+   messagingSenderId: "341927506280"
+ };
+}
+
 firebase.initializeApp(config);
 export default class Container extends React.Component {
  constructor() {
@@ -47,6 +62,7 @@ export default class Container extends React.Component {
 ///////// REGISTERA GRUPP & ANVÄNDARE
 //////////////////////////////////////////
 registerUser(newUser, groupID) {
+ delete newUser.password; // Vi vill inte spara lösenordet i objektet.
   var component = this;
   let groups = this.state.groups;
   for (var i = 0; i < groups.length; i++) {

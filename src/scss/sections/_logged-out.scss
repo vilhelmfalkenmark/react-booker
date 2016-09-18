@@ -34,11 +34,13 @@
     @include button (white,$green)
     width: 100%;
     text-align: center;
+    margin-bottom: 50px;
   }
   .disabled-btn {
     @include button (white,$grey)
     width: 100%;
     text-align: center;
+    margin-bottom: 50px;
   }
 }
 select {

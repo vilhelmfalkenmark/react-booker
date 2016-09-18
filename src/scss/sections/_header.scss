@@ -2,8 +2,7 @@ $basePadding: 20px;
 .header-inner-container {
     @extend .row;
     background-color: $green;
-    // background-color: $darkblue;
-    color: $darkgrey;
+
     color: white;
     z-index: 3;
     position: fixed;
@@ -25,20 +24,40 @@ $basePadding: 20px;
 //////////////////////////////////////////
 ///////// HEADER-LOGO BLOCK (UTLOGGAD)
 //////////////////////////////////////////
+
+.header-logo-container {
+  margin-left: 15px;
+  float: left;
+  h1 {
+    font-family: RobotoLight;
+    font-size: 30px;
+    i {
+      margin-right: 10px;
+    }
+  }
+}
+
+@include respond-to(not-desktop) {
+  .header-logo-container {
+    margin-bottom: 80px;
+  }
+}
 .header-logo-inner-container {
   margin-left: 30px;
   height: 75px;
   width: 60px;
   background: url("../images/logo.svg") no-repeat center center;
   background-size: 100%;
-    // padding: 20px 0 10px 20px;
     .app-header {
         margin-top: 0;
         font-size: 24px;
     }
 }
+
+
+
  .cookie-container {
-   padding: 20px 0 10px 20px;
+   padding: 20px 20px 10px 20px;
    h3 {
      margin: 0 0 5px 0;
      background-color: white;
@@ -168,13 +187,9 @@ $basePadding: 20px;
     }
 }
 @include respond-to(not-desktop) {
-.edit-group-btn {
+.edit-group-btn, .log-in-btn {
   margin-top: 50px;
   border-top: 1px solid white;
-}
-.log-in-btn {
-  border-top: 1px solid white;
-  margin-top: 140px;
 }
 }
 @include respond-to(desktop) {
@@ -200,8 +215,8 @@ $basePadding: 20px;
         margin: 0 2px;
     }
     @include respond-to(not-desktop) {
-      background-color: $green;
-      color: white;
+      background-color: $lightgrey;
+      // color: white;
         left: 0;
         right: 0;
         transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
@@ -273,9 +288,6 @@ $basePadding: 20px;
           right: 2px;
         }
     }
-
-
-
 }
 //////////////////////////////////////////
 ///////// RESPONSIVE NOT-DESKTOP SLIDE
