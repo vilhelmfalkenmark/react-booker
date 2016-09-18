@@ -223,6 +223,8 @@ loading(type) {
         loading: type
     })
 }
+
+
 //////////////////////////////////////////////
 //////// BOKA MASKIN
 /////////////////////////////////////////////
@@ -322,6 +324,11 @@ toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
   help: state
  })
 }
+
+
+
+
+
 //////////////////////////////////////////
 ///////// RENDER
 //////////////////////////////////////////
@@ -361,6 +368,7 @@ toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
         toggleMenu = {::this.toggleMenu}
         toggleHelp = {::this.toggleHelp}
         help = {this.state.help}
+
 
         updateGroup = {::this.updateGroup}
         updateMe = {::this.updateMe}

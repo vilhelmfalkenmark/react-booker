@@ -12,6 +12,7 @@ export default class LoggedIn extends React.Component {
  this.state = {
  calendar: [],
  bookingsModal: false,
+ bookings: props.group.bookings,
  adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
@@ -75,24 +76,19 @@ toggleWeek(int) {
  this.setState({
   week: this.state.week+=int
  })
- // console.log(this.state.week);
  this.updateCalendarview(this.props.group.machines,this.props.group.times);
 }
+
 
 updateCalendarview(machines,times) {
   let calendar = [];
   const daysInCal = 7;
-  // const times = this.props.group.times;
   const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
   const monthnames = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"]
   let booked = [];
-  // console.log(times);
-  // console.log(booked);
   for (var i = 0; i < times.length; i++) {
    booked.push(false)
   }
-   // let limiter = ((this.state.week-1) * daysInCal);
-
    for (var i = ((this.state.week-1) * daysInCal); i < (this.state.week * daysInCal); i++) {
     //////////////////////////////////////////
     //// SKAPA DAGAR I KALENDER
@@ -135,10 +131,14 @@ updateCalendarview(machines,times) {
            dateformat: formattedDate,
            dateObject: dateObject
        }
+
+
+
        //////////////////////////////////////////////
        ////  KOLLA VAD SOM REDAN ÄR BOKAT. DVS
        ////  VAD SOM LIGGER LAGRAT I BOOKINGS ARRAYEN
        ///////////////////////////////////////////////
+
        for(var m =0; m<this.props.group.bookings.length; m++) {
        if(typeof(this.props.group.bookings[m]) !== "undefined") {
          if(this.props.group.bookings[m].id == machine.id)
@@ -149,20 +149,28 @@ updateCalendarview(machines,times) {
          }
        }
        }
+
+
+
        time.machines.push(machine);
      }
      weekday.times.push(time);
      }
     calendar.push(weekday);
    }
- this.setState( {
-  calendar:calendar
- })
+
+
+
+
+   this.setState({
+    calendar:calendar
+   })
 }
+
+
 //////////////////////////////////////////////
 ////  SLUT KALENDER FUNKTION
 ///////////////////////////////////////////////
-
 toggleModal(type) {
 if(type == "bookings") {
  let bookingsOpen;
@@ -183,8 +191,7 @@ else if(type=="admin") {
 //// FUNKTION FÖR ATT TA BORT OCH LÄGGA TILL BOKNING
 /////////////////////////////////////////////////////
 bookMachine(key, userID) {
-// console.log(key);
-// console.log("FUNK KALLAD häR OCKSÅ!");
+
 let group = this.props.group;
 let newArray = [];
 let calendar = this.state.calendar;
@@ -192,6 +199,8 @@ let bookings = [];
 let oldBookings = group.bookings;
 var user = this.props.user;
 var users = this.props.group.users;
+
+
 
 for (var i = 0; i < oldBookings.length; i++) {
 if(typeof(oldBookings[i]) == "object") {
@@ -227,7 +236,6 @@ for(var h = 0; h < calendar.length; h++)
                 }
                 // OM MAN AVBOKAR VIA ADMIN PANELEN SÅ SKA BOKNINGEN INTE NÖDVÄNDIGTVIS SUBTRAHERAS FRÅN DEN PERSONEN SOM ÄR INLOGGAD
                 if(user.id != userID) {
-                  // let users = this.props.group.users;
                   users.map(function(user) {
                     if (user.id == userID) {
                       user.bookings--;
@@ -272,7 +280,6 @@ for(var h = 0; h < calendar.length; h++)
                 booking.dateObject.monthName = calendar[h].month;
                 booking.dateObject.dayName = calendar[h].dayname;
                 booking.dateObject.interval = intInterval;
-
                 bookings.push(booking);
               }
               //////////////////////////////////////////
@@ -280,6 +287,9 @@ for(var h = 0; h < calendar.length; h++)
               //// OCH SLUTA LOOPA
               //////////////////////////////////////////
               this.props.bookMachine(bookings);
+              this.setState({
+                bookings: bookings
+              })
               return false;
             }
           }
@@ -308,6 +318,9 @@ if(user.id != userID) {
 else {
   user.bookings--;
 }
+
+
+
 this.props.bookMachine(bookings);
 return false;
 }
@@ -391,16 +404,18 @@ toggleHelp(state) {
      toggleHelp = {::this.toggleHelp}
      />
     <main>
-    <Calendar
-    bookingsModal = {this.state.bookingsModal}
-    adminModal = {this.state.adminModal}
-    helpModal = {this.props.help}
-    calendar = {this.state.calendar}
-    bookMachine = {::this.bookMachine}
-    user = {this.props.user}
-    menuOpen = {this.props.menuOpen}
 
-    />
+     <Calendar
+         bookingsModal = {this.state.bookingsModal}
+         adminModal = {this.state.adminModal}
+         helpModal = {this.props.help}
+         calendar = {this.state.calendar}
+         bookMachine = {::this.bookMachine}
+         user = {this.props.user}
+         menuOpen = {this.props.menuOpen}
+         // bookings = {this.}
+      />
+
    {
      this.state.bookingsModal ?
      <Bookings
