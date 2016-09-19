@@ -5,8 +5,9 @@ export default class Bookings extends React.Component {
  super();
 }
 
-cancelBooking(key,userID) {
-this.props.cancelBooking(key,userID);
+cancelBooking(userID,key) {
+
+this.props.cancelBooking(userID,key);
 }
  render() {
   ////////////////////////////////////////////////
@@ -19,10 +20,6 @@ this.props.cancelBooking(key,userID);
     }
     var bookingsArray = [];
     if(bookingsExist) {
-    // let sortedBookings = this.props.group;
-
-    console.log(sortedBookings[0].interval);
-
     sortedBookings.sort(function (a, b) {
      // Sortera först efter månad och sen efter dag.
       return  a.dateObject.month - b.dateObject.month || a.dateObject.day - b.dateObject.day || a.dateObject.interval - b.dateObject.interval;
@@ -53,13 +50,12 @@ this.props.cancelBooking(key,userID);
     }
     }
   return (
-
     <div className="admin-booking-container">
      <h2 className="admin-header-bookings"><i className="flaticon-calendar-1"></i>Bokningar</h2>
      {
       bookingsExist ?
       bookingsArray.map(function(booking) {
-      return <Booking // BOOKINGS
+      return <Booking 
       key = {booking.id}
       booking = {booking}
       cancelBooking = {::this.cancelBooking}/>;}.bind(this))

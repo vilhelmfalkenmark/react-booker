@@ -358,6 +358,7 @@ toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
        /> :
        <LoggedIn
         group = {this.state.groups[this.state.groupIndex]}
+        bookings = {this.state.groups[this.state.groupIndex].bookings}
         user = {this.state.groups[this.state.groupIndex].users[this.state.userIndex]}
         bookMachine = {::this.bookMachine}
         handleUser = {::this.handleUser}

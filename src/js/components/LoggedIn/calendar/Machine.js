@@ -4,7 +4,23 @@ export default class Machine extends React.Component {
 bookMachine(id) {
 if(this.props.bookedBy == null || this.props.user.id == this.props.bookedBy.id)
  {
-  this.props.bookMachine(id,this.props.user.id);
+  let topInterval = this.props.interval.split("-");
+  topInterval = topInterval.join("");
+  let intInterval = parseInt(topInterval);
+
+  let dateObject = this.props.dateObject;
+  dateObject.monthName = this.props.monthName;
+  dateObject.dayName = this.props.dayName;
+  dateObject.intInterval = intInterval;
+
+  let booking = {
+   id: id,
+   machine: this.props.machine,
+   interval: this.props.interval,
+   dateFormat: this.props.dateformat,
+   dateObject: dateObject
+  }
+  this.props.bookMachine(this.props.user.id, this.props.booked, booking);
 }
 }
  render() {

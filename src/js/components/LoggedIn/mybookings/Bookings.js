@@ -7,7 +7,10 @@ constructor() {
  super();
 }
 cancelBooking(key,userID) {
-this.props.cancelBooking(key,userID);
+let booking = {
+ id: key
+}
+this.props.cancelBooking(userID,true,booking);
 }
 
  toggleModal(type) {

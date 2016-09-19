@@ -8,8 +8,8 @@ export default class Time extends React.Component {
    open: false
   }
  }
-  bookMachine(id,userID) {
-   this.props.bookMachine(id,userID);
+  bookMachine(userID,action,booking) {
+   this.props.bookMachine(userID,action,booking);
   }
  render() {
   return (
@@ -29,6 +29,11 @@ export default class Time extends React.Component {
     {
       this.props.machines.map(function(machine) {
       return <Machine
+       dayName = {this.props.dayName}
+       monthName = {this.props.monthName}
+       interval = {this.props.interval}
+       dateObject = {this.props.dateObject}
+
       bookMachine = {::this.bookMachine}
       key= {machine.id}
       id = {machine.id}
@@ -37,6 +42,7 @@ export default class Time extends React.Component {
       bookedBy = {machine.bookedBy}
       booked = {machine.booked}
       user = {this.props.user}
+      interval = {this.props.interval}
       />;
       }.bind(this))
     }

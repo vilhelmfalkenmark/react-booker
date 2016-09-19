@@ -2,16 +2,21 @@ import React from "react";
 import Time from "./Time.js";
 
 export default class Day extends React.Component {
- bookMachine(id,userID) {
-  this.props.bookMachine(id,userID);
+ bookMachine(userID,action,booking) {
+  this.props.bookMachine(userID,action,booking);
  }
  render() {
    return (
      <div className="day-container row">
-     <h3 className="capitalize date-header"><i className="fa fa-calendar!"></i> {this.props.dayname} - {this.props.date} {this.props.month}</h3>
+     <h3 className="capitalize date-header"><i className="fa fa-calendar!"></i> {this.props.dayName} - {this.props.date} {this.props.monthName}</h3>
         {
           this.props.times.map(function(time) {
           return <Time
+           // FÖR DATEOBJECT
+          dayName = {this.props.dayName}
+          monthName = {this.props.monthName}
+          dateObject = {this.props.dateObject}
+
           bookMachine = {::this.bookMachine}
           key= {time.id}
           interval= {time.interval}

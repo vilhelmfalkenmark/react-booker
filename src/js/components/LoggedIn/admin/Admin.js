@@ -59,8 +59,14 @@ updateGroup(groupName, maxBookings,weeks) {
 //////////////////////////////////////////
 ///////// BOKNINGAR
 //////////////////////////////////////////
-cancelBooking(bookingID,userID) {
-this.props.cancelBooking(bookingID,userID);
+cancelBooking(userID,bookingID) {
+
+ let booking = {
+  id: bookingID
+ }
+ // console.log("hej!");
+
+this.props.cancelBooking(userID,true,booking);
 }
 //////////////////////////////////////////
 ///////// MASKINER
