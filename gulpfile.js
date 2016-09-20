@@ -29,7 +29,7 @@ gulp.task('default', function(callback) {
     );
 });
 
-gulp.task('minify', function() {
+gulp.task('min', function() {
   return gulp.src('src/css/*.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('src/css/'));

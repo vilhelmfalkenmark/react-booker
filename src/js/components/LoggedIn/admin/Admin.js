@@ -77,7 +77,7 @@ machineArray.splice(index,1,newName);
 }
 addMachine() {
 let machineArray = this.state.machines;
-machineArray.push("Namn på ny maskin");
+machineArray.push("");
 this.setState({
  machines: machineArray
 })
@@ -98,11 +98,10 @@ saveMachines() {
 editTime(index,newName) {
  let timeArray = this.state.times;
  timeArray.splice(index,1,newName);
- // console.log(this.state.times);
 }
 addTime() {
 let timeArray = this.state.times;
-timeArray.push("Nytt tidsintervall");
+timeArray.push("");
 this.setState({
  times: timeArray
 })

@@ -23,7 +23,7 @@ constructor(props) {
     <button className="delete-time-btn"onClick={::this.deleteTime}><i className="flaticon-cancel"></i></button>
     <input type="text"
       onChange = {::this.editTime}
-      placeholder = {"Namn på maskin nummer "+this.props.index}
+      placeholder = {"Tidsintervall nummer "+(this.props.index+1)}
       value = {this.state.time}
       required />
    </li>

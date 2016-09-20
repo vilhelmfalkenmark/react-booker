@@ -6,7 +6,6 @@ export default class TimeAndMachines extends React.Component {
 constructor(props) {
  super(props);
  this.state = {
-
   machineChanged: false,
   timeChanged: false
  }

@@ -2,7 +2,6 @@
 width: 90%;
 max-width: 500px;
 margin: 0 auto;
-
 ul {
   list-style-type: none;
   padding-left: 0 ;
@@ -13,9 +12,7 @@ ul {
     color: $green;
     padding-right: 5px;
   }
-
 }
-
 .create-user-link-btn {
   display: block;
   @include button (white,$green)

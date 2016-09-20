@@ -23,8 +23,6 @@ min-height: calc(100%);
     overflow-x: visible;
   }
 }
-
-
 p, li, a {
   font-family: RobotoLight;
 }
@@ -64,6 +62,9 @@ input[type="number"],
 input[type="text"],
 input[type="email"],
 textarea {
+@include breakpoint(1px, 768px) {
+  font-size: 16px; //  Så att den inte zoomar in
+}
 box-sizing: border-box;
 border: 1px solid darken($lightgrey,10%);
 transition: all 0.2s ease;

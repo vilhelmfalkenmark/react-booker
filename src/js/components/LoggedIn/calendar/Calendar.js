@@ -1,14 +1,6 @@
 import React from "react";
 import Day from "./Day.js";
-
 export default class Calendar extends React.Component {
-
- constructor() {
-  super()
-  this.state = {
-   week: 1
-  }
- }
 
  bookMachine(userID,action,booking) {
   this.props.bookMachine(userID,action,booking);
@@ -16,10 +8,8 @@ export default class Calendar extends React.Component {
 
 render() {
 
-
 var times = this.props.times;
 var machines = this.props.machines;
-
   let calendar = [];
   const daysInCal = 7;
   const daynames = ["söndag","måndag","tisdag","onsdag","torsdag","fredag","lördag"];
@@ -28,7 +18,7 @@ var machines = this.props.machines;
   for (var i = 0; i < times.length; i++) {
    booked.push(false)
   }
-   for (var i = ((this.state.week-1) * daysInCal); i < (this.state.week * daysInCal); i++) {
+   for (var i = ((this.props.week-1) * daysInCal); i < (this.props.week * daysInCal); i++) {
     //////////////////////////////////////////
     //// SKAPA DAGAR I KALENDER
     //////////////////////////////////////////
@@ -92,8 +82,6 @@ var machines = this.props.machines;
      }
     calendar.push(weekday);
    }
-
-
   return (
     <div className={this.props.menuOpen ? "calendar-container open fixed": this.props.adminModal || this.props.bookingsModal || this.props.helpModal  ? "calendar-container fixed" : "calendar-container"}>
    {
@@ -103,7 +91,6 @@ var machines = this.props.machines;
      date = {calendar.date}
      monthName = {calendar.month}
      dateObject = {calendar.dateObject}
-
      key= {calendar.id}
      times ={calendar.times}
      user = {this.props.user}

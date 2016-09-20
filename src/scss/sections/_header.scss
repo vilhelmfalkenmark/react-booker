@@ -28,9 +28,15 @@ $basePadding: 20px;
 .header-logo-container {
   margin-left: 15px;
   float: left;
+
+
+
   h1 {
-    font-family: RobotoLight;
-    font-size: 30px;
+    font-family: RobotoBold;
+    font-size: 24px;
+    @include breakpoint(400px) {
+      font-size: 30px;
+    }
     i {
       margin-right: 10px;
     }
@@ -58,6 +64,8 @@ $basePadding: 20px;
 
  .cookie-container {
    padding: 20px 20px 10px 20px;
+   max-width: 210px;
+   font-size: 14px;
    h3 {
      margin: 0 0 5px 0;
      background-color: white;
@@ -110,33 +118,47 @@ $basePadding: 20px;
 //////////////////////////////////////////
 /////////
 //////////////////////////////////////////
-@include respond-to(not-desktop) {
-    .header-user-container {
-        margin-top: 30px;
-    }
-    .header-date-container,
-    .header-user-container {
-        padding: 15px;
-        &:after {
-            content: "";
-            display: block;
-            clear: both;
-        }
-    }
+@include breakpoint(1px,1024px) {
+  .header-user-container {
+      margin-top: 30px;
+  }
+  .header-date-container,
+  .header-user-container {
+      padding: 15px;
+      &:after {
+          content: "";
+          display: block;
+          clear: both;
+      }
+  }
 }
-@include respond-to(desktop) {
-    .header-date-container,
-    .header-user-container {
-        float: left;
-        padding: 15px 30px;
-    }
-    .header-btns-container {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        top: 0;
-    }
+@include breakpoint(1025px) {
+  .header-inner-container {
+    font-size: 14px;
+  }
+  .header-date-container,
+  .header-user-container {
+      float: left;
+      padding: 15px 10px;
+  }
+  .header-btns-container {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      top: 0;
+  }
 }
+@include breakpoint(1150px) {
+  .header-inner-container {
+    font-size: 16px;
+  }
+
+  .header-date-container,
+  .header-user-container {
+      padding: 15px 30px;
+  }
+}
+
 //////////////////////////////////////////
  ///////// HEADER - BUTTONS
  //////////////////////////////////////////
@@ -187,10 +209,15 @@ $basePadding: 20px;
     }
 }
 @include respond-to(not-desktop) {
-.edit-group-btn, .log-in-btn {
+.log-in-btn {
   margin-top: 50px;
   border-top: 1px solid white;
 }
+.edit-group-btn {
+  margin-top: 20px;
+  border-top: 1px solid white;
+}
+
 }
 @include respond-to(desktop) {
   .header-help-btn {

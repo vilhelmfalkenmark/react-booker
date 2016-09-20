@@ -1,21 +1,27 @@
 .warning-container, .cookie-info-container {
   position: fixed;
   z-index: 5;
-  height: 230px;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: $red;
   color: white;
-  @extend .flex-center;
-  @include respond-to(not-mobile) {
-    height: 200px;
+
+  @include breakpoint(401px) {
+    height: 100px;
+    @include flex-center();
   };
 }
+@include respond-to(not-desktop) {
+  .warning-container {
+    z-index: 100; //  Så att den lägger sig över vecko-toggle
+  }
+}
 .warning-inner-container, .cookie-info-inner-container {
-  min-width: 290px;
-  width: 50%;
+  min-width: 280px;
+  width: 80%;
   max-width: 500px;
+  margin: 0 auto;
 }
 .warning-link, .cookie-link {
   color: white;
@@ -24,5 +30,18 @@
   }
 }
 .close-warning, .close-cookie {
-  @include big-button("\f109",white,$red);
+  @include breakpoint(1px, 400px) {
+    margin: 10px 0 0 10px;
+  };
+  @include breakpoint(401px) {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  };
+  @include round-button($red,white);
+  @include breakpoint(401px) {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+  };
 }
