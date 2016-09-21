@@ -1,8 +1,10 @@
 $basePadding: 20px;
 .header-inner-container {
     @extend .row;
+    // background-color: #d25656;
     background-color: $green;
-
+      // #d25656
+      // #d25656
     color: white;
     z-index: 3;
     position: fixed;

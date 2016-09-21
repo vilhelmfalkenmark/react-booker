@@ -86,6 +86,7 @@ setCookie() {
 ///////// VIEWS
 //////////////////////////////////////////
 handleView(view) {
+this.props.menuOpen ? this.props.toggleMenu(true) : null
  if(view == "user") {
    this.setState({
    login:false,
@@ -208,8 +209,6 @@ this.props.toggleHelp(state);
      <div className={this.props.menuOpen ? "header-inner-container open":"header-inner-container"}>
      <div className="header-logo-container">
       <h1><i className="flaticon-washing-machine-for-laundry"></i>Tvättstugebokaren</h1>
-      {/* <div className="header-logo-inner-container"></div> */}
-
     </div>
     {
      this.state.cookie ? <div className="cookie-container">

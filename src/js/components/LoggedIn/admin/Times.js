@@ -43,7 +43,7 @@ constructor(props) {
  render() {
   return (
    <div className="admin-time-section">
-    <h2><i className="flaticon-time-1"></i>Tider</h2>
+    <h2 className="admin-header-time-machines"><i className="flaticon-time-1"></i>Tider</h2>
     <ul className="time-machine-list">
     {
       this.props.times.map(function(time,index) {

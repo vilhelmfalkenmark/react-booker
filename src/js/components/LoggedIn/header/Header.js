@@ -56,17 +56,20 @@ componentDidMount() {
 //////////////////////////////////////////
 ///////// HÄMTA HEM VECKONUMMER OCH DATUM
 //////////////////////////////////////////
-  Date.prototype.getWeek = function() {
-          var firstJan = new Date(this.getFullYear(), 0, 1);
-          var week = Math.floor((((this - firstJan) / 86400000) + firstJan.getDay() + 1) / 7);
-          return week;
-      }
-
+Date.prototype.getWeek = function() {
+var firstJan = new Date(this.getFullYear(),0, 1);
+var diff;
+var firstMonday;
+if(firstJan.getDay() != 1) { // Om den första januari inte var en måndag.
+  diff = 7 - firstJan.getDay()// Hur många dagar det är kvar till den första måndagen på året
+  firstMonday = new Date(this.getFullYear(),0, diff)
+} else {
+  firstMonday = firstJan;
+}
+var week = Math.floor((((this - firstMonday) / 86400000) + firstMonday.getDay() + 1) / 7);
+return week;
+}
       var today = new Date();
-      let currentDay = today.getDate();
-      let currentMonth = today.getMonth();
-      let currentYear = today.getFullYear();
-     var url =  "http://api.dryg.net/dagar/v2.1/" + currentYear + "/" + (currentMonth + 1) + "/" + currentDay;
       var isMonday = false;
       var isSunday = false;
       var lastWeekDay;
@@ -82,19 +85,8 @@ componentDidMount() {
        lastWeekDay = today.getDay() - 1;
       }
 
-      var component = this;
-
-      fetch(url).then(function(response) {
-           return response.json();
-         }).then(function(data) {
-           component.setState({
-            weekNumber: parseInt(data.dagar[0].vecka)
-           })
-       }).catch(function() {
-         console.log("Kunde inte hämta veckonummer");
-       });
-
        this.setState({
+        weekNumber: (today).getWeek(),
         firstWeekDay: this.state.weekDays[today.getDay()],
         lastWeekDay: this.state.weekDays[lastWeekDay],
         isMonday: isMonday

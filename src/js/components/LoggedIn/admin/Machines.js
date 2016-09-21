@@ -40,7 +40,7 @@ constructor(props) {
  render() {
   return (
    <div className="admin-machine-section">
-    <h2><i className="flaticon-washing-machine"></i>Maskiner</h2>
+     <h2 className="admin-header-time-machines"><i className="flaticon-washing-machine"></i>Maskiner</h2>
      <ul className="time-machine-list">
      {
        this.props.machines.map(function(machine,index) {

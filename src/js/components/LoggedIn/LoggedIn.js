@@ -12,7 +12,7 @@ export default class LoggedIn extends React.Component {
  this.state = {
  bookingsModal: false,
  bookings: props.group.bookings,
- adminModal: false,
+ adminModal: true,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false, // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
@@ -77,17 +77,13 @@ toggleWeek(int) {
 }
 toggleModal(type) {
 if(type == "bookings") {
- let bookingsOpen;
- this.state.bookingsModal ? bookingsOpen = false : bookingsOpen = true;
  this.setState({
-  bookingsModal: bookingsOpen
+  bookingsModal: !this.state.bookingsModal
  })
 }
 else if(type=="admin") {
- let adminOpen;
- this.state.adminModal ? adminOpen = false : adminOpen = true;
  this.setState({
-  adminModal: adminOpen
+  adminModal: !this.state.adminModal
  })
 }
 }
@@ -135,15 +131,13 @@ else {
       }
    })
  }
-// FILTER
- function removeBooking(x) {
-  return x.id != booking.id;
- }
+
+let removeBooking = (x) => x.id != booking.id;
+
 bookings = bookings.filter(removeBooking);
 if(bookings.length == 0) {
  bookings.push("");
 }
-
 }
 this.props.bookMachine(bookings);
 }

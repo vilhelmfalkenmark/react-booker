@@ -3,15 +3,26 @@
     // padding-left: 20px;
   }
 }
+
+.modal-background {
+  @include flex-center();
+}
+
 .admin-modal-container {
   z-index: 3;
   background-color: white;
   width: 90%;
   max-width: 1000px;
   min-width: 300px;
-  margin: 60px auto 0 auto;
   overflow: auto;
   position: relative;
+  height: calc(100vh - 50px);
+  max-height: 600px;
+
+  @include breakpoint(768px) {
+    height: calc(100vh - 150px);
+    max-height: 600px;
+  }
 }
 //////////////////////////////////////////
  ///////// HEADERS
@@ -23,7 +34,8 @@
   .admin-header-time-machines,
   .admin-header-general,
   .admin-header-me {
-    text-align: left;
+    font-size: 20px;
+    text-align: center;
   i {
     margin-right: 15px;
   }
@@ -69,11 +81,9 @@
 //////////////////////////////////////////
 .admin-section-container {
   position: relative;
-  height: 520px;
   overflow-x: hidden;
-  @include respond-to(desktop) {
-    height: 600px;
-  }
+  height: 600px;
+
 }
 
 $padding: 20px;
@@ -104,12 +114,22 @@ h1 {
     background-color: $green;
     color: white;
   }
+  height: 60px;
+
+  @include breakpoint(768px) {
+    height: 70px;
+  }
+
+
 }
 $top: 20px;
 .admin-section-row-icon {
 position: absolute;
 left: 20px;
 top: $top;
+@include breakpoint(1px, 767px) {
+font-size: 16px;
+}
 }
 .admin-section-row-header {
   position: absolute;
@@ -117,6 +137,9 @@ top: $top;
   top: $top;
 
   h4 {
+    @include breakpoint(1px, 767px) {
+    font-size: 16px;
+    }
     margin: 0;
     padding: 0;
   }
@@ -287,6 +310,11 @@ display: none;
 .user-card-container {
   color: $darkgrey;
   background-color: #fafafa;
+  @include breakpoint(1px,768px) {
+    *  {
+      font-size: 16px;
+  }
+}
 }
 .adress-text-container {
     padding: 10px 30px;
@@ -385,8 +413,9 @@ $buttonWidth: 90%;
 ///////// TIDER OCH MASKINER
 //////////////////////////////////////////
 .remove-bookings-info {
-  font-size: 16px;
+  font-size: 14px;
   color: $red;
+  font-family: RobotoLight;
   font-style: italic;
 }
 

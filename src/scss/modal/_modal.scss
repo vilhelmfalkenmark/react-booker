@@ -56,10 +56,14 @@
   width: 90%;
   max-width: 1000px;
   min-width: 300px;
-  margin: 40px auto 0 auto;
   overflow: auto;
   position: relative;
-  max-height: calc(100vh - 80px);
+  height: 600px;
+  max-height: calc(100vh - 50px);
+  @include breakpoint(768px) {
+    height: 700px;
+    max-height: calc(100vh - 150px);
+  }
   .modal-inner-container {
     padding: 20px;
     margin: 0 auto;
