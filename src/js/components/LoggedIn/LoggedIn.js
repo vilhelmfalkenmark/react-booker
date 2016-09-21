@@ -12,7 +12,7 @@ export default class LoggedIn extends React.Component {
  this.state = {
  bookingsModal: false,
  bookings: props.group.bookings,
- adminModal: true,
+ adminModal: false,
  user: props.user,
  bookingsExist: false, // För att vi ska kunna loopa ut flera bokningar utan att få errors i Bookings.js komponenenterna.
  checkedOldBookings: false, // Varje gång någon loggar in på en förening så ska gårdagens bokningar raderas.
@@ -133,7 +133,6 @@ else {
  }
 
 let removeBooking = (x) => x.id != booking.id;
-
 bookings = bookings.filter(removeBooking);
 if(bookings.length == 0) {
  bookings.push("");
@@ -265,14 +264,12 @@ toggleHelp(state) {
    }
    {
     this.state.warningOpen ?
-    // <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={500}>
      <Warning
       key = {1}
       max = {this.props.group.maxBookings}
       closeWarning = {::this.closeWarning}
       admin = {this.props.group.users[0]}
      />
-    // </ReactCSSTransitionGroup>
     : null
    }
    </main>
