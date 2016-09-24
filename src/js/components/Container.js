@@ -1,10 +1,21 @@
-import React from "react";
+// import React from "react";
 import LoggedIn from "./LoggedIn/LoggedIn.js";
 import Loader from "./Loader.js";
 import LoggedOut from "./LoggedOut/LoggedOut.js";
 import Help from "./Help.js";
 import Rebase from 're-base';
-import Firebase from "firebase"
+import Firebase from "firebase";
+
+
+// import {connect} from 'react-redux'
+// import {firebase, helpers} from 'redux-react-firebase'
+
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
+import {firebase, helpers} from 'redux-react-firebase'
+
+
+
 if(location.host.indexOf("localhost") != -1){
 // DEV
 var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com");
@@ -25,7 +36,14 @@ var config = {
    messagingSenderId: "341927506280"
  };
 }
+
+
 firebase.initializeApp(config);
+
+
+
+
+
 export default class Container extends React.Component {
  constructor() {
   super();
@@ -46,6 +64,10 @@ export default class Container extends React.Component {
    help: false
   }
  }
+
+
+
+
  componentDidMount(){
      this.ref = base.syncState('groups', {
        context: this,
