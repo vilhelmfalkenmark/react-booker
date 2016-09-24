@@ -16,29 +16,29 @@ import {firebase, helpers} from 'redux-react-firebase'
 
 
 
-if(location.host.indexOf("localhost") != -1){
-// DEV
-var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com");
-var config = {
-  apiKey: "AIzaSyAo-ZnaPl7PrGDCvwQROxzZr5ffTNeQwbY",
-  authDomain: "react-laundry-booker.firebaseapp.com",
-  databaseURL: "https://react-laundry-booker.firebaseio.com",
-  storageBucket: "react-laundry-booker.appspot.com",
-};
-} else {
- // PROD
- var base = Rebase.createClass("https://tvattstuge-bokaren.firebaseio.com");
- var config = {
-   apiKey: "AIzaSyAgIocH5tanjTlTjJBXv8s2VBE61sn3Bzk",
-   authDomain: "tvattstuge-bokaren.firebaseapp.com",
-   databaseURL: "https://tvattstuge-bokaren.firebaseio.com",
-   storageBucket: "tvattstuge-bokaren.appspot.com",
-   messagingSenderId: "341927506280"
- };
-}
+// if(location.host.indexOf("localhost") != -1){
+// // DEV
+// var base = Rebase.createClass("https://react-laundry-booker.firebaseio.com");
+// var config = {
+//   apiKey: "AIzaSyAo-ZnaPl7PrGDCvwQROxzZr5ffTNeQwbY",
+//   authDomain: "react-laundry-booker.firebaseapp.com",
+//   databaseURL: "https://react-laundry-booker.firebaseio.com",
+//   storageBucket: "react-laundry-booker.appspot.com",
+// };
+// } else {
+//  // PROD
+//  var base = Rebase.createClass("https://tvattstuge-bokaren.firebaseio.com");
+//  var config = {
+//    apiKey: "AIzaSyAgIocH5tanjTlTjJBXv8s2VBE61sn3Bzk",
+//    authDomain: "tvattstuge-bokaren.firebaseapp.com",
+//    databaseURL: "https://tvattstuge-bokaren.firebaseio.com",
+//    storageBucket: "tvattstuge-bokaren.appspot.com",
+//    messagingSenderId: "341927506280"
+//  };
+// }
 
 
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
 
 
 
@@ -49,7 +49,7 @@ export default class Container extends React.Component {
   super();
   this.state = {
    loggedIn: false,
-   loading: true,
+   loading: false,
    groups: [],
    user: null,
    userIndex: null,
@@ -68,16 +68,16 @@ export default class Container extends React.Component {
 
 
 
- componentDidMount(){
-     this.ref = base.syncState('groups', {
-       context: this,
-       state: 'groups',
-       asArray: true,
-       then(){
-         this.setState({loading: false})
-       }
-     });
- }
+ // componentDidMount(){
+ //     this.ref = base.syncState('groups', {
+ //       context: this,
+ //       state: 'groups',
+ //       asArray: true,
+ //       then(){
+ //         this.setState({loading: false})
+ //       }
+ //     });
+ // }
 //////////////////////////////////////////
 ///////// REGISTERA GRUPP & ANVÄNDARE
 //////////////////////////////////////////

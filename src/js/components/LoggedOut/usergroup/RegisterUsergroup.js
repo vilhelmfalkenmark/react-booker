@@ -2,8 +2,32 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Machine from "./Machine.js";
 import Time from "./Times.js";
+import {firebase, helpers} from 'redux-react-firebase'
+const {isLoaded, isEmpty, dataToJS} = helpers
 
-export default class RegisterUsergroup extends React.Component {
+import {bindActionCreators } from "redux";
+import { connect } from "react-redux";
+// import { incrementNumber } from "../../../actions";
+
+const mapStateToProps = (state) => ({
+  firebase: state.firebase
+});
+
+// const mapDispatchToProps = (dispatch) => ({
+//   incrementNumber: bindActionCreators(incrementNumber,dispatch)
+// })
+
+@firebase( [
+  'groups'
+])
+@connect(
+  ({firebase}) => ({
+    groups: dataToJS(firebase, 'groups'),
+  })
+)
+
+
+class RegisterUsergroup extends React.Component {
  constructor() {
   super();
   this.state = {
@@ -123,14 +147,16 @@ handleWeeks(e) {
   id: Date.now(),
   key: Date.now()
  }
+ const {firebase, groups} = this.props;
 
  if(group.groupName == "" || group.machines == "" || group.times == "" || group.weeks == "") {
   this.props.alert(true,"fail-group",false)
  } else {
-  this.props.registerGroup(group);
+  firebase.push('/groups',group)
   this.props.alert(true,"success-group",group)
  }
  }
+
  render() {
   let machineIndex = 0;
   let timeIndex = 0;
@@ -152,11 +178,10 @@ submitButton =
 }
 
 
-
   return (
    <div className="form-container register-container">
     <form className="" method="" action="">
-      <h1>Skapa ny grupp</h1>
+      <h1 onClick={this.props.incrementNumber}>Skapa ny grupp {this.props.test.number}</h1>
       <label for="groupName">Gruppens namn</label>
       <input type="text" name="groupName" placeholder="Gruppens namn"
        onChange={::this.handleName}
@@ -223,3 +248,5 @@ submitButton =
   )
  }
 }
+
+export default connect(mapStateToProps, null)(RegisterUsergroup)

@@ -1,8 +1,13 @@
-import {createStore, combineReducers, compose} from 'redux'
+import { createStore, combineReducers , compose} from 'redux';
 import {reduxReactFirebase, firebaseStateReducer} from 'redux-react-firebase'
 
+
+import test from './test';
+
+
 const rootReducer = combineReducers({
-  firebase: firebaseStateReducer
+  firebase: firebaseStateReducer,
+  test
 })
 
 if(location.host.indexOf("localhost") != -1){
@@ -29,8 +34,9 @@ const createStoreWithFirebase = compose(
 )(createStore)
 
 
-// console.log(createStoreWithFirebase);
 
-let store = createStoreWithFirebase(rootReducer)
+const store = createStoreWithFirebase(rootReducer)
+
+
 
 export default store;
