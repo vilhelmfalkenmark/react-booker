@@ -4,6 +4,11 @@
       margin-top: 145px;
   }
 }
+
+
+
+
+
 .calendar-container.fixed {
   position: fixed;
   width: 97%;
@@ -15,6 +20,20 @@
     overflow-x: visible;;
   }
 }
+.calendar-container.mobile-fixed {
+  @include respond-to(not-desktop) {
+    position: fixed;
+    width: 97%;
+    max-width: 1170px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+}
+
+
+
+
+
 
 .day-container {
   border: 1px solid darken($grey,10%);
@@ -66,6 +85,7 @@ width: calc(#{$width} - 31px)
     display: none;
   }
   .date-header {
+    font-size: 16px;
     text-align: center;
     padding-left: 10px;
     margin-bottom: 10px;
