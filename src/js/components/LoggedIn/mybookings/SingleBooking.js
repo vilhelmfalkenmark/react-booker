@@ -18,9 +18,6 @@ this.props.cancelBooking(key,userID);
      <span className="admin-booking-info">{this.props.machine} {this.props.interval} </span>
     </div>
 
-
-    {/* <span>{this.props.machine} {this.props.interval}</span>
-    <button onClick={() => this.cancelBooking(this.props.id, this.props.user.id)}>Avboka</button> */}
   </div>
   )
  }

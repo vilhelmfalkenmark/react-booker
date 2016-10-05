@@ -58,10 +58,12 @@ componentDidMount() {
 //////////////////////////////////////////
 Date.prototype.getWeek = function() {
 var firstJan = new Date(this.getFullYear(),0, 1);
+
 var diff;
 var firstMonday;
 if(firstJan.getDay() != 1) { // Om den första januari inte var en måndag.
-  diff = 7 - firstJan.getDay()// Hur många dagar det är kvar till den första måndagen på året
+  diff = 8 - firstJan.getDay()// Hur många dagar det är kvar till den första måndagen på året
+
   firstMonday = new Date(this.getFullYear(),0, diff)
 } else {
   firstMonday = firstJan;
