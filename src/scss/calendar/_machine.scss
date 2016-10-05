@@ -41,13 +41,17 @@
    outline: 0;
    margin-right: 10px;
    z-index: 1;
+   box-sizing: border-box;
    &:after {
+   box-sizing: border-box;
    cursor: pointer;
    position: absolute;
    z-index: 2;
    content: "";
-   height: 14px;
-   width: 14px;
+   height: 16px;
+   width: 16px;
+   left: 0;
+   top: -1px;
    background-color: white;
    border: 1px solid lighten(gray,20%);
    font-family: Flaticon;
@@ -55,6 +59,13 @@
    text-align: center;
    line-height: 12px;
    color: $green;
+
+   @include breakpoint(1px, 400px) {
+     height: 20px;
+     width: 20px;
+     left: -4px;
+     top: -4px;
+   }
    }
  }
  .checkbox:checked {

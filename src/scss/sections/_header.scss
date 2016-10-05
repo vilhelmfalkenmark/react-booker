@@ -83,6 +83,12 @@ $basePadding: 20px;
     margin-top: 0;
     text-transform: capitalize;
     margin-bottom: 10px;
+    font-size: 14px;
+    @include breakpoint(400px) {
+      font-size: 16px;
+    }
+
+
 }
 .header-paragraph {
     text-transform: capitalize;
@@ -244,14 +250,13 @@ $basePadding: 20px;
         margin: 0 2px;
     }
     @include respond-to(not-desktop) {
-      background-color: $lightgrey;
-      // color: white;
+        background-color: $lightgrey;
         left: 0;
         right: 0;
-        transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
+        transition: $slideTrans;
         bottom: 0;
         h3 {
-            font-size: 16px;
+            font-size: 14px;
         }
         &.open {
             transform: translate3d($slideX,0px,0px);
@@ -286,14 +291,14 @@ $basePadding: 20px;
 @include respond-to(not-desktop) {
     .next-week-btn,
     .previous-week-btn {
-        top: 12px;
+        top: 8px;
         font-size: 22px;
     }
     .previous-week-btn {
-        left: 12px;
+        left: 10px;
     }
     .next-week-btn {
-        right: 12px;
+        right: 10px;
     }
 }
 @include respond-to(desktop) {
@@ -325,7 +330,7 @@ $basePadding: 20px;
     .calendar-container,
     .logged-out-forms-container {
         // transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
-        transition: transform 0.5s cubic-bezier(1, 0, 0.695,0.79);
+        transition: $slideTrans;
         position: relative;
         &.open {
             transform: translate3d($slideX,0px,0px);
@@ -338,7 +343,7 @@ $basePadding: 20px;
         left: 0;
         top: 0;
         bottom: 0;
-        transition: transform 0.5s cubic-bezier(1,-0.02,0.695,0.79);
+        transition: $slideTrans;
         &.open {
             transform: translate3d(0,0px,0px);
         }

@@ -83,7 +83,7 @@ var machines = this.props.machines;
     calendar.push(weekday);
    }
   return (
-    <div className={this.props.menuOpen ? "calendar-container open fixed": this.props.adminModal || this.props.bookingsModal || this.props.helpModal  ? "calendar-container fixed" : "calendar-container"}>
+    <div className={this.props.menuOpen ? "calendar-container open mobile-fixed": this.props.adminModal || this.props.bookingsModal || this.props.helpModal  ? "calendar-container fixed" : "calendar-container"}>
    {
     calendar.map(function(calendar) {
      return <Day

@@ -88,7 +88,7 @@
 
 $padding: 20px;
 .admin-left-section, .admin-right-section {
-transition: transform .4s cubic-bezier(1, 0, 0.695, 0.79);
+transition: $slideTrans;
 position: absolute;
 h1 {
   text-align: center;
@@ -135,7 +135,6 @@ font-size: 16px;
   position: absolute;
   left: 50px;
   top: $top;
-
   h4 {
     @include breakpoint(1px, 767px) {
     font-size: 16px;
@@ -146,6 +145,9 @@ font-size: 16px;
 }
 .admin-section-row-btn {
   position: absolute;
+  @include breakpoint(1px,500px) {
+    right: 5px;
+  }
   right: 20px;
   top: $top;
   button {
@@ -155,7 +157,6 @@ font-size: 16px;
     background: transparent;
     font-size: 18px;
   }
-
 }
 /////////////  HÖGER SEKTION /////////////
 .admin-right-section {

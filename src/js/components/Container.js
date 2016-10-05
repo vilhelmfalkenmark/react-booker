@@ -362,8 +362,6 @@ toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
         toggleMenu = {::this.toggleMenu}
         toggleHelp = {::this.toggleHelp}
         help = {this.state.help}
-
-
         updateGroup = {::this.updateGroup}
         updateMe = {::this.updateMe}
         />

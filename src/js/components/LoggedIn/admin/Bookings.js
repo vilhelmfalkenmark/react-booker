@@ -43,7 +43,7 @@ this.props.cancelBooking(userID,key);
         bookingDate.bookings.push(sortedBookings[j])
         if(bookingDate.hasOwnProperty("dateString") == false) {
          bookingDate.dateString = sortedBookings[j].dateObject.dayName+" "+sortedBookings[j].dateObject.day+" "+sortedBookings[j].dateObject.monthName;
-        }
+        } 
        }
     }
     bookingsArray.push(bookingDate);
@@ -55,7 +55,7 @@ this.props.cancelBooking(userID,key);
      {
       bookingsExist ?
       bookingsArray.map(function(booking) {
-      return <Booking 
+      return <Booking
       key = {booking.id}
       booking = {booking}
       cancelBooking = {::this.cancelBooking}/>;}.bind(this))
