@@ -57,7 +57,7 @@ if(this.state.sure) {
           {
            this.state.sure ? <p className="danger-reminder">Är du helt säker? Det här kommandot kan inte ångras!</p> : null
           }
-         <button className="delete-account-btn" onClick={::this.deleteAccount}><i className="flaticon-cancel"></i>{ this.state.sure ? "Ja, radera mitt konto" : "Radera mitt konto" }</button>
+         <button className="delete-account-btn" onClick={::this.deleteAccount}>{ this.state.sure ? "Ja, radera mitt konto" : "Radera mitt konto" }</button>
 
        </form>
       </div>

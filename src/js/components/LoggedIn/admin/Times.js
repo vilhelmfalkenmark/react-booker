@@ -59,7 +59,7 @@ constructor(props) {
     }
      </ul>
      <div className="add-btn-container">
-      <button className="add-btn" onClick={::this.addTime}><i className="flaticon-add"></i></button>
+      <button className="add-btn" onClick={::this.addTime}></button>
        <span>Lägg till tid</span>
      </div>
 

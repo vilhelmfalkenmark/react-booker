@@ -73,8 +73,10 @@
   }
 }
 .close-modal-btn {
+position: relative;
 @include round-button(white,$red);
-
+@include plus(9px,white,$red);
+transform: rotate(45deg);
 }
 
 

@@ -105,22 +105,15 @@ width: calc(#{$width} - 31px)
     position: absolute;
     top: -8px;
     right: 8px;
-    i {
-      display: block;
-      transition: transform .3s ease;
-    }
-
     &.show-machines-btn {
       @include round-button(white,$green);
-      i {
-        transform: rotate(0deg);
-      }
+      @include plus(9px, white, $green);
+
     }
     &.hide-machines-btn {
       @include round-button(white,$red);
-      i {
-        transform: rotate(45deg);
-      }
+      transform: rotate(45deg);
+      @include plus(9px, white,$red);
     }
   }
 }
@@ -146,7 +139,6 @@ width: calc(#{$width} - 31px)
       border: none;
   }
 }
-
 .time-col-4,.time-col-5,.time-col-6,.time-col-7,.time-col-8   {
   @include time-col(50%);
   &:nth-of-type(2),&:nth-of-type(4),&:nth-of-type(6) {

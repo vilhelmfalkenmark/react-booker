@@ -1,9 +1,3 @@
-.modal-container {
-  ul {
-    // padding-left: 20px;
-  }
-}
-
 .modal-background {
   @include flex-center();
 }
@@ -16,12 +10,15 @@
   min-width: 300px;
   overflow: auto;
   position: relative;
-  height: calc(100vh - 50px);
   max-height: 600px;
 
+  @include breakpoint(1px, 768px) {
+    height: calc(100vh - 50px); //  Behövs kanske inte?
+    // max-height: 600px;
+  }
   @include breakpoint(768px) {
     height: calc(100vh - 150px);
-    max-height: 600px;
+    // max-height: 600px;
   }
 }
 //////////////////////////////////////////
@@ -34,7 +31,7 @@
   .admin-header-time-machines,
   .admin-header-general,
   .admin-header-me {
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
   i {
     margin-right: 15px;
@@ -53,8 +50,6 @@
   }
   }
 }
-
-
 
 //////////////////////////////////////////
 ///////// COMMON BUTTONS
@@ -160,10 +155,11 @@ font-size: 16px;
 }
 /////////////  HÖGER SEKTION /////////////
 .admin-right-section {
+  margin: 0 auto;
   top: $padding;
   bottom: $padding;
-  left: $padding;
-  right: $padding;
+  left: 0;
+  right: 0;
 width: calc(100% - 35px);
 transform: translate3d(110%,0px,0px);
 h2 i {
@@ -193,10 +189,10 @@ h2 i {
 }
 }
 .right-section-section {
-  min-width: 300px;
-  width: 70%;
+  // min-width: 300px;
+  // width: 95%;
   max-width: 400px;
-  padding: 20px;
+  padding: 20px 0;
   margin: 0 auto;
 }
 
@@ -306,14 +302,16 @@ display: none;
 //////////////////////////////////////////
 ///////// ANVÄNDARE
 //////////////////////////////////////////
-
+.admin-section-container .flex-row {
+  padding-bottom: 20px;
+}
 
 .user-card-container {
   color: $darkgrey;
   background-color: #fafafa;
   @include breakpoint(1px,768px) {
     *  {
-      font-size: 16px;
+      font-size: 14px;
   }
 }
 }
@@ -366,6 +364,10 @@ display: none;
 //////////////////////////////////////////
 ///////// GRID FÖR ANVÄNDARE
 //////////////////////////////////////////
+.user-card-container {
+  box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.65);
+}
+
 @include respond-to(mobile) {
 .user-card-container {
   @include flex-col-gtr-advanced(100%, $gutter*2, 0px, 0px,0px);
@@ -374,10 +376,10 @@ display: none;
 @include respond-to(tablet) {
 .user-card-container {
 &:nth-of-type(even) {
-  @include flex-col-gtr-advanced(50%, $gutter*2, 0px, 0px,3px);
+  @include flex-col-gtr-advanced(50%, $gutter*2, 0px, 0px,$gutter);
 };
 &:nth-of-type(odd) {
-  @include flex-col-gtr-advanced(50%, $gutter*2, 3px, 0px,0px);
+  @include flex-col-gtr-advanced(50%, $gutter*2, $gutter, 0px,0px);
 }
 }
 }
@@ -447,15 +449,20 @@ input {
   }
 }
 button {
+position: relative;
 @include round-button(white,$red);
+@include plus(9px,white,$red);
+transform: rotate(45deg)
 }
 }
 .add-btn-container {
   margin-top: 10px;
 }
 .add-btn {
+  position: relative;
   margin-right: 20px;
   @include round-button(white,$green);
+  @include plus(9px,white,$green);
 }
 .danger-reminder {
   text-align: center;

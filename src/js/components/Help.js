@@ -9,7 +9,7 @@ toggleHelp() {
     <div className="modal-clickarea" onClick={::this.toggleHelp}></div>
     <div className="modal-container help-modal">
      <div className="modal-inner-container">
-      <button className="close-modal-btn" onClick={::this.toggleHelp}><i class="flaticon-cancel"></i></button>
+      <button className="close-modal-btn" onClick={::this.toggleHelp}></button>
       <section>
       <h2>Utloggat läge</h2>
       <h3>Skapa en ny grupp</h3>

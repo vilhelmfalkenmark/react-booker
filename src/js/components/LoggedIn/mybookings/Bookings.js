@@ -67,7 +67,6 @@ this.props.cancelBooking(userID,true,booking);
         <div className="modal-container">
         <div className="modal-inner-container">
         <button className="close-modal-btn" onClick={() => this.toggleModal("bookings")}>
-         <i className="flaticon-cancel"></i>
         </button>
         <div className="my-bookings-inner-container">
         {

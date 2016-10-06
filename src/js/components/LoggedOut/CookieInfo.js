@@ -6,7 +6,7 @@ setCookie() {
  render() {
   return (
    <div className="cookie-info-container">
-    <button className="close-cookie" onClick={::this.setCookie}><i className="flaticon-cancel"></i></button>
+    <button className="close-cookie" onClick={::this.setCookie}></button>
 
     <div className="cookie-info-inner-container">
       <p>Den här sidan använder kakor för att underlätta upplevelsen för dig som besökare. Du kan läsa mer om vad det innebär

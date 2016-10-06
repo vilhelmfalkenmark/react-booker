@@ -19,7 +19,7 @@ constructor(props) {
  render() {
   return (
    <li>
-    <button className="delete-machine-btn" onClick={::this.deleteMachine}><i className="flaticon-cancel"></i></button>
+    <button className="delete-machine-btn" onClick={::this.deleteMachine}></button>
     <input type="text"
       onChange = {::this.editMachine}
       placeholder = {"Maskin nummer "+(this.props.index+1)}

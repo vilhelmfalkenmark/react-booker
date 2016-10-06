@@ -220,3 +220,29 @@ left: 12px;
     justify-content:center;
     align-items:center;
 }
+//////////////////////////////////////////
+///////// PLUS & EXIT
+//////////////////////////////////////////
+@mixin plus($height, $color, $hoverColor) {
+&:after, &:before {
+  content: "";
+  background-color: $color;
+  position: absolute;
+}
+&:hover {
+  &:after, &:before {
+    background-color: $hoverColor;
+  }
+}
+&:before {
+  top: $height;
+  bottom: $height;
+  width: 1px;
+
+}
+&:after {
+  left: $height;
+  right: $height;
+  height: 1px;
+}
+}

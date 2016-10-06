@@ -15,7 +15,7 @@ this.props.userLink(groupID)
     <div className="modal-clickarea" onClick={::this.closeAlert}></div>
     <div className="modal-container">
      <div className="modal-inner-container">
-      <button className="close-modal-btn" onClick={::this.closeAlert}><i class="flaticon-cancel"></i></button>
+      <button className="close-modal-btn" onClick={::this.closeAlert}></button>
        {
           //////////////////////////////////
           /// fail-group

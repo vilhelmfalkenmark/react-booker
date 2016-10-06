@@ -127,7 +127,7 @@ render() {
      <div className={this.state.slideLeft ? "admin-section-container slide-left" : "admin-section-container"}>
       <section className="admin-left-section">
        <button className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
-         <i className="flaticon-cancel"></i>
+      
        </button>
        <h1>{this.props.group.groupName}</h1>
 

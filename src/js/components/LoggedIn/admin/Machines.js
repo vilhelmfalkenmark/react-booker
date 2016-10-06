@@ -56,7 +56,7 @@ constructor(props) {
      }
       </ul>
       <div className="add-btn-container">
-      <button className="add-btn" onClick={::this.addMachine}><i className="flaticon-add"></i></button>
+      <button className="add-btn" onClick={::this.addMachine}></button>
       <span>Lägg till maskin</span>
       </div>
       {

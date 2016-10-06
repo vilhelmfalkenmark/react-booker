@@ -30,6 +30,10 @@
   }
 }
 .close-warning, .close-cookie {
+  position: relative;
+  @include plus(9px, $red,white);
+  transform: rotate(45deg);
+
   @include breakpoint(1px, 400px) {
     margin: 10px 0 0 10px;
   };

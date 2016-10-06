@@ -33,9 +33,9 @@ this.props.userApprove(status,id);
        }
        {
        this.props.user.approved && this.props.user.role != "superadmin" ?
-         <button className="admin-ban-user" onClick={() => this.userApprove(false, this.props.user.id)}><i className="flaticon-checked-1"></i>Godkänd</button>
+         <button className="admin-ban-user" onClick={() => this.userApprove(false, this.props.user.id)}>Godkänd</button>
        : this.props.user.approved != true && this.props.user.role != "superadmin" ?
-         <button className="admin-approve-user" onClick={() => this.userApprove(true, this.props.user.id)}><i className="flaticon-cancel"></i>Ej Godkänd</button>
+         <button className="admin-approve-user" onClick={() => this.userApprove(true, this.props.user.id)}>Ej Godkänd</button>
         : null
        }
       </div> :
