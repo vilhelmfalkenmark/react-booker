@@ -118,30 +118,36 @@ saveTimes() {
 }
 
 render() {
+
+ //State
+ const {slideLeft, view, times} = this.state;
+ //Props
+ const {user,group } = this.props;
+
   return (
    <div className= "modal-background">
     <div className="modal-clickarea" onClick={() => this.toggleModal("admin")}></div>
     <div className="admin-modal-container">
      <div className="modal-inner-container admin-modal">
 
-     <div className={this.state.slideLeft ? "admin-section-container slide-left" : "admin-section-container"}>
+     <div className={slideLeft ? "admin-section-container slide-left" : "admin-section-container"}>
       <section className="admin-left-section">
        <button className="close-modal-btn" onClick={() => this.toggleModal("admin")}>
-      
-       </button>
-       <h1>{this.props.group.groupName}</h1>
 
-       <p>ID för den här gruppen är: {this.props.group.id}. Nya användare behöver ange detta ID för att kunna gå med i gruppen.</p>
+       </button>
+       <h1>{group.groupName}</h1>
+
+       <p>ID för den här gruppen är: {group.id}. Nya användare behöver ange detta ID för att kunna gå med i gruppen.</p>
         <div className="admin-section-row" onClick={() => this.slideLeft(true, "me")}>
           <div className="admin-section-row-icon"><i className="flaticon-user"></i></div>
-          <div className="admin-section-row-header"><h4>{this.props.user.name}</h4></div>
+          <div className="admin-section-row-header"><h4>{user.name}</h4></div>
           <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
         </div>
         {
-         this.props.user.role !="user" ?
+         user.role !="user" ?
         <div className="admin-section-row" onClick={() => this.slideLeft(true,"group")}>
           <div className="admin-section-row-icon"><i className="flaticon-controls"></i></div>
-          <div className="admin-section-row-header"><h4>{this.props.group.groupName}</h4></div>
+          <div className="admin-section-row-header"><h4>{group.groupName}</h4></div>
           <div className="admin-section-row-btn"> <button ><i className="flaticon-next"></i></button></div>
         </div> : null
         }
@@ -151,7 +157,7 @@ render() {
           <div className="admin-section-row-btn"> <button onClick={() => this.slideLeft(true, "users")}><i className="flaticon-next"></i></button></div>
         </div>
         {
-          this.props.user.role !="user" ?
+          user.role !="user" ?
          <div className="admin-section-row" onClick={() => this.slideLeft(true, "bookings")}>
           <div className="admin-section-row-icon"><i className="flaticon-calendar-1"></i></div>
           <div className="admin-section-row-header"><h4>Bokningar</h4></div>
@@ -159,8 +165,8 @@ render() {
          </div> : null
          }
         {
-         this.props.user.role != "user" ?
-         typeof(this.props.group.bookings[0]) == "string" ?
+         user.role != "user" ?
+         typeof(group.bookings[0]) == "string" ?
          <div>
          <div className="admin-section-row" onClick={() => this.slideLeft(true, "machines")}>
            <div className="admin-section-row-icon"><i className="flaticon-washing-machine"></i></div>
@@ -192,31 +198,31 @@ render() {
       <section className="admin-right-section">
        <button className="admin-back-btn" onClick={() => this.slideLeft(false,"")}><i className="flaticon-back"></i>Tillbaka</button>
        {
-        this.state.view == "me" ? // ME
+        view == "me" ? // ME
         <Me
-         user = {this.props.user}
+         user = {user}
          updateMe = {::this.updateMe}
-         /> : this.state.view == "group" ? // GROUP
+         /> : view == "group" ? // GROUP
          <Group
-         groupName = {this.props.group.groupName}
-         maxBookings = {this.props.group.maxBookings}
-         weeks = {this.props.group.weeks}
+         groupName = {group.groupName}
+         maxBookings = {group.maxBookings}
+         weeks = {group.weeks}
          updateGroup = {::this.updateGroup}
-         /> : this.state.view == "users" ? // USERS
+         /> : view == "users" ? // USERS
          <Users
-         users = {this.props.group.users}
+         users = {group.users}
          userStatus = {::this.userStatus}
          userApprove = {::this.userApprove}
-         groupName = {this.props.group.groupName}
-         role = {this.props.user.role}
+         groupName = {group.groupName}
+         role = {user.role}
           />
          :
-         this.state.view == "bookings" ? // BOOKINGS
+         view == "bookings" ? // BOOKINGS
          <Bookings
-          bookings = {this.props.group.bookings}
+          bookings = {group.bookings}
           cancelBooking = {::this.cancelBooking}
           /> :
-         this.state.view == "machines" ? // MACHINES
+         view == "machines" ? // MACHINES
          <Machines
           machines = {this.state.machines}
           editMachine = {::this.editMachine}
@@ -224,9 +230,9 @@ render() {
           addMachine = {::this.addMachine}
           saveMachines = {::this.saveMachines}
          /> :
-         this.state.view == "times" ? // TIMES
+         view == "times" ? // TIMES
          <Times
-          times = {this.state.times}
+          times = {times}
           editTime = {::this.editTime}
           deleteTime = {::this.deleteTime}
           addTime = {::this.addTime}

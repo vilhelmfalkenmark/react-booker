@@ -202,45 +202,44 @@ toggleHelp(state) {
  this.props.toggleHelp(state)
 }
  render() {
+// State
+const {week, maxWeek, bookingsModal, adminModal, bookingExist, warningOpen } = this.state;
+// Props
+const { user, group, menuOpen, help, bookings} = this.props;
   return (
    <div className="logged-in-container">
     <Header
-     user = {this.props.user}
+     user = {user}
      toggleModal = {::this.toggleModal}
      logOut = {::this.props.logOut}
-     groupName = {this.props.group.groupName}
-     menuOpen = {this.props.menuOpen}
+     groupName = {group.groupName}
+     menuOpen = {menuOpen}
      toggleMenu = {::this.props.toggleMenu}
-     week = {this.state.week}
+     week = {week}
      toggleWeek = {::this.toggleWeek}
-     week = {this.state.week}
      maxWeek = {this.state.maxWeek}
      toggleHelp = {::this.toggleHelp}
      />
     <main>
-
      <Calendar
-         bookingsModal = {this.state.bookingsModal}
-         adminModal = {this.state.adminModal}
-         helpModal = {this.props.help}
+         bookingsModal = {bookingsModal}
+         adminModal = {adminModal}
+         helpModal = {help}
          bookMachine = {::this.bookMachine}
-         user = {this.props.user}
-         menuOpen = {this.props.menuOpen}
-         bookings = {this.props.bookings}
-         week = {this.state.week}
-
+         user = {user}
+         menuOpen = {menuOpen}
+         bookings = {bookings}
+         week = {week}
          // BUILD CALENDAR
-         times = {this.props.group.times}
-         machines = {this.props.group.machines}
-
+         times = {group.times}
+         machines = {group.machines}
       />
-
    {
      this.state.bookingsModal ?
      <Bookings
-      bookings = {this.props.group.bookings}
+      bookings = {group.bookings}
       toggleModal = {::this.toggleModal}
-      user = {this.props.user}
+      user = {user}
       cancelBooking = {::this.bookMachine}
       />
      : null
@@ -248,27 +247,27 @@ toggleHelp(state) {
    {
     this.state.adminModal ?
     <Admin
-     bookingExist = {this.state.bookingExist}
+     bookingExist = {bookingExist}
      cancelBooking = {::this.bookMachine}
      toggleModal = {::this.toggleModal}
-     group = {this.props.group}
+     group = {group}
      userStatus = {::this.userStatus}
      userApprove = {::this.userApprove}
      saveMachines = {::this.saveMachines}
      saveTimes = {::this.saveTimes}
      updateGroup = {::this.updateGroup}
-     user = {this.props.user}
+     user = {user}
      updateMe = {::this.updateMe}
      />
     : null
    }
    {
-    this.state.warningOpen ?
+    warningOpen ?
      <Warning
       key = {1}
-      max = {this.props.group.maxBookings}
+      max = {group.maxBookings}
       closeWarning = {::this.closeWarning}
-      admin = {this.props.group.users[0]}
+      admin = {group.users[0]}
      />
     : null
    }

@@ -95,12 +95,6 @@ handleUser(users) {
        groups: groups
      })
 }
-/*###########################################
-############################################
-            AUTHENTICATION
-############################################
-############################################*/
-
 //////////////////////////////////////////////
 //////// KOLLA OM NÅGON ÄR INLOGGAD
 /////////////////////////////////////////////
@@ -133,7 +127,7 @@ componentDidUpdate() {
      if (user) {
        authDataCallback(user)
      } else {
-       console.log("ingen är inloggad");
+       // console.log("ingen är inloggad");
      }
    });
    this.setState({
@@ -148,7 +142,6 @@ componentDidUpdate() {
 logIn(email, password) {
   var component = this;
   component.loading(true);
-  // var groups = this.state.groups;
   firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
      var errorCode = error.code;
      var errorMessage = error.message;
@@ -168,7 +161,6 @@ resetPassword(email) {
  var emailAddress = "vilhelmfalkenmark@gmail.com";
  var component = this;
 
-
  auth.sendPasswordResetEmail(emailAddress).then(function() {
    // Email sent.
    console.log("Email sent!");
@@ -179,8 +171,6 @@ resetPassword(email) {
    alert("Ett fel uppstod. Vänligen försök igen")
  });
 }
-
-
 //////////////////////////////////////////////
 //////// LOGGA UT
 /////////////////////////////////////////////
@@ -221,8 +211,6 @@ loading(type) {
         loading: type
     })
 }
-
-
 //////////////////////////////////////////////
 //////// BOKA MASKIN
 /////////////////////////////////////////////
@@ -300,7 +288,6 @@ saveMachines(machines) {
 saveTimes(times) {
   let groups = this.state.groups;
       groups[this.state.groupIndex].times = times;
-
   this.setState({
       groups: groups,
       updatedData: false
@@ -326,42 +313,47 @@ toggleHelp(state) { // MENUTOGGLE I MOBILLÄGE
 ///////// RENDER
 //////////////////////////////////////////
  render() {
+  const { groups, help, menuOpen, credentials, userBanned,
+   resetPasswordSent, userDeleted, groupIndex, userIndex  } = this.state;
   return (
    <div className={this.state.menuOpen ? "locked" : null}>
       {
       this.state.loading ? <Loader type="Laddar" /> :
       this.state.groupIndex == null ?
        <LoggedOut
+           // STATE
+           menuOpen = {menuOpen}
+           groups = {groups}
+           credentials = {credentials}
+           userBanned = {userBanned}
+           resetPasswordSent = {resetPasswordSent}
+           userDeleted={userDeleted}
+           // FUNKTIONER
            registerUser = {::this.registerUser}
            registerUsergroup = {::this.registerUsergroup}
            authenticate = {::this.authenticate}
-           groups = {this.state.groups}
            logOut = {::this.logOut}
            logIn = {::this.logIn}
-           menuOpen = {this.state.menuOpen}
            loading = {::this.loading}
            toggleMenu = {::this.toggleMenu}
-           credentials = {this.state.credentials}
-           userBanned = {this.state.userBanned}
            toggleHelp = {::this.toggleHelp}
-           // RESET PASSWORD
            resetPassword = {::this.resetPassword}
-           resetPasswordSent = {this.state.resetPasswordSent}
-           userDeleted={this.state.userDeleted}
        /> :
        <LoggedIn
-        group = {this.state.groups[this.state.groupIndex]}
-        bookings = {this.state.groups[this.state.groupIndex].bookings}
-        user = {this.state.groups[this.state.groupIndex].users[this.state.userIndex]}
+        // STATE
+        group = {groups[groupIndex]}
+        bookings = {groups[groupIndex].bookings}
+        user = {groups[groupIndex].users[userIndex]}
+        help = {help}
+        menuOpen = {menuOpen}
+        // FUNKTIONER
         bookMachine = {::this.bookMachine}
         handleUser = {::this.handleUser}
         logOut = {::this.logOut}
         saveMachines = {::this.saveMachines}
         saveTimes = {::this.saveTimes}
-        menuOpen = {this.state.menuOpen}
         toggleMenu = {::this.toggleMenu}
         toggleHelp = {::this.toggleHelp}
-        help = {this.state.help}
         updateGroup = {::this.updateGroup}
         updateMe = {::this.updateMe}
         />

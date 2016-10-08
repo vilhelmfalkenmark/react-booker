@@ -6,7 +6,6 @@ import RegisterUsergroup from "./usergroup/RegisterUsergroup.js";
 import Alert from "./Alert.js";
 import Footer from "../Footer.js";
 import CookieInfo from "./CookieInfo.js";
-
 export default class LoggedOut extends React.Component {
 constructor(props) {
  super(props);
@@ -67,7 +66,9 @@ if(cookies.length > 0) {
  }
  });
 }
-if(cookies[0] == "") {
+
+let approvedCookies = cookies.filter( (cookie) => cookie.indexOf("approvedCookies") > -1 )
+if(approvedCookies == "") {
  this.setState({
   cookieInfo: true
  })
@@ -190,29 +191,33 @@ this.props.toggleHelp(state);
 
 
  render() {
+  // State
+  const { alertType, alertData, cookie, linkedID, cookieInfo, login, registerUsergroup} = this.state;
+  // Props
+  const {menuOpen, credentials, userBanned, userDeleted, groups} = this.props;
   return (
    <div className="logged-out-container">
     {
      this.state.alert ? <Alert
-     type = {this.state.alertType}
-     data = {this.state.alertData}
+     type = {alertType}
+     data = {alertData}
      alert = {::this.alert}
      userLink = {::this.userLink}
      /> : null
     }
     <header className="header-container">
-     <div className={this.props.menuOpen ? "hamburger-container open":"hamburger-container"} onClick={() => this.toggleMenu(this.props.menuOpen)}>
+     <div className={menuOpen ? "hamburger-container open":"hamburger-container"} onClick={() => this.toggleMenu(menuOpen)}>
        <div className="hamburger-inner-container">
          <div className="hamburger"></div>
       </div>
      </div>
-     <div className={this.props.menuOpen ? "header-inner-container open":"header-inner-container"}>
+     <div className={menuOpen ? "header-inner-container open":"header-inner-container"}>
      <div className="header-logo-container">
       <h1><i className="flaticon-washing-machine-for-laundry"></i>Tvättstugebokaren</h1>
     </div>
     {
-     this.state.cookie ? <div className="cookie-container">
-     <h3 className="padding-warning">Du har precis skapat en grupp med id {this.state.cookie}.</h3>
+     cookie ? <div className="cookie-container">
+     <h3 className="padding-warning">Du har precis skapat en grupp med id {cookie}.</h3>
      </div>
     : null
     }
@@ -225,24 +230,24 @@ this.props.toggleHelp(state);
      </div>
      </header>
 
-    <main className={this.props.menuOpen ? "logged-out-forms-container open fixed":"logged-out-forms-container"}>
+    <main className={menuOpen ? "logged-out-forms-container open fixed":"logged-out-forms-container"}>
     {
      this.state.login ?  <Login
      logIn={::this.logIn}
-     credentials = {this.props.credentials}
-     userBanned = {this.props.userBanned}
+     credentials = {credentials}
+     userBanned = {userBanned}
      resetPassword = {::this.resetPassword}
-     userDeleted = {this.props.userDeleted}
+     userDeleted = {userDeleted}
      /> :
      this.state.registerUser ?
      <RegisterUser
-     linkedID = {this.state.linkedID} // The linkedID from creategroup VIEW
-     groups = {this.props.groups}
+     linkedID = {linkedID} // The linkedID from creategroup VIEW
+     groups = {groups}
      registerUser = {::this.registerUser}
      alert = {::this.alert}/> :
-     this.state.registerUsergroup ?
+     registerUsergroup ?
      <RegisterUsergroup
-     groups = {this.state.groups}
+     groups = {groups}
      registerGroup = {::this.registerGroup}
      alert = {::this.alert}
      /> :

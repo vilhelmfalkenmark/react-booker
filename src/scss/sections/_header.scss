@@ -1,10 +1,7 @@
 $basePadding: 20px;
 .header-inner-container {
     @extend .row;
-    // background-color: #d25656;
     background-color: $green;
-      // #d25656
-      // #d25656
     color: white;
     z-index: 3;
     position: fixed;
@@ -22,7 +19,6 @@ $basePadding: 20px;
         padding: 0;
     }
 }
-
 //////////////////////////////////////////
 ///////// HEADER-LOGO BLOCK (UTLOGGAD)
 //////////////////////////////////////////
@@ -30,8 +26,6 @@ $basePadding: 20px;
 .header-logo-container {
   margin-left: 15px;
   float: left;
-
-
 
   h1 {
     font-family: RobotoBold;
@@ -61,9 +55,6 @@ $basePadding: 20px;
         font-size: 24px;
     }
 }
-
-
-
  .cookie-container {
    padding: 20px 20px 10px 20px;
    max-width: 210px;
@@ -75,7 +66,6 @@ $basePadding: 20px;
      padding: 5px;
    }
  }
-
 //////////////////////////////////////////
 ///////// TYPOGRAFI
 //////////////////////////////////////////

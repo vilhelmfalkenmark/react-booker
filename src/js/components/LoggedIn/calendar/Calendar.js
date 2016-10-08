@@ -7,6 +7,8 @@ export default class Calendar extends React.Component {
  }
 
 render() {
+// Props
+const { menuOpen, week, adminModal, bookingsModal, helpModal, bookings } = this.props;
 
 var times = this.props.times;
 var machines = this.props.machines;
@@ -18,7 +20,7 @@ var machines = this.props.machines;
   for (var i = 0; i < times.length; i++) {
    booked.push(false)
   }
-   for (var i = ((this.props.week-1) * daysInCal); i < (this.props.week * daysInCal); i++) {
+   for (var i = ((week-1) * daysInCal); i < (week * daysInCal); i++) {
     //////////////////////////////////////////
     //// SKAPA DAGAR I KALENDER
     //////////////////////////////////////////
@@ -66,9 +68,9 @@ var machines = this.props.machines;
        ////  VAD SOM LIGGER LAGRAT I BOOKINGS ARRAYEN
        ///////////////////////////////////////////////
        // console.log(this.props.bookings);
-       for(var m =0; m<this.props.bookings.length; m++) {
-       if(typeof(this.props.bookings[m]) !== "undefined") {
-         if(this.props.bookings[m].id == machine.id)
+       for(var m =0; m<bookings.length; m++) {
+       if(typeof(bookings[m]) !== "undefined") {
+         if(bookings[m].id == machine.id)
          {
           machine.booked = true;
           machine.bookedBy = this.props.bookings[m].bookedBy;
@@ -83,7 +85,7 @@ var machines = this.props.machines;
     calendar.push(weekday);
    }
   return (
-    <div className={this.props.menuOpen ? "calendar-container open mobile-fixed": this.props.adminModal || this.props.bookingsModal || this.props.helpModal  ? "calendar-container fixed" : "calendar-container"}>
+    <div className={menuOpen ? "calendar-container open mobile-fixed": adminModal || bookingsModal || helpModal  ? "calendar-container fixed" : "calendar-container"}>
    {
     calendar.map(function(calendar) {
      return <Day
@@ -95,7 +97,7 @@ var machines = this.props.machines;
      times ={calendar.times}
      user = {this.props.user}
      bookMachine = {::this.bookMachine}
-     bookings = {this.props.bookings}
+     bookings = {bookings}
      />;
      }.bind(this))
    }
