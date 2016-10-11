@@ -1,7 +1,8 @@
 var debug = process.env.NODE_ENV !== "production";
 var Webpack = require('webpack');
 var path = require('path');
-
+// NODE_ENV=production webpack
+// SÄTTER DET I PRODUKTION MODE
 
 module.exports = {
   context: __dirname + '/src',

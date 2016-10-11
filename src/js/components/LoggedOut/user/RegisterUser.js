@@ -127,7 +127,8 @@ handleID(e) {
       <input type="number" min="0" name="groupID"
        value={this.state.searchID}
        placeholder="Föreningens id"
-       onChange={::this.handleID}/>
+       onChange={::this.handleID}
+       required/>
       {
        this.state.searchID == "" ? null :
        isNaN(this.state.searchID) ? null :
