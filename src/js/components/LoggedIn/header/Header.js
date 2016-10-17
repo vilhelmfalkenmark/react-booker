@@ -56,21 +56,12 @@ componentDidMount() {
 //////////////////////////////////////////
 ///////// HÄMTA HEM VECKONUMMER OCH DATUM
 //////////////////////////////////////////
+var milliSeconds = 86400000;
 Date.prototype.getWeek = function() {
-var firstJan = new Date(this.getFullYear(),0, 1);
-
-var diff;
-var firstMonday;
-if(firstJan.getDay() != 1) { // Om den första januari inte var en måndag.
-  diff = 8 - firstJan.getDay()// Hur många dagar det är kvar till den första måndagen på året
-
-  firstMonday = new Date(this.getFullYear(),0, diff)
-} else {
-  firstMonday = firstJan;
-}
-var week = Math.floor((((this - firstMonday) / 86400000) + firstMonday.getDay() + 1) / 7);
-return week;
-}
+   var d = new Date(this); d.setHours(0,0,0);
+   d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+   return Math.ceil((((d-new Date(d.getFullYear(),0,1))/milliSeconds) + 1 ) / 7 );
+ };
       var today = new Date();
       var isMonday = false;
       var isSunday = false;
